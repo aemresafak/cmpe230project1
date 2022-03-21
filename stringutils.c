@@ -97,3 +97,11 @@ int isVectorDefinition(const char *string, int size) {
         return 0;
 }
 
+char* stripSingleTrailingNewLineCharacter(char* string) {
+    int size = getSizeOfString(string);
+    if (string[size-2]=='\n') {
+        string[size-2]='\0';
+    }
+    return string;
+}
+

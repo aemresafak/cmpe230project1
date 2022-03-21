@@ -84,4 +84,10 @@ int isMatrixDefinition(const char *string, int size);
  */
 int isVectorDefinition(const char *string, int size);
 
+/**
+ * Strip single trailing new line character
+ * @param string string to strip from
+ * @return string stripped from newline
+ */
+char* stripSingleTrailingNewLineCharacter(char* string);
 #endif //MATLANGPROJECT_STRINGUTILS_H

@@ -2,11 +2,13 @@
 #include <malloc.h>
 #include <string.h>
 #include "stringutils.h"
+#include "parseutils.h"
 
 static int LINE_LIMIT = 256;
 
 int main(int argc, char *argv[]) {
     FILE *fp;
+    FILE *outputFile;
     char line[80];
     /** Open file for reading Filename is given on the command line */
     if (argc != 2) {
@@ -29,13 +31,12 @@ int main(int argc, char *argv[]) {
         }
 
         if (isScalarDefinition(strippedLine, LINE_LIMIT)) {
-            printf("is scalar definiton!\n");
+            parseScalarDefinition(strippedLine);
         } else if (isMatrixDefinition(strippedLine, LINE_LIMIT))
             printf("MATRIX!!\n");
         else if (isVectorDefinition(strippedLine, LINE_LIMIT))
             printf("VECTOR!!\n");
 
-        printf(strippedLine);
 
 
         free(strippedLine);
