@@ -2,7 +2,9 @@
 #include <malloc.h>
 #include <string.h>
 
-static int EMPTY_STRING = -1;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "DanglingPointer"
+static int EMPTY_STRING = 1;
 static int NON_EMPTY_STRING = 0;
 static int LINE_LIMIT = 256;
 
@@ -24,6 +26,7 @@ int isEmptyString(const char *str, int size) {
     }
     return state;
 }
+
 /**
  * Get the size of string
  * @param string
@@ -57,7 +60,7 @@ char *strippedString(char *str, int size) {
             break;
         }
     }
-    strcpy(_str, str+startingPointerIndex);
+    strcpy(_str, str + startingPointerIndex);
     int sizeOfString = getSizeOfString(_str);
     // get the first character before \0
     for (int i = sizeOfString - 2; i > 0; i--) {
@@ -69,18 +72,75 @@ char *strippedString(char *str, int size) {
     }
     return _str;
 }
+
 /**
  * Check if a line is a comment line
  * @param str line to check
  * @return 1 if comment line 0 otherwise
  */
-int isCommentLine(char* str) {
+int isCommentLine(char *str) {
     if (str[0] == '#')
         return 1;
     else
         return 0;
 }
+/**
+ * Check if a string starts with a word
+ * @param source string to check if starts with a word
+ * @param with word to check against
+ * @param sizeOfWith size of with
+ * @return 1 if source starts with with else 0
+ */
+int startsWith(const char *source, const char *with, int sizeOfWith) {
+    int starts = 1;
+    for (int i = 0; i < sizeOfWith; i++) {
+        if (source[i] != with[i]) {
+            starts = 0;
+            break;
+        }
+    }
+    return starts;
+}
 
+
+/**
+ * Check if the line is a scalar definition
+ * @param string line to check
+ * @param size line of the size
+ * @return 1 if scalar definition 0 otherwise
+ */
+int isScalarDefinition(const char *string, int size) {
+    if (startsWith(string, "scalar ", 7)) {
+        return 1;
+    } else
+        return 0;
+}
+
+/**
+ * Check if a line is a matrix definition
+ * @param string line to check for
+ * @param size size of the line
+ * @return 1 if matrix definition 0 otherwise
+ */
+int isMatrixDefinition(const char *string, int size) {
+    if (startsWith(string, "matrix ", 7)) {
+        return 1;
+    } else
+        return 0;
+}
+
+/**
+ * Check if a line is vector definition
+ * @param string line to check for
+ * @param size size of the line
+ * @return 1 if vector definition 0 otherwise
+ */
+int isVectorDefinition(const char *string, int size) {
+    if (startsWith(string, "vector ", 7)) {
+        return 1;
+    } else
+        return 0;
+}
 
 
 int main(int argc, char *argv[]) {
@@ -97,8 +157,26 @@ int main(int argc, char *argv[]) {
         return (1);
     }
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
+        if (isEmptyString(line, LINE_LIMIT)) {
+            continue;
+        }
+        char *strippedLine = strippedString(line, LINE_LIMIT);
+        if (isCommentLine(strippedLine)) {
+            printf("this is a comment line!\n");
+            continue;
+        }
 
-        printf("%s", line);
+        if (isScalarDefinition(strippedLine, LINE_LIMIT)) {
+            printf("is scalar definiton!\n");
+        } else if (isMatrixDefinition(strippedLine, LINE_LIMIT))
+            printf("MATRIX!!\n");
+        else if (isVectorDefinition(strippedLine, LINE_LIMIT))
+            printf("VECTOR!!\n");
+
+        printf(strippedLine);
+
+
+        free(strippedLine);
     }
     fclose(fp);
     return (0);
