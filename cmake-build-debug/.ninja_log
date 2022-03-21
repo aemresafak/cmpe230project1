@@ -1,0 +1,19 @@
+# ninja log v5
+0	123	6695676578502924	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+124	274	6695676580065049	MatlangProject.exe	13506406a2a5991b
+1	108	6695683055473057	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+108	239	6695683056722760	MatlangProject.exe	13506406a2a5991b
+1	97	6695683972396602	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+98	219	6695683973490415	MatlangProject.exe	13506406a2a5991b
+1	101	6695684153773446	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+102	225	6695684155023139	MatlangProject.exe	13506406a2a5991b
+1	105	6695684341170080	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+105	225	6695684342263583	MatlangProject.exe	13506406a2a5991b
+1	97	6695684870278898	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+98	222	6695684871528598	MatlangProject.exe	13506406a2a5991b
+1	113	6695685899477919	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+114	245	6695685900728049	MatlangProject.exe	13506406a2a5991b
+1	109	6695689127557284	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+109	253	6695689128963207	MatlangProject.exe	13506406a2a5991b
+2	98	6695691632588319	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+98	222	6695691633838012	MatlangProject.exe	13506406a2a5991b
