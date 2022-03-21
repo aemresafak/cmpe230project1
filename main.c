@@ -69,6 +69,17 @@ char *strippedString(char *str, int size) {
     }
     return _str;
 }
+/**
+ * Check if a line is a comment line
+ * @param str line to check
+ * @return 1 if comment line 0 otherwise
+ */
+int isCommentLine(char* str) {
+    if (str[0] == '#')
+        return 1;
+    else
+        return 0;
+}
 
 
 
