@@ -1,7 +1,11 @@
 #include <stdio.h>
+#include <malloc.h>
+#include <string.h>
 
 static int EMPTY_STRING = -1;
 static int NON_EMPTY_STRING = 0;
+static int LINE_LIMIT = 256;
+
 /**
  * Check if given string is empty
  * @param str string to check
@@ -19,8 +23,53 @@ int isEmptyString(const char *str, int size) {
         }
     }
     return state;
-
 }
+/**
+ * Get the size of string
+ * @param string
+ * @return size of the string including \0 character
+ */
+int getSizeOfString(char *string) {
+    int size = 0;
+    while (1) {
+        if (string[size] == '\0') {
+            size++;
+            break;
+        } else {
+            size++;
+        }
+    }
+    return size;
+}
+
+/**
+ * Strips a non empty string from trailing and preceding white spaces
+ * @param str string to be stripped
+ * @param size size of the string
+ * @return pointer to stripped string
+ */
+char *strippedString(char *str, int size) {
+    char *_str = malloc(LINE_LIMIT * 1);
+    int startingPointerIndex = 0;
+    for (int i = 0; i < size; i++) {
+        if (str[i] != ' ' && str[i] != '\t') {
+            startingPointerIndex = i;
+            break;
+        }
+    }
+    strcpy(_str, str+startingPointerIndex);
+    int sizeOfString = getSizeOfString(_str);
+    // get the first character before \0
+    for (int i = sizeOfString - 2; i > 0; i--) {
+        if (_str[i] == ' ' || _str[i] == '\t') {
+            _str[i] = '\0';
+        } else {
+            break;
+        }
+    }
+    return _str;
+}
+
 
 
 int main(int argc, char *argv[]) {
@@ -36,7 +85,7 @@ int main(int argc, char *argv[]) {
         printf("Cannot open %s\n", argv[1]);
         return (1);
     }
-    while (fgets(line, 80, fp) != NULL) {
+    while (fgets(line, LINE_LIMIT, fp) != NULL) {
 
         printf("%s", line);
     }
