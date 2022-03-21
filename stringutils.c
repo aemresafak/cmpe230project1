@@ -105,3 +105,16 @@ char* stripSingleTrailingNewLineCharacter(char* string) {
     return string;
 }
 
+int endsWith(char* string, char ch) {
+    int size = getSizeOfString(string);
+    if (string[size-2] == ch)
+        return 1;
+    else
+        return 0;
+}
+
+char* stripFromEnd(char* string, char ch) {
+    int size = getSizeOfString(string);
+    string[size-2] = '\0';
+    return string;
+}

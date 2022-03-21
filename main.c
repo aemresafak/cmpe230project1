@@ -34,9 +34,10 @@ int main(int argc, char *argv[]) {
             parseScalarDefinition(strippedLine);
         } else if (isMatrixDefinition(strippedLine, LINE_LIMIT))
             printf("MATRIX!!\n");
-        else if (isVectorDefinition(strippedLine, LINE_LIMIT))
+        else if (isVectorDefinition(strippedLine, LINE_LIMIT)) {
             printf("VECTOR!!\n");
-
+            parseVectorDefinition(strippedLine);
+        }
 
 
         free(strippedLine);

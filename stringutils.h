@@ -91,3 +91,18 @@ int isVectorDefinition(const char *string, int size);
  */
 char* stripSingleTrailingNewLineCharacter(char* string);
 #endif //MATLANGPROJECT_STRINGUTILS_H
+/**
+ * Check if given string ends with given character
+ * @param string string to check against
+ * @param ch character to check against
+ * @return 1 if ends with 0 otherwise
+ */
+int endsWith(char* string, char ch);
+
+/**
+ * Strip the given char from the end of the string presuming the string ends with the char
+ * @param string string to chec
+ * @param ch character to check
+ * @return the stripped string
+ */
+char* stripFromEnd(char* string, char ch);
