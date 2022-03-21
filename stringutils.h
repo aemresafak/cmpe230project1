@@ -63,26 +63,23 @@ int startsWith(const char *source, const char *with, int sizeOfWith);
 /**
  * Check if the line is a scalar definition
  * @param string line to check
- * @param size line of the size
  * @return 1 if scalar definition 0 otherwise
  */
-int isScalarDefinition(const char *string, int size);
+int isScalarDefinition(const char *string);
 
 /**
  * Check if a line is a matrix definition
  * @param string line to check for
- * @param size size of the line
  * @return 1 if matrix definition 0 otherwise
  */
-int isMatrixDefinition(const char *string, int size);
+int isMatrixDefinition(const char *string);
 
 /**
  * Check if a line is vector definition
  * @param string line to check for
- * @param size size of the line
  * @return 1 if vector definition 0 otherwise
  */
-int isVectorDefinition(const char *string, int size);
+int isVectorDefinition(const char *string);
 
 /**
  * Strip single trailing new line character

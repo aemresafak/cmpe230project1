@@ -76,21 +76,21 @@ int startsWith(const char *source, const char *with, int sizeOfWith) {
     return starts;
 }
 
-int isScalarDefinition(const char *string, int size) {
+int isScalarDefinition(const char *string) {
     if (startsWith(string, "scalar ", 7)) {
         return 1;
     } else
         return 0;
 }
 
-int isMatrixDefinition(const char *string, int size) {
+int isMatrixDefinition(const char *string) {
     if (startsWith(string, "matrix ", 7)) {
         return 1;
     } else
         return 0;
 }
 
-int isVectorDefinition(const char *string, int size) {
+int isVectorDefinition(const char *string) {
     if (startsWith(string, "vector ", 7)) {
         return 1;
     } else

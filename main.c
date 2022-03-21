@@ -8,7 +8,8 @@ static int LINE_LIMIT = 256;
 
 int main(int argc, char *argv[]) {
     FILE *fp;
-    FILE *outputFile;
+
+
     char line[80];
     /** Open file for reading Filename is given on the command line */
     if (argc != 2) {
@@ -25,17 +26,16 @@ int main(int argc, char *argv[]) {
             continue;
         }
         char *strippedLine = strippedString(line, LINE_LIMIT);
+
         if (isCommentLine(strippedLine)) {
-            printf("this is a comment line!\n");
             continue;
         }
 
-        if (isScalarDefinition(strippedLine, LINE_LIMIT)) {
+        if (isScalarDefinition(strippedLine)) {
             parseScalarDefinition(strippedLine);
-        } else if (isMatrixDefinition(strippedLine, LINE_LIMIT))
-            printf("MATRIX!!\n");
-        else if (isVectorDefinition(strippedLine, LINE_LIMIT)) {
-            printf("VECTOR!!\n");
+        } else if (isMatrixDefinition(strippedLine)) {
+            parseMatrixDefinition(strippedLine);
+        } else if (isVectorDefinition(strippedLine)) {
             parseVectorDefinition(strippedLine);
         }
 
