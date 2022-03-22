@@ -3,6 +3,7 @@
 #include <string.h>
 #include "stringutils.h"
 #include "parseutils.h"
+#include "structs.h"
 
 static int LINE_LIMIT = 256;
 
@@ -42,8 +43,8 @@ int main(int argc, char *argv[]) {
         }
 
 
-        free(strippedLine);
     }
+    printArraySizes();
     fclose(fp);
     return (0);
 }
