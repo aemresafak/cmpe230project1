@@ -45,6 +45,10 @@ int parseVectorDefinition(char *line) {
         return 0;
     }
     size = stripFromEnd(size, ']');
+    if (!containsOnlyNumbers(size)) {
+        printf("SIZE MUST BE INTEGER.\n");
+        return 0;
+    }
     printf("int %s[%s];\n", lexemeIdentifier, size);
     initializeSingleDimensionalArray(lexemeIdentifier, size);
     return 1;
@@ -82,6 +86,11 @@ int parseMatrixDefinition(char *line) {
     }
 
     stripFromEnd(columnSize, ']');
+    int areBothSizesInteger = containsOnlyNumbers(columnSize) && containsOnlyNumbers(rowSize);
+    if (areBothSizesInteger != 1) {
+        printf("COLUMN AND ROW SIZE MUST BE INTEGER.\n");
+        return 0;
+    }
     printf("int %s[%s][%s];\n", lexemeIdentifier, rowSize, columnSize);
     initializeMatrix(lexemeIdentifier, rowSize, columnSize);
     return 1;

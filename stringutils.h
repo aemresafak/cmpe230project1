@@ -103,3 +103,10 @@ int endsWith(char* string, char ch);
  * @return the stripped string
  */
 char* stripFromEnd(char* string, char ch);
+
+/**
+ * Check if a string only contains number
+ * @param string string to check
+ * @return 1 if contains only numbers 0 otherwise
+ */
+int containsOnlyNumbers(char* string);

@@ -118,3 +118,17 @@ char* stripFromEnd(char* string, char ch) {
     string[size-2] = '\0';
     return string;
 }
+
+int containsOnlyNumbers(char* string) {
+    int size = getSizeOfString(string);
+    for (int i = 0; i < size; i++) {
+        if (string[i] == '\0')
+            break;
+        int asciiCode = (int) string[i];
+        if (asciiCode >= 48 && asciiCode <= 57)
+            continue;
+        else
+            return 0;
+    }
+    return 1;
+}
