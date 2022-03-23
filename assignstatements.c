@@ -69,7 +69,12 @@ int parseMatrixAssignment(char *line) {
             lexemeIdentifier = temp;
             matrix = findMatrixById(lexemeIdentifier);
             valueCount = matrix->columnSize * matrix->rowSize;
-        } else if (count > 2) {
+        } else if (count == 2) {
+            if (strcmp("{", temp) != 0) {
+                printf("MISSING LEFT BRACE!\n");
+                return 0;
+            }
+        }else if (count > 2) {
             if (strcmp(temp, "}") == 0) {
                 flagEncounteredRightBrace = 1;
                 break;
@@ -120,7 +125,13 @@ int parseVectorAssignment(char* line) {
             lexemeIdentifier = temp;
             vector = findVectorById(lexemeIdentifier);
             valueCount = vector->size;
-        } else if (count > 2) {
+        } else if (count == 2) {
+            if (strcmp("{", temp) != 0) {
+                printf("MISSING LEFT BRACE!\n");
+                return 0;
+            }
+        }
+        else if (count > 2) {
             if (strcmp(temp, "}") == 0) {
                 flagEncounteredRightBrace = 1;
                 break;

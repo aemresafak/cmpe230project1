@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
             parseVectorAssignment(strippedLine);
         } else if (isMatrixAssignment(strippedLine)) {
             parseMatrixAssignment(strippedLine);
-        } 
+        }
 
 
     }
