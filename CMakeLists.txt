@@ -3,4 +3,4 @@ project(MatlangProject C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(MatlangProject main.c stringutils.h stringutils.c parseutils.h parseutils.c structs.h structs.c)
+add_executable(MatlangProject main.c stringutils.h stringutils.c parseutils.h parseutils.c structs.h structs.c initializers.c initializers.h)

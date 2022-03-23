@@ -46,6 +46,12 @@ void appendToVectors(struct Vector* vector);
  * @return 1 if already used 0 otherwise
  */
 int isVariableNameAlreadyUsed(char* identifier);
+/**
+ * Check if a variable name is matrix or vector
+ * @param identifier
+ * @return 1 if matrix or vector 0 if not
+ */
+int isVariableNameAlreadyUsedInMatrixOrVector(char* identifier);
 
 /**
  * this method is implemented for testing purposes.

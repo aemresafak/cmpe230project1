@@ -46,3 +46,17 @@ int isVariableNameAlreadyUsed(char* identifier) {
 
     return 0;
 }
+
+int isVariableNameAlreadyUsedInMatrixOrVector(char* identifier) {
+    for (int i = 0; i < matrixArraySize; i++) {
+        if (strcmp(identifier, matrices[i]->id) == 0)
+            return 1;
+    }
+
+    for (int i = 0; i < vectorArraySize; ++i) {
+        if (strcmp(identifier, vectors[i]->id) == 0)
+            return 1;
+    }
+
+    return 0;
+}

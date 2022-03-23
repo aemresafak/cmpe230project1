@@ -4,6 +4,7 @@
 #include "stringutils.h"
 #include "parseutils.h"
 #include "structs.h"
+#include "initializers.h"
 
 static int LINE_LIMIT = 256;
 
@@ -40,6 +41,8 @@ int main(int argc, char *argv[]) {
             parseMatrixDefinition(strippedLine);
         } else if (isVectorDefinition(strippedLine)) {
             parseVectorDefinition(strippedLine);
+        } else if (isVectorMatrixInitialization(strippedLine)) {
+            printf("matrix vector initialization found!\n");
         }
 
 

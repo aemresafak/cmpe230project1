@@ -73,6 +73,12 @@ build CMakeFiles/MatlangProject.dir/structs.c.obj: C_COMPILER__MatlangProject_De
   OBJECT_DIR = CMakeFiles\MatlangProject.dir
   OBJECT_FILE_DIR = CMakeFiles\MatlangProject.dir
 
+build CMakeFiles/MatlangProject.dir/initializers.c.obj: C_COMPILER__MatlangProject_Debug C$:/Users/aesh/CLionProjects/MatlangProject/initializers.c || cmake_object_order_depends_target_MatlangProject
+  DEP_FILE = CMakeFiles\MatlangProject.dir\initializers.c.obj.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles\MatlangProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\MatlangProject.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MatlangProject
@@ -81,7 +87,7 @@ build CMakeFiles/MatlangProject.dir/structs.c.obj: C_COMPILER__MatlangProject_De
 #############################################
 # Link the executable MatlangProject.exe
 
-build MatlangProject.exe: C_EXECUTABLE_LINKER__MatlangProject_Debug CMakeFiles/MatlangProject.dir/main.c.obj CMakeFiles/MatlangProject.dir/stringutils.c.obj CMakeFiles/MatlangProject.dir/parseutils.c.obj CMakeFiles/MatlangProject.dir/structs.c.obj
+build MatlangProject.exe: C_EXECUTABLE_LINKER__MatlangProject_Debug CMakeFiles/MatlangProject.dir/main.c.obj CMakeFiles/MatlangProject.dir/stringutils.c.obj CMakeFiles/MatlangProject.dir/parseutils.c.obj CMakeFiles/MatlangProject.dir/structs.c.obj CMakeFiles/MatlangProject.dir/initializers.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\MatlangProject.dir
