@@ -28,28 +28,13 @@ int getSizeOfString(char *string);
  */
 char *strippedString(char *str, int size);
 
-/**
- * Get the size of string
- * @param string
- * @return size of the string including \0 character
- */
-int getSizeOfString(char *string);
-
-/**
- * Strips a non empty string from trailing and preceding white spaces
- * @param str string to be stripped
- * @param size size of the string
- * @return pointer to stripped string
- */
-char *strippedString(char *str, int size);
-
 
 /**
  * Check if a line is a comment line
  * @param str line to check
  * @return 1 if comment line 0 otherwise
  */
-int isCommentLine(char *str);
+int isCommentLine(const char *str);
 
 /**
  * Check if a string starts with a word
@@ -87,7 +72,6 @@ int isVectorDefinition(const char *string);
  * @return string stripped from newline
  */
 char* stripSingleTrailingNewLineCharacter(char* string);
-#endif //MATLANGPROJECT_STRINGUTILS_H
 /**
  * Check if given string ends with given character
  * @param string string to check against
@@ -110,3 +94,12 @@ char* stripFromEnd(char* string, char ch);
  * @return 1 if contains only numbers 0 otherwise
  */
 int containsOnlyNumbers(char* string);
+
+/**
+ * Creates a new char array which has extra spaces before and after
+ * any of the operators  = *  + - { } ,
+ * @param orig
+ * @return the spaced line which is stored in HEAP
+ */
+char* getSpacedVersionOf(char* orig);
+#endif //MATLANGPROJECT_STRINGUTILS_H

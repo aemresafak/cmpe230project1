@@ -58,7 +58,7 @@ char *strippedString(char *str, int size) {
     return _str;
 }
 
-int isCommentLine(char *str) {
+int isCommentLine(const char *str) {
     if (str[0] == '#')
         return 1;
     else
@@ -97,29 +97,29 @@ int isVectorDefinition(const char *string) {
         return 0;
 }
 
-char* stripSingleTrailingNewLineCharacter(char* string) {
+char *stripSingleTrailingNewLineCharacter(char *string) {
     int size = getSizeOfString(string);
-    if (string[size-2]=='\n') {
-        string[size-2]='\0';
+    if (string[size - 2] == '\n') {
+        string[size - 2] = '\0';
     }
     return string;
 }
 
-int endsWith(char* string, char ch) {
+int endsWith(char *string, char ch) {
     int size = getSizeOfString(string);
-    if (string[size-2] == ch)
+    if (string[size - 2] == ch)
         return 1;
     else
         return 0;
 }
 
-char* stripFromEnd(char* string, char ch) {
+char *stripFromEnd(char *string, char ch) {
     int size = getSizeOfString(string);
-    string[size-2] = '\0';
+    string[size - 2] = '\0';
     return string;
 }
 
-int containsOnlyNumbers(char* string) {
+int containsOnlyNumbers(char *string) {
     int size = getSizeOfString(string);
     for (int i = 0; i < size; i++) {
         if (string[i] == '\0')
@@ -131,4 +131,25 @@ int containsOnlyNumbers(char* string) {
             return 0;
     }
     return 1;
+}
+
+char *getSpacedVersionOf(char *orig) {
+    char *spacedLine = malloc(512);
+    int spacedIndex = 0;
+    int origIndex = 0;
+    int origSize = getSizeOfString(orig);
+
+    while (origIndex < origSize) {
+        if (orig[origIndex] == '+' || orig[origIndex] == '-' || orig[origIndex] == '*' || orig[origIndex] == '=' ||
+            orig[origIndex] == '{' || orig[origIndex] == '}' || orig[origIndex] == ',' || orig[origIndex] == ':') {
+            spacedLine[spacedIndex] = ' ';
+            spacedLine[++spacedIndex] = orig[origIndex];
+            spacedLine[++spacedIndex] = ' ';
+        } else {
+            spacedLine[spacedIndex] = orig[origIndex];
+        }
+        origIndex++;
+        spacedIndex++;
+    }
+    return spacedLine;
 }

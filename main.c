@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     FILE *fp;
 
 
-    char line[80];
+    char line[LINE_LIMIT];
     /** Open file for reading Filename is given on the command line */
     if (argc != 2) {
         printf("Give filename as command line argument\n");
@@ -35,16 +35,18 @@ int main(int argc, char *argv[]) {
             continue;
         }
 
-        if (isScalarDefinition(strippedLine)) {
-            parseScalarDefinition(strippedLine);
-        } else if (isMatrixDefinition(strippedLine)) {
-            parseMatrixDefinition(strippedLine);
-        } else if (isVectorDefinition(strippedLine)) {
-            parseVectorDefinition(strippedLine);
-        } else if (isVectorAssignment(strippedLine)) {
-            parseVectorAssignment(strippedLine);
-        } else if (isMatrixAssignment(strippedLine)) {
-            parseMatrixAssignment(strippedLine);
+        char *spacedLine = getSpacedVersionOf(strippedLine);
+
+        if (isScalarDefinition(spacedLine)) {
+            parseScalarDefinition(spacedLine);
+        } else if (isMatrixDefinition(spacedLine)) {
+            parseMatrixDefinition(spacedLine);
+        } else if (isVectorDefinition(spacedLine)) {
+            parseVectorDefinition(spacedLine);
+        } else if (isVectorAssignment(spacedLine)) {
+            parseVectorAssignment(spacedLine);
+        } else if (isMatrixAssignment(spacedLine)) {
+            parseMatrixAssignment(spacedLine);
         }
 
 
