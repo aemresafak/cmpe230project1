@@ -5,12 +5,12 @@
 #include "parseutils.h"
 #include "structs.h"
 #include "assignstatements.h"
+#include "datastructures.h"
 
 static int LINE_LIMIT = 256;
 
 int main(int argc, char *argv[]) {
     FILE *fp;
-
 
     char line[LINE_LIMIT];
     /** Open file for reading Filename is given on the command line */
@@ -51,7 +51,6 @@ int main(int argc, char *argv[]) {
 
 
     }
-    printArraySizes();
     fclose(fp);
     return (0);
 }

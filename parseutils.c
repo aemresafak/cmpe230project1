@@ -1,31 +1,35 @@
 #include "parseutils.h"
 #include "stringutils.h"
 #include "structs.h"
+#include "datastructures.h"
 //
 // Created by aesh on 3/21/2022.
 //
 
 int parseScalarDefinition(char *line) {
-    char *lexemeIdentifier;
-    int count = 0;
     char *temp = strtok(line, " \n");
+    struct Node *head = createNode(temp);
     while (temp != NULL) {
-        lexemeIdentifier = temp;
         temp = strtok(NULL, " \n");
-        count++;
+        appendToLinkedList(head, temp);
     }
-    if (count != 2) {
-        printf("ERROR PARSING SCALAR!!!");
+    if (getLinkedListSize(head) != 2) {
+        printf("SCALAR DEFINITION ERROR!\n");
         return 0;
     }
-    if (isVariableNameAlreadyUsed(lexemeIdentifier)) {
-        printf("SCALAR NAME ALREADY USED!\n");
+    char* identifier = getNodeData(head, 1);
+    if (!isAlphaNumeric(identifier)) {
+        printf("SCALAR NOT ALPHA NUMERIC\n");
+        return 0;
+    }
+    if (isVariableNameAlreadyUsed(identifier)) {
+        printf("VARIABLE NAME ALREADY USED!\n");
         return 0;
     }
     struct Scalar* scalar = malloc(sizeof(struct Scalar));
-    scalar->id = lexemeIdentifier;
+    scalar->id = identifier;
     appendToScalars(scalar);
-    printf("int %s = 0;\n", lexemeIdentifier);
+    printf("float %s = 0;\n", identifier);
     return 1;
 }
 

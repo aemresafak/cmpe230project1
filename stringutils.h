@@ -102,4 +102,11 @@ int containsOnlyNumbers(char* string);
  * @return the spaced line which is stored in HEAP
  */
 char* getSpacedVersionOf(char* orig);
+
+/**
+ * Return 1 if string is alpha numeric 0 otherwise
+ * @param
+ * @return
+ */
+int isAlphaNumeric(char* str);
 #endif //MATLANGPROJECT_STRINGUTILS_H

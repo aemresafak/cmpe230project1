@@ -4,6 +4,7 @@
 
 #include <malloc.h>
 #include <string.h>
+#include <ctype.h>
 #include "stringutils.h"
 
 static int EMPTY_STRING = 1;
@@ -152,4 +153,14 @@ char *getSpacedVersionOf(char *orig) {
         spacedIndex++;
     }
     return spacedLine;
+}
+
+int isAlphaNumeric(char* str) {
+    int size = getSizeOfString(str);
+    for (int i = 0; i < size - 1; i++) {
+        if (!isalnum(str[i])) {
+            return 0;
+        }
+    }
+    return 1;
 }
