@@ -30,7 +30,7 @@ int parseVectorDefinition(char *line);
  * @param identifier
  * @param size
  */
-void initializeSingleDimensionalArray(char *identifier, char *size);
+void initializeSingleDimensionalArray(char *identifier, int size);
 
 /**
  * Parse the given matrix definition

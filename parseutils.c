@@ -17,16 +17,14 @@ int parseScalarDefinition(char *line) {
         printf("SCALAR DEFINITION ERROR!\n");
         return 0;
     }
-    char* identifier = getNodeData(head, 1);
+    char *identifier = getNodeData(head, 1);
     if (!isAlphaNumeric(identifier)) {
-        printf("SCALAR NOT ALPHA NUMERIC\n");
         return 0;
     }
     if (isVariableNameAlreadyUsed(identifier)) {
-        printf("VARIABLE NAME ALREADY USED!\n");
         return 0;
     }
-    struct Scalar* scalar = malloc(sizeof(struct Scalar));
+    struct Scalar *scalar = malloc(sizeof(struct Scalar));
     scalar->id = identifier;
     appendToScalars(scalar);
     printf("float %s = 0;\n", identifier);
@@ -34,42 +32,49 @@ int parseScalarDefinition(char *line) {
 }
 
 int parseVectorDefinition(char *line) {
-    char *lexemeIdentifier;
-    char *size;
-    int count = 0;
-    char *temp = strtok(line, " ");
-    while (temp != NULL) {
-        if (count == 1)
-            lexemeIdentifier = temp;
-        else if (count == 2)
-            size = temp;
+    char *temp = strtok(line, " \n");
+    struct Node *head = createNode(temp);
 
-        temp = strtok(NULL, " [\n");
-        count++;
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
     }
-    if (count != 3) {
-        printf("ERROR PARSING VECTOR\n");
+
+    if (getLinkedListSize(head) != 5) {
+        printf("ERROR PARSING VECTOR DEFINITION\n");
         return 0;
     }
-    if (!endsWith(size, ']')) {
-        printf("Size needs to end with ]\n");
+    char *identifier = getNodeData(head, 1);
+    if (!isAlphaNumeric(identifier)) {
         return 0;
     }
-    size = stripFromEnd(size, ']');
-    if (!containsOnlyNumbers(size)) {
-        printf("SIZE MUST BE INTEGER.\n");
+
+    if(isVariableNameAlreadyUsed(identifier)) {
         return 0;
     }
-    if (isVariableNameAlreadyUsed(lexemeIdentifier)) {
-        printf("VECTOR NAME ALREADY USED!\n");
+
+    if (strcmp(getNodeData(head, 2), "[") != 0) {
+        printf("MISSING LEFT BRACKET!\n");
         return 0;
     }
+
+    if (!containsOnlyNumbers(getNodeData(head, 3))) {
+        printf("VECTOR SIZE IS NOT NUMERIC!\n");
+        return 0;
+    }
+    int size = strtol(getNodeData(head, 3), NULL, 10);
+
+    if (strcmp(getNodeData(head, 4), "]") != 0) {
+        printf("MISSING RIGHT BRACE!\n");
+        return 0;
+    }
+
     struct Vector *vector = malloc(sizeof(struct Vector));
-    vector->id = lexemeIdentifier;
-    vector->size = strtol(size, NULL, 10);
+    vector->id = identifier;
+    vector->size = size;
     appendToVectors(vector);
-    printf("int %s[%s];\n", lexemeIdentifier, size);
-    initializeSingleDimensionalArray(lexemeIdentifier, size);
+    printf("float %s[%d];\n", identifier, size);
+    initializeSingleDimensionalArray(identifier, size);
     return 1;
 }
 
@@ -110,7 +115,7 @@ int parseMatrixDefinition(char *line) {
         printf("MATRIX NAME ALREADY USED!\n");
         return 0;
     }
-    struct Matrix* matrix = malloc(sizeof(struct Matrix));
+    struct Matrix *matrix = malloc(sizeof(struct Matrix));
     matrix->id = lexemeIdentifier;
     matrix->rowSize = strtol(rowSize, NULL, 10);
     matrix->columnSize = strtol(columnSize, NULL, 10);
@@ -120,8 +125,8 @@ int parseMatrixDefinition(char *line) {
     return 1;
 }
 
-void initializeSingleDimensionalArray(char *identifier, char *size) {
-    char *code = "for (int i = 0; i < %s; i++) {\n%s[i] = 0;\n}\n";
+void initializeSingleDimensionalArray(char *identifier, int size) {
+    char *code = "for (int i = 0; i < %d; i++) {\n%s[i] = 0f;\n}\n";
     printf(code, size, identifier);
 }
 

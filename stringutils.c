@@ -5,6 +5,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 #include "stringutils.h"
 
 static int EMPTY_STRING = 1;
@@ -142,7 +143,8 @@ char *getSpacedVersionOf(char *orig) {
 
     while (origIndex < origSize) {
         if (orig[origIndex] == '+' || orig[origIndex] == '-' || orig[origIndex] == '*' || orig[origIndex] == '=' ||
-            orig[origIndex] == '{' || orig[origIndex] == '}' || orig[origIndex] == ',' || orig[origIndex] == ':') {
+            orig[origIndex] == '{' || orig[origIndex] == '}' || orig[origIndex] == ',' || orig[origIndex] == ':' ||
+            orig[origIndex] == '[' || orig[origIndex] == ']') {
             spacedLine[spacedIndex] = ' ';
             spacedLine[++spacedIndex] = orig[origIndex];
             spacedLine[++spacedIndex] = ' ';
@@ -155,12 +157,14 @@ char *getSpacedVersionOf(char *orig) {
     return spacedLine;
 }
 
-int isAlphaNumeric(char* str) {
+int isAlphaNumeric(char *str) {
     int size = getSizeOfString(str);
     for (int i = 0; i < size - 1; i++) {
         if (!isalnum(str[i])) {
+            printf("VARIABLE NOT ALPHA NUMERIC\n");
             return 0;
         }
     }
+
     return 1;
 }

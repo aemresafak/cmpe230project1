@@ -30,7 +30,7 @@ void appendToLinkedList(struct Node *head, char* data) {
 char* getNodeData(struct Node* head, int index) {
     struct Node *node = head;
     while (index > 0) {
-        node = head->next;
+        node = node->next;
         index--;
     }
     return node->data;

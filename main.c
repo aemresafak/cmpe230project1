@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
         }
 
         char *spacedLine = getSpacedVersionOf(strippedLine);
-
         if (isScalarDefinition(spacedLine)) {
             parseScalarDefinition(spacedLine);
         } else if (isMatrixDefinition(spacedLine)) {

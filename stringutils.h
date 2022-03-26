@@ -97,7 +97,7 @@ int containsOnlyNumbers(char* string);
 
 /**
  * Creates a new char array which has extra spaces before and after
- * any of the operators  = *  + - { } ,
+ * any of the operators  = *  + - { } , [ ]
  * @param orig
  * @return the spaced line which is stored in HEAP
  */

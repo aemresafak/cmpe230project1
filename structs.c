@@ -30,18 +30,24 @@ void printArraySizes() {
 
 int isVariableNameAlreadyUsed(char *identifier) {
     for (int i = 0; i < scalarArraySize; i++) {
-        if (strcmp(identifier, scalars[i]->id) == 0)
+        if (strcmp(identifier, scalars[i]->id) == 0) {
+            printf("VARIABLE NAME ALREADY USED!\n");
             return 1;
+        }
     }
 
     for (int i = 0; i < matrixArraySize; i++) {
-        if (strcmp(identifier, matrices[i]->id) == 0)
+        if (strcmp(identifier, matrices[i]->id) == 0) {
+            printf("VARIABLE NAME ALREADY USED!\n");
             return 1;
+        }
     }
 
     for (int i = 0; i < vectorArraySize; ++i) {
-        if (strcmp(identifier, vectors[i]->id) == 0)
+        if (strcmp(identifier, vectors[i]->id) == 0) {
+            printf("VARIABLE NAME ALREADY USED!\n");
             return 1;
+        }
     }
 
     return 0;
@@ -71,7 +77,7 @@ int isVariableVector(char *identifier) {
     return 0;
 }
 
-struct Matrix *findMatrixById(char* identifier) {
+struct Matrix *findMatrixById(char *identifier) {
     for (int i = 0; i < matrixArraySize; i++) {
         if (strcmp(identifier, matrices[i]->id) == 0)
             return matrices[i];
