@@ -80,48 +80,64 @@ int parseVectorDefinition(char *line) {
 
 
 int parseMatrixDefinition(char *line) {
-    char *lexemeIdentifier;
-    int count = 0;
-    char *rowSize;
-    char *columnSize;
-    char *temp = strtok(line, " ");
+    char *temp = strtok(line, " \n");
+    struct Node *head = createNode(temp);
+
     while (temp != NULL) {
-        if (count == 1) {
-            lexemeIdentifier = temp;
-        } else if (count == 2) {
-            rowSize = temp;
-        } else if (count == 3) {
-            columnSize = temp;
-        }
-        temp = strtok(NULL, " [\n,");
-        count++;
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
     }
-    if (count != 4) {
-        printf("ERROR PARSING MATRIX\n");
-        return 0;
-    }
-    if (!endsWith(columnSize, ']')) {
-        printf("MATRIX NEEDS TO END WITH ]\n");
+
+    if (getLinkedListSize(head) != 7) {
+        printf("ERROR PARSING MATRIX DEFINITION\n");
         return 0;
     }
 
-    stripFromEnd(columnSize, ']');
-    int areBothSizesInteger = containsOnlyNumbers(columnSize) && containsOnlyNumbers(rowSize);
-    if (areBothSizesInteger != 1) {
-        printf("COLUMN AND ROW SIZE MUST BE INTEGER.\n");
+    char* identifier = getNodeData(head, 1);
+    if (!isAlphaNumeric(identifier)) {
         return 0;
     }
-    if (isVariableNameAlreadyUsed(lexemeIdentifier)) {
-        printf("MATRIX NAME ALREADY USED!\n");
+
+    if (isVariableNameAlreadyUsed(identifier)) {
         return 0;
     }
+
+    if (strcmp(getNodeData(head, 2), "[") != 0) {
+        printf("MISSING LEFT BRACKET\n");
+        return 0;
+    }
+
+    if (!containsOnlyNumbers(getNodeData(head, 3))) {
+        printf("SIZE IS NOT NUMERIC!\n");
+        return 0;
+    }
+
+    int rowSize = strtol(getNodeData(head, 3), NULL, 10);
+
+    if (strcmp(getNodeData(head, 4), ",") != 0) {
+        printf("MISSING COMMA \n");
+        return 0;
+    }
+
+    if (!containsOnlyNumbers(getNodeData(head, 5))) {
+        printf("SIZE IS NOT NUMERIC!\n");
+        return 0;
+    }
+
+    int columnSize = strtol(getNodeData(head, 5), NULL, 10);
+
+    if (strcmp(getNodeData(head, 6), "]") != 0) {
+        printf("MISSING RIGHT BRACKET \n");
+        return 0;
+    }
+    
     struct Matrix *matrix = malloc(sizeof(struct Matrix));
-    matrix->id = lexemeIdentifier;
-    matrix->rowSize = strtol(rowSize, NULL, 10);
-    matrix->columnSize = strtol(columnSize, NULL, 10);
+    matrix->id = identifier;
+    matrix->rowSize = rowSize;
+    matrix->columnSize = columnSize;
     appendToMatrices(matrix);
-    printf("int %s[%s][%s];\n", lexemeIdentifier, rowSize, columnSize);
-    initializeMatrix(lexemeIdentifier, rowSize, columnSize);
+    printf("float %s[%d][%d];\n", identifier, rowSize, columnSize);
+    initializeMatrix(identifier, rowSize, columnSize);
     return 1;
 }
 
@@ -130,9 +146,9 @@ void initializeSingleDimensionalArray(char *identifier, int size) {
     printf(code, size, identifier);
 }
 
-void initializeMatrix(char *identifier, char *rowSize, char *columnSize) {
-    char *code = "for (int i = 0; i < %s; i++) {\n"
-                 "    for (int j = 0; j < %s; j++) {\n"
+void initializeMatrix(char *identifier, int rowSize, int columnSize) {
+    char *code = "for (int i = 0; i < %d; i++) {\n"
+                 "    for (int j = 0; j < %d; j++) {\n"
                  "        %s[i][j] = 0\n    }\n"
                  "}\n";
     printf(code, rowSize, columnSize, identifier);

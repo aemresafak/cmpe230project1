@@ -45,5 +45,5 @@ int parseMatrixDefinition(char *line);
  * @param rowSize row size of matrix
  * @param columnSize column size of matrix
  */
-void initializeMatrix(char *identifier, char *rowSize, char* columnSize);
+void initializeMatrix(char *identifier, int rowSize, int columnSize);
 #endif //MATLANGPROJECT_PARSEUTILS_H
