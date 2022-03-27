@@ -1,12 +1,9 @@
 #include <stdio.h>
-#include <malloc.h>
-#include <string.h>
 #include "stringutils.h"
 #include "definitionstatements.h"
-#include "structs.h"
 #include "assignstatements.h"
-#include "datastructures.h"
 
+static int ERROR = 0;
 static int LINE_LIMIT = 256;
 
 int main(int argc, char *argv[]) {
@@ -24,7 +21,7 @@ int main(int argc, char *argv[]) {
         return (1);
     }
 
-
+    int lineCount = 0;
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
         if (isEmptyString(line, LINE_LIMIT)) {
             continue;
@@ -32,23 +29,39 @@ int main(int argc, char *argv[]) {
         char *strippedLine = strippedString(line, LINE_LIMIT);
 
         if (isCommentLine(strippedLine)) {
+            lineCount++;
             continue;
         }
 
         char *spacedLine = getSpacedVersionOf(strippedLine);
         if (isScalarDefinition(spacedLine)) {
-            parseScalarDefinition(spacedLine);
+            if (parseScalarDefinition(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         } else if (isMatrixDefinition(spacedLine)) {
-            parseMatrixDefinition(spacedLine);
+            if (parseMatrixDefinition(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         } else if (isVectorDefinition(spacedLine)) {
-            parseVectorDefinition(spacedLine);
+            if (parseVectorDefinition(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         } else if (isVectorAssignment(spacedLine)) {
-            parseVectorAssignment(spacedLine);
+            if (parseVectorAssignment(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         } else if (isMatrixAssignment(spacedLine)) {
-            parseMatrixAssignment(spacedLine);
+            if (parseMatrixAssignment(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         }
 
-
+        lineCount++;
     }
     fclose(fp);
     return (0);
