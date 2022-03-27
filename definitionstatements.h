@@ -2,8 +2,8 @@
 // Created by aesh on 3/21/2022.
 //
 
-#ifndef MATLANGPROJECT_PARSEUTILS_H
-#define MATLANGPROJECT_PARSEUTILS_H
+#ifndef MATLANGPROJECT_DEFINITIONSTATEMENTS_H
+#define MATLANGPROJECT_DEFINITIONSTATEMENTS_H
 
 #include <stdio.h>
 #include <malloc.h>
@@ -46,4 +46,4 @@ int parseMatrixDefinition(char *line);
  * @param columnSize column size of matrix
  */
 void initializeMatrix(char *identifier, int rowSize, int columnSize);
-#endif //MATLANGPROJECT_PARSEUTILS_H
+#endif //MATLANGPROJECT_DEFINITIONSTATEMENTS_H

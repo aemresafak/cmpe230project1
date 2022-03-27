@@ -2,7 +2,7 @@
 #include <malloc.h>
 #include <string.h>
 #include "stringutils.h"
-#include "parseutils.h"
+#include "definitionstatements.h"
 #include "structs.h"
 #include "assignstatements.h"
 #include "datastructures.h"

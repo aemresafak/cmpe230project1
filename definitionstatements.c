@@ -1,4 +1,4 @@
-#include "parseutils.h"
+#include "definitionstatements.h"
 #include "stringutils.h"
 #include "structs.h"
 #include "datastructures.h"
@@ -130,7 +130,7 @@ int parseMatrixDefinition(char *line) {
         printf("MISSING RIGHT BRACKET \n");
         return 0;
     }
-    
+
     struct Matrix *matrix = malloc(sizeof(struct Matrix));
     matrix->id = identifier;
     matrix->rowSize = rowSize;
