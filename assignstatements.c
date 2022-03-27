@@ -22,7 +22,9 @@ int isVectorAssignment(char *line) {
     }
     char *identifier = getNodeData(head, 0);
     char *token = getNodeData(head, 1);
-
+    if (getLinkedListSize(head) <= 2) {
+        return 0;
+    }
     if (isVariableVector(identifier) == 1 && strcmp(token, "=") == 0)
         return 1;
     else
@@ -37,6 +39,9 @@ int isMatrixAssignment(char *line) {
     while (temp != NULL) {
         temp = strtok(NULL, " \n");
         appendToLinkedList(head, temp);
+    }
+    if (getLinkedListSize(head) <= 2) {
+        return 0;
     }
     char *identifier = getNodeData(head, 0);
     char *token = getNodeData(head, 1);
@@ -104,39 +109,39 @@ int parseMatrixAssignment(char *line) {
 
 int parseVectorAssignment(char *line) {
     char *temp = strtok(line, " \n");
-    struct Node* head = createNode(temp);
+    struct Node *head = createNode(temp);
 
     while (temp != NULL) {
         temp = strtok(NULL, " \n");
         appendToLinkedList(head, temp);
     }
 
-    char *identifier = getNodeData(head,0);
+    char *identifier = getNodeData(head, 0);
     struct Vector *vector = findVectorById(identifier);
     int expectedSize = 4 + vector->size;
     if (getLinkedListSize(head) != expectedSize) {
         printf("ERROR PARSING VECTOR ASSIGNMENT\n");
         return 0;
     }
-    if (strcmp(getNodeData(head,2), "{") != 0) {
+    if (strcmp(getNodeData(head, 2), "{") != 0) {
         printf("MISSING LEFT BRACE!");
         return 0;
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
-        if (!containsOnlyNumbers(getNodeData(head,i))) {
+        if (!containsOnlyNumbers(getNodeData(head, i))) {
             printf("ELEMENT NOT NUMBER!\n");
             return 0;
         }
     }
 
-    if (strcmp(getNodeData(head, getLinkedListSize(head)-1),"}") != 0) {
+    if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "}") != 0) {
         printf("MISSING RIGHT BRACKET\n");
         return 0;
     }
     int valueIndex = 3;
     for (int i = 0; i < vector->size; i++) {
-        int value = strtol(getNodeData(head, valueIndex), NULL , 10);
+        int value = strtol(getNodeData(head, valueIndex), NULL, 10);
         printf("%s[%d] = %d;\n", identifier, i, value);
         valueIndex++;
     }

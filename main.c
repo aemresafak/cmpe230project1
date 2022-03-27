@@ -2,6 +2,7 @@
 #include "stringutils.h"
 #include "definitionstatements.h"
 #include "assignstatements.h"
+#include "printstatements.h"
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
@@ -56,6 +57,16 @@ int main(int argc, char *argv[]) {
             }
         } else if (isMatrixAssignment(spacedLine)) {
             if (parseMatrixAssignment(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
+        } else if (isPrintSepStatement(spacedLine)) {
+            if (parsePrintSepStatement(spacedLine) == ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
+        } else if (isPrintIdStatement(spacedLine)) {
+            if (parsePrintIdStatement(spacedLine) == ERROR) {
                 printf("Error (Line %d)\n", lineCount);
                 return -1;
             }

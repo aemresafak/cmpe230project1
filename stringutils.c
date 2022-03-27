@@ -144,7 +144,7 @@ char *getSpacedVersionOf(char *orig) {
     while (origIndex < origSize) {
         if (orig[origIndex] == '+' || orig[origIndex] == '-' || orig[origIndex] == '*' || orig[origIndex] == '=' ||
             orig[origIndex] == '{' || orig[origIndex] == '}' || orig[origIndex] == ',' || orig[origIndex] == ':' ||
-            orig[origIndex] == '[' || orig[origIndex] == ']') {
+            orig[origIndex] == '[' || orig[origIndex] == ']' || orig[origIndex] == '(' || orig[origIndex] == ')') {
             spacedLine[spacedIndex] = ' ';
             spacedLine[++spacedIndex] = orig[origIndex];
             spacedLine[++spacedIndex] = ' ';

@@ -142,14 +142,14 @@ int parseMatrixDefinition(char *line) {
 }
 
 void initializeSingleDimensionalArray(char *identifier, int size) {
-    char *code = "for (int i = 0; i < %d; i++) {\n%s[i] = 0f;\n}\n";
+    char *code = "for (int i = 0; i < %d; i++) {\n%s[i] = 0;\n}\n";
     printf(code, size, identifier);
 }
 
 void initializeMatrix(char *identifier, int rowSize, int columnSize) {
     char *code = "for (int i = 0; i < %d; i++) {\n"
                  "    for (int j = 0; j < %d; j++) {\n"
-                 "        %s[i][j] = 0\n    }\n"
+                 "        %s[i][j] = 0;\n    }\n"
                  "}\n";
     printf(code, rowSize, columnSize, identifier);
 }

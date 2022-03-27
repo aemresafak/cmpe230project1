@@ -66,6 +66,8 @@ struct Matrix *findMatrixById(char *lexemeIdentifier);
  */
 struct Vector *findVectorById(char *lexemeIdentifier);
 
+struct Scalar *findScalarById(char *identifier);
+
 /**
  * this method is implemented for testing purposes.
  * @return
