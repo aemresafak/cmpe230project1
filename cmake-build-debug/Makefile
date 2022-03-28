@@ -200,6 +200,54 @@ definitionstatements.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/definitionstatements.c.s
 .PHONY : definitionstatements.c.s
 
+expressionparsing.obj: expressionparsing.c.obj
+.PHONY : expressionparsing.obj
+
+# target to build an object file
+expressionparsing.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/expressionparsing.c.obj
+.PHONY : expressionparsing.c.obj
+
+expressionparsing.i: expressionparsing.c.i
+.PHONY : expressionparsing.i
+
+# target to preprocess a source file
+expressionparsing.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/expressionparsing.c.i
+.PHONY : expressionparsing.c.i
+
+expressionparsing.s: expressionparsing.c.s
+.PHONY : expressionparsing.s
+
+# target to generate assembly for a file
+expressionparsing.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/expressionparsing.c.s
+.PHONY : expressionparsing.c.s
+
+infixtopostfix.obj: infixtopostfix.c.obj
+.PHONY : infixtopostfix.obj
+
+# target to build an object file
+infixtopostfix.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj
+.PHONY : infixtopostfix.c.obj
+
+infixtopostfix.i: infixtopostfix.c.i
+.PHONY : infixtopostfix.i
+
+# target to preprocess a source file
+infixtopostfix.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/infixtopostfix.c.i
+.PHONY : infixtopostfix.c.i
+
+infixtopostfix.s: infixtopostfix.c.s
+.PHONY : infixtopostfix.s
+
+# target to generate assembly for a file
+infixtopostfix.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/infixtopostfix.c.s
+.PHONY : infixtopostfix.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -314,6 +362,12 @@ help:
 	@echo ... definitionstatements.obj
 	@echo ... definitionstatements.i
 	@echo ... definitionstatements.s
+	@echo ... expressionparsing.obj
+	@echo ... expressionparsing.i
+	@echo ... expressionparsing.s
+	@echo ... infixtopostfix.obj
+	@echo ... infixtopostfix.i
+	@echo ... infixtopostfix.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

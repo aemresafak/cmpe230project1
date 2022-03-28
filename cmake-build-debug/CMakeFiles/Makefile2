@@ -80,12 +80,12 @@ clean: CMakeFiles/MatlangProject.dir/clean
 CMakeFiles/MatlangProject.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target MatlangProject"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target MatlangProject"
 .PHONY : CMakeFiles/MatlangProject.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MatlangProject.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/MatlangProject.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/MatlangProject.dir/rule

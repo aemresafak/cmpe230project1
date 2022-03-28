@@ -166,6 +166,34 @@ CMakeFiles/MatlangProject.dir/printstatements.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MatlangProject.dir/printstatements.c.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\hp\Desktop\cmpe230project1\printstatements.c -o CMakeFiles\MatlangProject.dir\printstatements.c.s
 
+CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj: CMakeFiles/MatlangProject.dir/flags.make
+CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj: ../infixtopostfix.c
+CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj: CMakeFiles/MatlangProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj -MF CMakeFiles\MatlangProject.dir\infixtopostfix.c.obj.d -o CMakeFiles\MatlangProject.dir\infixtopostfix.c.obj -c C:\Users\hp\Desktop\cmpe230project1\infixtopostfix.c
+
+CMakeFiles/MatlangProject.dir/infixtopostfix.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MatlangProject.dir/infixtopostfix.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\hp\Desktop\cmpe230project1\infixtopostfix.c > CMakeFiles\MatlangProject.dir\infixtopostfix.c.i
+
+CMakeFiles/MatlangProject.dir/infixtopostfix.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MatlangProject.dir/infixtopostfix.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\hp\Desktop\cmpe230project1\infixtopostfix.c -o CMakeFiles\MatlangProject.dir\infixtopostfix.c.s
+
+CMakeFiles/MatlangProject.dir/expressionparsing.c.obj: CMakeFiles/MatlangProject.dir/flags.make
+CMakeFiles/MatlangProject.dir/expressionparsing.c.obj: ../expressionparsing.c
+CMakeFiles/MatlangProject.dir/expressionparsing.c.obj: CMakeFiles/MatlangProject.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/MatlangProject.dir/expressionparsing.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/MatlangProject.dir/expressionparsing.c.obj -MF CMakeFiles\MatlangProject.dir\expressionparsing.c.obj.d -o CMakeFiles\MatlangProject.dir\expressionparsing.c.obj -c C:\Users\hp\Desktop\cmpe230project1\expressionparsing.c
+
+CMakeFiles/MatlangProject.dir/expressionparsing.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MatlangProject.dir/expressionparsing.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\hp\Desktop\cmpe230project1\expressionparsing.c > CMakeFiles\MatlangProject.dir\expressionparsing.c.i
+
+CMakeFiles/MatlangProject.dir/expressionparsing.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MatlangProject.dir/expressionparsing.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\hp\Desktop\cmpe230project1\expressionparsing.c -o CMakeFiles\MatlangProject.dir\expressionparsing.c.s
+
 # Object files for target MatlangProject
 MatlangProject_OBJECTS = \
 "CMakeFiles/MatlangProject.dir/main.c.obj" \
@@ -174,7 +202,9 @@ MatlangProject_OBJECTS = \
 "CMakeFiles/MatlangProject.dir/structs.c.obj" \
 "CMakeFiles/MatlangProject.dir/assignstatements.c.obj" \
 "CMakeFiles/MatlangProject.dir/datastructures.c.obj" \
-"CMakeFiles/MatlangProject.dir/printstatements.c.obj"
+"CMakeFiles/MatlangProject.dir/printstatements.c.obj" \
+"CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj" \
+"CMakeFiles/MatlangProject.dir/expressionparsing.c.obj"
 
 # External object files for target MatlangProject
 MatlangProject_EXTERNAL_OBJECTS =
@@ -186,11 +216,13 @@ MatlangProject.exe: CMakeFiles/MatlangProject.dir/structs.c.obj
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/assignstatements.c.obj
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/datastructures.c.obj
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/printstatements.c.obj
+MatlangProject.exe: CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj
+MatlangProject.exe: CMakeFiles/MatlangProject.dir/expressionparsing.c.obj
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/build.make
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/linklibs.rsp
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/objects1.rsp
 MatlangProject.exe: CMakeFiles/MatlangProject.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable MatlangProject.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\hp\Desktop\cmpe230project1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable MatlangProject.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MatlangProject.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
