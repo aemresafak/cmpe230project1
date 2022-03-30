@@ -10,11 +10,36 @@ char* convertIntegerToChar(int N);
 
 int isNumber(char* arr) ;
 
-struct Vector *transposeVector(struct Vector* vector);
+int *transposeVector(int *vec);
 
-struct Matrix *transposeMatrix(struct Matrix* matrix);
+int **transposeMatrix(int **mat);
 
-void expressionParsing(char* infix_exp , struct Scalar* scalar_result , struct Vector* vector_result , struct Matrix* matrix_result);
+int *addScalarToVector(int sca , int *vec);
+
+int *subtractScalarFromVector(int sca , int *vec);
+
+int *multiplyScalarWithVector(int sca , int *vec);
+
+int **addScalarToMatrix(int sca , int **mat);
+
+int **subtractScalarFromMatrix(int sca , int **mat);
+
+int **multiplyScalarWithMatrix(int sca , int **mat);
+
+int *vectorAddition(int *vec1 , int *vec2);
+
+int *vectorSubtraction(int *vec1 , int *vec2);
+
+int *vectorMultiplication(int *vec1 , int *vec2);
+
+int **matrixAddition(int **mat1 , int **mat2);
+
+int **matrixSubtraction(int **mat1 , int **mat2);
+
+int **matrixMultiplication(int **mat1 , int **mat2);
+
+
+char* expressionParsing(char* infix_exp);
 
 
 #endif //MATLANGPROJECT_EXPRESSIONPARSING_H
