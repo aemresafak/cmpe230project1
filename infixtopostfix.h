@@ -15,6 +15,16 @@ struct node_for_dll {
     char data[50];
     struct node_for_dll* next;
     struct node_for_dll* prev;
+
+    int is_scalar = 0;
+    int is_vector = 0;
+    int is_matrix = 0;
+
+    int size = -1;
+    int row_size = -1;
+    int column_size = -1;
+
+
 };
 
 int isEmpty(struct Stack* stack);

@@ -10,33 +10,33 @@ char* convertIntegerToChar(int N);
 
 int isNumber(char* arr) ;
 
-int *transposeVector(int *vec);
+double *transposeVector(double *vec);
 
-int **transposeMatrix(int **mat);
+double **transposeMatrix(double **mat);
 
-int *addScalarToVector(int sca , int *vec);
+double *addScalarToVector(double sca , double *vec);
 
-int *subtractScalarFromVector(int sca , int *vec);
+double *subtractScalarFromVector(double sca , double *vec);
 
-int *multiplyScalarWithVector(int sca , int *vec);
+double *multiplyScalarWithVector(double sca , double *vec);
 
-int **addScalarToMatrix(int sca , int **mat);
+double **addScalarToMatrix(double sca , double **mat);
 
-int **subtractScalarFromMatrix(int sca , int **mat);
+double **subtractScalarFromMatrix(double sca , double **mat);
 
-int **multiplyScalarWithMatrix(int sca , int **mat);
+double **multiplyScalarWithMatrix(double sca , double **mat);
 
-int *vectorAddition(int *vec1 , int *vec2);
+double *vectorAddition(double *vec1 , double *vec2);
 
-int *vectorSubtraction(int *vec1 , int *vec2);
+double *vectorSubtraction(double *vec1 , double *vec2);
 
-int *vectorMultiplication(int *vec1 , int *vec2);
+double *vectorMultiplication(double *vec1 , double *vec2);
 
-int **matrixAddition(int **mat1 , int **mat2);
+double **matrixAddition(double **mat1 , double **mat2);
 
-int **matrixSubtraction(int **mat1 , int **mat2);
+double **matrixSubtraction(double **mat1 , double **mat2);
 
-int **matrixMultiplication(int **mat1 , int **mat2);
+double **matrixMultiplication(double **mat1 , double **mat2);
 
 
 char* expressionParsing(char* infix_exp);

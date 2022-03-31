@@ -83,7 +83,7 @@ struct Matrix *findMatrixById(char *identifier) {
 }
 
 struct Vector *findVectorById(char *lexemeIdentifier) {
-    for (int i = 0; i < vectorArraySize; ++i) {
+        for (int i = 0; i < vectorArraySize; ++i) {
         if (strcmp(lexemeIdentifier, vectors[i]->id) == 0)
             return vectors[i];
     }
