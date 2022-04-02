@@ -64,6 +64,18 @@ int isOperator(char ch)
     return ch == '+' || ch == '-' || ch == '*' ;
 }
 
+void initializeNode(struct node_for_dll** node_ref)
+{
+    (*node_ref)->is_scalar = 0;
+    (*node_ref)->is_vector = 0;
+    (*node_ref)->is_matrix = 0;
+    (*node_ref)->size = -1;
+    (*node_ref)->row_size = -1;
+    (*node_ref)->column_size = -1;
+
+    return;
+}
+
 
 void append(struct node_for_dll** head_ref, char* new_data)
 {
@@ -71,6 +83,8 @@ void append(struct node_for_dll** head_ref, char* new_data)
 
     struct node_for_dll* last = *head_ref;
 
+
+    initializeNode(&new_node);
     strcpy(new_node->data , new_data);
 
     new_node->next = NULL;
