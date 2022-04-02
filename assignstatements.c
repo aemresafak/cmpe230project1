@@ -10,6 +10,7 @@
 #include "stringutils.h"
 #include "datastructures.h"
 #include "expressionparsing.h"
+#include "infixtopostfix.h"
 
 int isVectorAssignment(char *line) {
     char copiedLine[256];
@@ -32,7 +33,7 @@ int isVectorAssignment(char *line) {
         return 0;
 }
 
-int isScalarAssignment(char* line) {
+int isScalarAssignment(char *line) {
     char copiedLine[1024];
     strcpy(copiedLine, line);
     char *temp = strtok(copiedLine, " \n");
@@ -44,9 +45,9 @@ int isScalarAssignment(char* line) {
 
     if (getLinkedListSize(head) <= 2)
         return 0;
-    char* identifier = getNodeData(head,0);
-    char* token = getNodeData(head,1);
-    if (isVariableScalar(identifier) && strcmp(token,"=") == 0) {
+    char *identifier = getNodeData(head, 0);
+    char *token = getNodeData(head, 1);
+    if (isVariableScalar(identifier) && strcmp(token, "=") == 0) {
         return 1;
     } else
         return 0;
@@ -128,7 +129,7 @@ int parseMatrixAssignment(char *line) {
     return 1;
 }
 
-int parseScalarAssignment(char* line) {
+int parseScalarAssignment(char *line) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -136,17 +137,20 @@ int parseScalarAssignment(char* line) {
         temp = strtok(NULL, " \n");
         appendToLinkedList(head, temp);
     }
-    char* identifier = getNodeData(head,0);
-    char* resultOfExpression;
-    char* expression;
+    char *identifier = getNodeData(head, 0);
+    struct node_for_dll *nodeForDll = NULL;
+    char *expression;
     int index = 0;
     for (int i = 2; i < getLinkedListSize(head); i++) {
-        strcat(expression, getNodeData(head,i));
+        strcat(expression, getNodeData(head, i));
     }
-    char* deblankedExpr = deblank(expression);
-    if (expressionParsing(deblankedExpr, resultOfExpression)) {
-        printf("%s = %s\n",identifier, resultOfExpression);
-        return 1;
+    char *deblankedExpr = deblank(expression);
+    if (expressionParsing(deblankedExpr, &nodeForDll)) {
+        if (nodeForDll->is_scalar == 0) {
+            printf("%s = %s\n", identifier, nodeForDll->data);
+            return 1;
+        }
+
     }
 
     return 0;
