@@ -10,4 +10,11 @@
  * @return
  */
 int isSingleForLoop(char* line);
+
+/**
+ * return 1 if successfully parsed 0 otherwise
+ * @param line
+ * @return
+ */
+int parseSingleForLoop(char* line);
 #endif //MATLANGPROJECT_FORLOOPS_H

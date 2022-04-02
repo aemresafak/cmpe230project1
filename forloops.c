@@ -4,6 +4,7 @@
 
 #include "forloops.h"
 #include <string.h>
+#include <malloc.h>
 #include "datastructures.h"
 #include "structs.h"
 
@@ -26,5 +27,21 @@ int isSingleForLoop(char *line) {
         return 0;
 
     return 1;
+
+}
+
+int parseSingleForLoop(char* line) {
+    char *temp = strtok(line, " \n");
+    struct Node *head = createNode(temp);
+
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
+    }
+    char *identifier = getNodeData(head, 0);
+    char* expr1 = malloc(1024);
+    char* expr2 = malloc(1024);
+    char* expr3 = malloc(1024);
+    
 
 }
