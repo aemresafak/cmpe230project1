@@ -115,4 +115,8 @@ int isAlphaNumeric(char* str);
  * return 1 IF it is float 0 otherwise
  */
  int isFloat(char* str);
+
+char* deblank(char* input);
+
+
 #endif //MATLANGPROJECT_STRINGUTILS_H

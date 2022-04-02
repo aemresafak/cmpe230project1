@@ -191,3 +191,18 @@ int isFloat(char* str) {
     return 1;
 
 }
+
+char* deblank(char* input)
+{
+    int i,j;
+    char *output=input;
+    for (i = 0, j = 0; i<strlen(input); i++,j++)
+    {
+        if (input[i]!=' ')
+            output[j]=input[i];
+        else
+            j--;
+    }
+    output[j]=0;
+    return output;
+}
