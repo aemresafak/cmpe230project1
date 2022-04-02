@@ -62,7 +62,7 @@ int parsePrintIdStatement(char *line) {
     char *identifier = getNodeData(head, 2);
     if (isVariableScalar(identifier)) {
         struct Scalar *scalar = findScalarById(identifier);
-        printf("printf(\"%%f\", %s)", scalar->id);
+        printf("printf(\"%%f\", %s);", scalar->id);
         printf("\n");
         return 1;
     }

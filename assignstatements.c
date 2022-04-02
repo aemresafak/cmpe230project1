@@ -23,10 +23,10 @@ int isVectorAssignment(char *line) {
         appendToLinkedList(head, temp);
     }
     char *identifier = getNodeData(head, 0);
-    char *token = getNodeData(head, 1);
     if (getLinkedListSize(head) <= 2) {
         return 0;
     }
+    char *token = getNodeData(head, 1);
     if (isVariableVector(identifier) == 1 && strcmp(token, "=") == 0)
         return 1;
     else

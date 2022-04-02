@@ -43,14 +43,14 @@ int isCommentLine(const char *str);
  * @param sizeOfWith size of with
  * @return 1 if source starts with with else 0
  */
-int startsWith(const char *source, const char *with, int sizeOfWith);
+int startsWith(char *source, char *with, int sizeOfWith);
 
 /**
  * Check if the line is a scalar definition
  * @param string line to check
  * @return 1 if scalar definition 0 otherwise
  */
-int isScalarDefinition(const char *string);
+int isScalarDefinition(char *string);
 
 /**
  * Check if a line is a matrix definition

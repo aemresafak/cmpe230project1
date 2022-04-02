@@ -68,7 +68,9 @@ int isCommentLine(const char *str) {
         return 0;
 }
 
-int startsWith(const char *source, const char *with, int sizeOfWith) {
+int startsWith(char *source, char *with, int sizeOfWith) {
+    if (getSizeOfString(source) < getSizeOfString(with))
+        return 0;
     int starts = 1;
     for (int i = 0; i < sizeOfWith; i++) {
         if (source[i] != with[i]) {
@@ -79,7 +81,7 @@ int startsWith(const char *source, const char *with, int sizeOfWith) {
     return starts;
 }
 
-int isScalarDefinition(const char *string) {
+int isScalarDefinition(char *string) {
     if (startsWith(string, "scalar ", 7)) {
         return 1;
     } else
