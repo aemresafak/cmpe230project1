@@ -33,4 +33,11 @@ int parseMatrixAssignment(char* line);
  */
 int parseVectorAssignment(char* line);
 
+/**
+ *
+ * @param line
+ * @return 1 if scalar assignment 0 otherwise
+ */
+int isScalarAssignment(char* line);
+
 #endif //MATLANGPROJECT_ASSIGNSTATEMENTS_H

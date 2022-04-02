@@ -31,6 +31,28 @@ int isVectorAssignment(char *line) {
         return 0;
 }
 
+int isScalarAssignment(char* line) {
+    char copiedLine[1024];
+    strcpy(copiedLine, line);
+    char *temp = strtok(copiedLine, " \n");
+    struct Node *head = createNode(temp);
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
+    }
+
+    if (getLinkedListSize(head) <= 2)
+        return 0;
+    char* identifier = getNodeData(head,0);
+    char* token = getNodeData(head,1);
+    if (isVariableScalar(identifier) && strcmp(token,"=") == 0) {
+        return 1;
+    } else
+        return 0;
+
+
+}
+
 int isMatrixAssignment(char *line) {
     char copiedLine[256];
     strcpy(copiedLine, line);
@@ -149,3 +171,4 @@ int parseVectorAssignment(char *line) {
 
     return 1;
 }
+
