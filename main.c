@@ -69,11 +69,13 @@ int main(int argc, char *argv[]) {
             }
         } else if (isPrintIdStatement(spacedLine)) {
             if (parsePrintIdStatement(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
                 return -1;
             }
         } else if (isScalarAssignment(spacedLine)) {
-            parseScalarAssignment(spacedLine);
+            if (parseScalarAssignment(spacedLine)== ERROR) {
+                printf("Error (Line %d)\n", lineCount);
+                return -1;
+            }
         } else if (isIndexedVectorAssignment(spacedLine)) {
             parseIndexedVectorAssignment(spacedLine);
         }
