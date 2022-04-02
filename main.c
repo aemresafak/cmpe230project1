@@ -120,7 +120,7 @@ int parseLine(char *line) {
             return 0;
         }
     } else if (isSingleForLoop(spacedLine)) {
-        if (parseSingleForLoop(spacedLine) == ERROR) {
+        if (parseSingleForLoop(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
@@ -135,7 +135,7 @@ int parseLine(char *line) {
         hasPendingRightBracket--;
         canPutRightBracket--;
     } else if (isDoubleForLoop(spacedLine)) {
-        if (parseDoubleForLoop(spacedLine) == ERROR) {
+        if (parseDoubleForLoop(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }

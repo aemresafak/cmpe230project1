@@ -57,7 +57,7 @@ int isDoubleForLoop(char *line) {
     return 1;
 }
 
-int parseSingleForLoop(char *line) {
+int parseSingleForLoop(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -140,13 +140,13 @@ int parseSingleForLoop(char *line) {
     if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "{") != 0)
         return 0;
 
-    printf("for ( %s = %s ; %s <= %s; %s += %s) {\n", identifier, expr1Parsed,
-           identifier, expr2Parsed, identifier, expr3Parsed);
+    fprintf(file, "for ( %s = %s ; %s <= %s; %s += %s) {\n", identifier, expr1Parsed,
+            identifier, expr2Parsed, identifier, expr3Parsed);
 
     return 1;
 }
 
-int parseDoubleForLoop(char *line) {
+int parseDoubleForLoop(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -291,8 +291,9 @@ int parseDoubleForLoop(char *line) {
         return 0;
     char *code = "for (%s = %s; %s < %s; %s += %s) {\n"
                  "for (%s = %s; %s < %s; %s += %s {\n";
-    printf(code, identifier1, expr1, identifier1, expr2, identifier1, expr3, identifier2, expr4, identifier2, expr5,
-           identifier2, expr6);
+    fprintf(file, code, identifier1, expr1, identifier1, expr2, identifier1, expr3, identifier2, expr4, identifier2,
+            expr5,
+            identifier2, expr6);
     return 1;
 }
 
