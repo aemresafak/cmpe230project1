@@ -49,7 +49,7 @@ double **subtractVectorFromMatrix(double *vec1 , double **mat1);
 double **subtractMatrixFromVector(double *vec1 , double **mat1);
 
 
-char* expressionParsing(char* infix_exp , char* result);
+int* expressionParsing(char* infix_exp , struct node_for_dll** result);
 /*
  * In case of an error , it returns 0
  * If there is no error , it returns 1 and updates result array to correct expression

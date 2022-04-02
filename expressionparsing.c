@@ -404,7 +404,7 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1)
 }
 
 
-int expressionParsing(char* infix_exp , char* result)
+int expressionParsing(char* infix_exp , struct node_for_dll** result)
 {
     struct node_for_dll* head = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
 
@@ -417,6 +417,33 @@ int expressionParsing(char* infix_exp , char* result)
     infixToPostfix(infix_exp , &head);
 
     struct node_for_dll* node = head;
+
+    if(node->next->next == NULL)
+    {
+        struct node_for_dll* temp = node->next;
+
+        if(isNumber(temp->data) || isVariableScalar(temp->data))
+        {
+            temp->is_scalar = 1;
+        }
+        else if(isVariableVector(temp->data))
+        {
+            temp->is_vector = 1;
+            temp->size = findVectorById(temp->data)->size;
+        }
+        else if(isVariableMatrix(temp->data))
+        {
+            temp->is_matrix = 1;
+            temp->row_size = findMatrixById(temp->data)->rowSize;
+            temp->column_size = findMatrixById(temp->data)->columnSize;
+        }
+        else
+        {
+            return 0;
+        }
+
+        return 1;
+    }
 
 
     while(node != NULL)
@@ -1539,7 +1566,8 @@ int expressionParsing(char* infix_exp , char* result)
 
     }
 
-    strcpy( result , head->next->data);
+    *result = head->next;
+
     return 1;
 
 }
