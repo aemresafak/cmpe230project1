@@ -164,7 +164,7 @@ int parseIndexedMatrixAssignment(char* line) {
         index++;
     }
     struct node_for_dll *pNodeForDll2 = NULL;
-    char *deblankedExpr2 = deblank(expression);
+    char *deblankedExpr2 = deblank(rightExpression);
     char *indexResult2;
     if (expressionParsing(deblankedExpr2, &pNodeForDll2)) {
         if (pNodeForDll2->is_scalar != 1) {
