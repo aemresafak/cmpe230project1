@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include "stringutils.h"
+#include "datastructures.h"
 
 static int EMPTY_STRING = 1;
 static int NON_EMPTY_STRING = 0;
@@ -167,4 +168,23 @@ int isAlphaNumeric(char *str) {
     }
 
     return 1;
+}
+
+int isFloat(char* str) {
+    char* strCopy = strdup(str);
+    char* temp = strtok(strCopy,".");
+    struct Node *head = createNode(temp);
+    while (temp != NULL) {
+        temp = strtok(NULL, ".");
+        appendToLinkedList(head, temp);
+    }
+
+    if (getLinkedListSize(head) != 2)
+        return 0;
+    if (!containsOnlyNumbers(getNodeData(head, 0)))
+        return 0;
+    if (!containsOnlyNumbers(getNodeData(head,1)))
+        return 0;
+    return 1;
+
 }
