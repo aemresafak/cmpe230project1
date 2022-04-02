@@ -3,6 +3,8 @@
 #include "definitionstatements.h"
 #include "assignstatements.h"
 #include "printstatements.h"
+#include "expressionparsing.h"
+#include "infixtopostfix.h"
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
