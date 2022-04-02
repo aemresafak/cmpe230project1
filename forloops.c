@@ -42,6 +42,6 @@ int parseSingleForLoop(char* line) {
     char* expr1 = malloc(1024);
     char* expr2 = malloc(1024);
     char* expr3 = malloc(1024);
-    
+
 
 }
