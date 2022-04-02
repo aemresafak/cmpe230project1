@@ -420,7 +420,10 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
     if(node->next->next == NULL)
     {
-        struct node_for_dll* temp = node->next;
+        struct node_for_dll* temp = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+        initializeNode(&temp);
+
+        strcpy(temp->data,node->next->data);
 
         if(isNumber(temp->data) || isVariableScalar(temp->data))
         {
@@ -441,6 +444,8 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
         {
             return 0;
         }
+
+        *result = temp;
 
         return 1;
     }
