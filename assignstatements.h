@@ -24,14 +24,14 @@ int isMatrixAssignment(char* line);
  * @param line
  * @return 1 if successful 0 otherwise
  */
-int parseMatrixAssignment(char* line);
+int parseMatrixAssignment(char *line, FILE *file);
 
 /**
  *
  * @param line
  * @return 1 if successful 0 otherwise
  */
-int parseVectorAssignment(char* line);
+int parseVectorAssignment(char *line, FILE *file);
 
 /**
  *

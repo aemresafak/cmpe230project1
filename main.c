@@ -18,7 +18,7 @@ int parseLine(char *line);
 
 int main(int argc, char *argv[]) {
     FILE *fp;
-
+    FILE * out = fopen("file.c","w");
     char line[LINE_LIMIT];
     /** Open file for reading Filename is given on the command line */
     if (argc != 2) {
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
             return -1;
         }
     }
-
+    fprintf(out, "ahmet emre");
     fclose(fp);
     return (0);
 }
@@ -80,13 +80,13 @@ int parseLine(char *line) {
         }
     } else if (isVectorAssignment(spacedLine)) {
 
-        if (parseVectorAssignment(spacedLine) == ERROR) {
+        if (parseVectorAssignment(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isMatrixAssignment(spacedLine)) {
 
-        if (parseMatrixAssignment(spacedLine) == ERROR) {
+        if (parseMatrixAssignment(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }

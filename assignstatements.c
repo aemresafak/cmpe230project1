@@ -75,7 +75,7 @@ int isMatrixAssignment(char *line) {
     }
 }
 
-int parseMatrixAssignment(char *line) {
+int parseMatrixAssignment(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -120,7 +120,7 @@ int parseMatrixAssignment(char *line) {
     for (int i = 0; i < matrix->rowSize; i++) {
         for (int j = 0; j < matrix->columnSize; j++) {
             double value = strtod(getNodeData(head, index), NULL);
-            printf("%s[%d][%d] = %f;\n", matrix->id, i, j, value);
+            fprintf(file,"%s[%d][%d] = %f;\n", matrix->id, i, j, value);
             index++;
         }
     }
@@ -157,7 +157,7 @@ int parseScalarAssignment(char *line) {
 
 }
 
-int parseVectorAssignment(char *line) {
+int parseVectorAssignment(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -192,7 +192,7 @@ int parseVectorAssignment(char *line) {
     int valueIndex = 3;
     for (int i = 0; i < vector->size; i++) {
         double value = strtod(getNodeData(head, valueIndex), NULL);
-        printf("%s[%d] = %f;\n", identifier, i, value);
+        fprintf(file,"%s[%d] = %f;\n", identifier, i, value);
         valueIndex++;
     }
 
