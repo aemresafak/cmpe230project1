@@ -179,6 +179,9 @@ int isFloat(char* str) {
         appendToLinkedList(head, temp);
     }
 
+    if (getLinkedListSize(head) == 1 && containsOnlyNumbers(getNodeData(head,0))) {
+        return 1;
+    }
     if (getLinkedListSize(head) != 2)
         return 0;
     if (!containsOnlyNumbers(getNodeData(head, 0)))

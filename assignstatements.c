@@ -129,7 +129,7 @@ int parseVectorAssignment(char *line) {
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
-        if (!containsOnlyNumbers(getNodeData(head, i))) {
+        if (!isFloat(getNodeData(head, i))) {
             printf("ELEMENT NOT NUMBER!\n");
             return 0;
         }
