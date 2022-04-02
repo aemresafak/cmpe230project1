@@ -82,7 +82,7 @@ int parseMatrixAssignment(char *line) {
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
-        if (!containsOnlyNumbers(getNodeData(head, i))) {
+        if (!isFloat(getNodeData(head, i))) {
             printf("ELEMENT NOT NUMBER\n");
             return 0;
         }
@@ -97,8 +97,8 @@ int parseMatrixAssignment(char *line) {
     int index = 3;
     for (int i = 0; i < matrix->rowSize; i++) {
         for (int j = 0; j < matrix->columnSize; j++) {
-            int value = strtol(getNodeData(head, index), NULL, 10);
-            printf("%s[%d][%d] = %d;\n", matrix->id, i, j, value);
+            double value = strtod(getNodeData(head, index), NULL);
+            printf("%s[%d][%d] = %f;\n", matrix->id, i, j, value);
             index++;
         }
     }
@@ -129,7 +129,7 @@ int parseVectorAssignment(char *line) {
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
-        if (!containsOnlyNumbers(getNodeData(head, i))) {
+        if (!isFloat(getNodeData(head, i))) {
             printf("ELEMENT NOT NUMBER!\n");
             return 0;
         }
@@ -141,8 +141,8 @@ int parseVectorAssignment(char *line) {
     }
     int valueIndex = 3;
     for (int i = 0; i < vector->size; i++) {
-        int value = strtol(getNodeData(head, valueIndex), NULL, 10);
-        printf("%s[%d] = %d;\n", identifier, i, value);
+        double value = strtod(getNodeData(head, valueIndex), NULL);
+        printf("%s[%d] = %f;\n", identifier, i, value);
         valueIndex++;
     }
 

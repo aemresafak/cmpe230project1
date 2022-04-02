@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
         printf("Cannot open %s\n", argv[1]);
         return (1);
     }
-
     int lineCount = 0;
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
         if (isEmptyString(line, LINE_LIMIT)) {

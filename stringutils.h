@@ -109,4 +109,10 @@ char* getSpacedVersionOf(char* orig);
  * @return
  */
 int isAlphaNumeric(char* str);
+
+/**
+ * check if a string is floating point number
+ * return 1 IF it is float 0 otherwise
+ */
+ int isFloat(char* str);
 #endif //MATLANGPROJECT_STRINGUTILS_H
