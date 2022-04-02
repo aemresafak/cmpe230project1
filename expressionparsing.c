@@ -61,9 +61,24 @@ int isNumber(char* arr) {
     return 1;
 }
 
-double *transposeVector(double *vec)
+double **transposeVector(double *vec)
 {
-    return NULL;
+    int i = 0 , j = 0;
+
+    int row = 1;
+    int column = sizeof vec / sizeof vec[0];
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+
+    for (j = 0; j < column; j++) {
+        new_mat[0][j] = vec[j];
+    }
+
+
+    return new_mat;
 }
 
 double **transposeMatrix(double **mat)
@@ -118,6 +133,21 @@ double *subtractScalarFromVector(double sca , double *vec)
     return new_vec;
 }
 
+double *subtractVectorFromScalar(double sca , double *vec)
+{
+    int i = 0;
+    int size = sizeof vec / sizeof vec[0];
+
+    double *new_vec = (double*) malloc(size * sizeof(double));
+
+    for(i = 0 ; i < size ; i++)
+    {
+        new_vec[i] = sca - vec[i];
+    }
+
+    return new_vec;
+}
+
 double *multiplyScalarWithVector(double sca , double *vec)
 {
     int i = 0;
@@ -166,6 +196,24 @@ double **subtractScalarFromMatrix(double sca , double **mat)
     for (i = 0; i < row; i++)
         for (j = 0; j < column; j++)
             new_mat[i][j] = mat[i][j] - sca;
+
+    return new_mat;
+}
+
+double **subtractMatrixFromScalar(double sca , double **mat)
+{
+    int i = 0 , j = 0;
+
+    int row = sizeof(mat) / sizeof(mat[0]);
+    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            new_mat[i][j] = sca - mat[i][j];
 
     return new_mat;
 }
@@ -301,7 +349,62 @@ double **matrixMultiplication(double **mat1 , double **mat2)
     return new_mat;
 }
 
-char* expressionParsing(char* infix_exp)
+double **addVectorToMatrix(double *vec1 , double **mat1)
+{
+    int i = 0 , j = 0;
+
+    int row = sizeof(mat1) / sizeof(mat1[0]);
+    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            new_mat[i][j] = mat1[i][j] + vec1[i];
+
+    return new_mat;
+}
+
+double **subtractVectorFromMatrix(double *vec1 , double **mat1)
+{
+    int i = 0 , j = 0;
+
+    int row = sizeof(mat1) / sizeof(mat1[0]);
+    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            new_mat[i][j] = mat1[i][j] - vec1[i];
+
+    return new_mat;
+}
+
+double **subtractMatrixFromVector(double *vec1 , double **mat1)
+{
+    int i = 0 , j = 0;
+
+    int row = sizeof(mat1) / sizeof(mat1[0]);
+    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            new_mat[i][j] = vec1[i] - mat1[i][j];
+
+    return new_mat;
+}
+
+
+int expressionParsing(char* infix_exp , char* result)
 {
     struct node_for_dll* head = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
 
@@ -324,6 +427,7 @@ char* expressionParsing(char* infix_exp)
             char temp_string[1024] = "";
 
             struct node_for_dll* new_node = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+            initializeNode(&new_node);
 
             if(isNumber(prev->data))
             {
@@ -345,19 +449,20 @@ char* expressionParsing(char* infix_exp)
                 strcat(temp_string , prev->data);
                 strcat(temp_string , ")");
 
-                new_node->is_vector = 1;
+                new_node->is_matrix = 1;
 
-                int size;
+                int column_size;
                 if(prev->is_vector == 1)
                 {
-                   size = prev->size;
+                    column_size = prev->size;
                 }
                 else
                 {
-                    size = findVectorById(prev->data)->size;
+                    column_size = findVectorById(prev->data)->size;
                 }
 
-                new_node->size = size;
+                new_node->row_size = 1;
+                new_node->column_size = column_size;
             }
             else if(isVariableMatrix(prev->data) || prev->is_matrix == 1)
             {
@@ -379,17 +484,16 @@ char* expressionParsing(char* infix_exp)
                     column_size = findMatrixById(prev->data)->columnSize;
                 }
 
-                new_node->row_size = row_size;
-                new_node->column_size = column_size;
+                new_node->row_size = column_size;
+                new_node->column_size = row_size;
             }
 
             else
             {
-                printf("ERROR\n");
-
-                return "";
+                return 0;
             }
 
+            strcpy(new_node->data , temp_string);
 
             prev->prev->next = new_node;
             new_node->prev = prev->prev;
@@ -397,12 +501,16 @@ char* expressionParsing(char* infix_exp)
 
             node = node->next;
             new_node->next = node;
-            node->prev = new_node;
+
+            if(node != NULL)
+            {
+                node->prev = new_node;
+            }
 
 
         }
         else if(strlen(node->data) == 4 && node->data[0] == 's' && node->data[1] == 'q' &&
-                node->data[2] == 'r' == node->data[3] == 't')
+                node->data[2] == 'r' && node->data[3] == 't')
         {
 
             struct node_for_dll* prev = node->prev;
@@ -410,6 +518,7 @@ char* expressionParsing(char* infix_exp)
             char temp_string[1024] = "";
 
             struct node_for_dll* new_node = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+            initializeNode(&new_node);
 
             if(isNumber(prev->data) || isVariableScalar(prev->data) || prev->is_scalar == 1)
             {
@@ -419,12 +528,64 @@ char* expressionParsing(char* infix_exp)
 
                 new_node->is_scalar = 1;
             }
+            else if(isVariableVector(prev->data) || prev->is_vector)
+            {
+                int size;
+                if(prev->is_vector == 1)
+                {
+                    size = prev->size;
+                }
+                else
+                {
+                    size = findVectorById(prev->data)->size;
+                }
+
+                if(size == 1)
+                {
+                    strcat(temp_string , "sqrt(");
+                    strcat(temp_string , prev->data);
+                    strcat(temp_string , "[0])");
+
+                    new_node->is_scalar = 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else if(isVariableMatrix(prev->data) || prev->is_matrix)
+            {
+                int row_size , column_size;
+                if(prev->is_matrix == 1)
+                {
+                    row_size = prev->row_size;
+                    column_size = prev->column_size;
+                }
+                else
+                {
+                    row_size = findMatrixById(prev->data)->rowSize;
+                    column_size = findMatrixById(prev->data)->columnSize;
+                }
+
+                if(row_size == 1 && column_size == 1)
+                {
+                    strcat(temp_string , "sqrt(");
+                    strcat(temp_string , prev->data);
+                    strcat(temp_string , "[0][0])");
+
+                    new_node->is_scalar = 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
             else
             {
-                printf("ERROR\n");
-
-                return "";
+                return 0;
             }
+
+            strcpy(new_node->data , temp_string);
 
             prev->prev->next = new_node;
             new_node->prev = prev->prev;
@@ -432,7 +593,11 @@ char* expressionParsing(char* infix_exp)
 
             node = node->next;
             new_node->next = node;
-            node->prev = new_node;
+
+            if(node != NULL)
+            {
+                node->prev = new_node;
+            }
 
         }
 
@@ -444,6 +609,7 @@ char* expressionParsing(char* infix_exp)
             char temp_string[1024] = "";
 
             struct node_for_dll* new_node = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+            initializeNode(&new_node);
 
             if(node->data[0] == '+')
             {
@@ -538,7 +704,7 @@ char* expressionParsing(char* infix_exp)
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
-                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_matrix))
+                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
 
                     strcat(temp_string , "addScalarToMatrix(");
@@ -590,9 +756,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(size1 != size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     strcat(temp_string , "vectorAddition(");
@@ -610,10 +774,89 @@ char* expressionParsing(char* infix_exp)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
+                    strcat(temp_string , "addVectorToMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    int row_size , column_size;
+                    if(first->is_matrix == 1)
+                    {
+                        row_size = first->row_size;
+                        column_size = first->column_size;
+                    }
+                    else
+                    {
+                        row_size = findMatrixById(first->data)->rowSize;
+                        column_size = findMatrixById(first->data)->columnSize;
+                    }
+
+                    int size2;
+                    if(second->is_vector == 1)
+                    {
+                        size2 = second->size;
+                    }
+                    else
+                    {
+                        size2 = findVectorById(second->data)->size;
+                    }
+
+
+                    if(row_size != size2)
+                    {
+                        return 0;
+                    }
+
+
+                    new_node->row_size = row_size;
+                    new_node->column_size = column_size;
+
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
+
+                    strcat(temp_string , "addVectorToMatrix(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    int row_size , column_size;
+                    if(second->is_matrix == 1)
+                    {
+                        row_size = second->row_size;
+                        column_size = second->column_size;
+                    }
+                    else
+                    {
+                        row_size = findMatrixById(second->data)->rowSize;
+                        column_size = findMatrixById(second->data)->columnSize;
+                    }
+
+                    int size1;
+                    if(first->is_vector == 1)
+                    {
+                        size1 = first->size;
+                    }
+                    else
+                    {
+                        size1 = findVectorById(first->data)->size;
+                    }
+
+                    if(row_size != size1)
+                    {
+                        return 0;
+                    }
+
+
+                    new_node->row_size = row_size;
+                    new_node->column_size = column_size;
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
@@ -645,9 +888,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(row_size1 != row_size2 || column_size1 != column_size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     else
@@ -666,12 +907,10 @@ char* expressionParsing(char* infix_exp)
                 }
                 else
                 {
-                    printf("ERROR\n");
-
-                    return "";
+                    return 0;
                 }
             }
-            else if(node->data == '-')
+            else if(node->data[0] == '-')
             {
                 if((isNumber(first->data) || isVariableScalar(first->data) || first->is_scalar) &&
                    (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
@@ -689,7 +928,7 @@ char* expressionParsing(char* infix_exp)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
-                    strcat(temp_string , "subtractScalarFromVector(");
+                    strcat(temp_string , "subtractVectorFromScalar(");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
@@ -739,8 +978,7 @@ char* expressionParsing(char* infix_exp)
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
 
-                    strcat(temp_string , "subtractScalarFromMatrix(");
-                    strcat(temp_string , first->data);
+                    strcat(temp_string , "subtractMatrixFromScalar(");
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ")");
@@ -764,7 +1002,7 @@ char* expressionParsing(char* infix_exp)
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
-                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_matrix))
+                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
 
                     strcat(temp_string , "subtractScalarFromMatrix(");
@@ -816,9 +1054,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(size1 != size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     strcat(temp_string , "vectorSubtraction(");
@@ -835,11 +1071,90 @@ char* expressionParsing(char* infix_exp)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isVariableVector(second->data) || second->is_vector))
                 {
+                    strcat(temp_string , "subtractVectorFromMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    int row_size , column_size;
+                    if(first->is_matrix == 1)
+                    {
+                        row_size = first->row_size;
+                        column_size = first->column_size;
+                    }
+                    else
+                    {
+                        row_size = findMatrixById(first->data)->rowSize;
+                        column_size = findMatrixById(first->data)->columnSize;
+                    }
+
+                    int size2;
+                    if(second->is_vector == 1)
+                    {
+                        size2 = second->size;
+                    }
+                    else
+                    {
+                        size2 = findVectorById(second->data)->size;
+                    }
+
+
+                    if(row_size != size2)
+                    {
+                        return 0;
+                    }
+
+
+                    new_node->row_size = row_size;
+                    new_node->column_size = column_size;
 
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
+
+                    strcat(temp_string , "subtractMatrixFromVector(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    int row_size , column_size;
+                    if(second->is_matrix == 1)
+                    {
+                        row_size = second->row_size;
+                        column_size = second->column_size;
+                    }
+                    else
+                    {
+                        row_size = findMatrixById(second->data)->rowSize;
+                        column_size = findMatrixById(second->data)->columnSize;
+                    }
+
+                    int size1;
+                    if(first->is_vector == 1)
+                    {
+                        size1 = first->size;
+                    }
+                    else
+                    {
+                        size1 = findVectorById(first->data)->size;
+                    }
+
+                    if(row_size != size1)
+                    {
+                        return 0;
+                    }
+
+
+                    new_node->row_size = row_size;
+                    new_node->column_size = column_size;
+
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
@@ -871,9 +1186,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(row_size1 != row_size2 || column_size1 != column_size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     else
@@ -892,9 +1205,7 @@ char* expressionParsing(char* infix_exp)
                 }
                 else
                 {
-                    printf("ERROR\n");
-
-                    return "";
+                    return 0;
                 }
             }
             else
@@ -991,7 +1302,7 @@ char* expressionParsing(char* infix_exp)
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
-                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_matrix))
+                        (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
 
                     strcat(temp_string , "multiplyScalarWithMatrix(");
@@ -1043,9 +1354,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(size1 != size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     strcat(temp_string , "vectorMultiplication(");
@@ -1062,11 +1371,97 @@ char* expressionParsing(char* infix_exp)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isVariableVector(second->data) || second->is_vector))
                 {
+                    int row_size1 , column_size1;
+                    if(first->is_matrix == 1)
+                    {
+                        row_size1 = first->row_size;
+                        column_size1 = first->column_size;
+                    }
+                    else
+                    {
+                        row_size1 = findMatrixById(first->data)->rowSize;
+                        column_size1 = findMatrixById(first->data)->columnSize;
+                    }
+
+                    int size2;
+                    if(second->is_vector == 1)
+                    {
+                        size2 = second->size;
+                    }
+                    else
+                    {
+                        size2 = findVectorById(second->data)->size;
+                    }
+
+                    if(column_size1 != size2)
+                    {
+                        return 0;
+                    }
+
+
+                    char str[1024] = "transposeMatrix(transposeVector(";
+                    strcat(str , second->data);
+                    strcat(str , "))");
+
+                    strcat(temp_string , "matrixMultiplication(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , str);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    new_node->row_size = row_size1;
+                    new_node->column_size = 1;
+
+
 
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
+                    int row_size2 , column_size2;
+                    if(second->is_matrix == 1)
+                    {
+                        row_size2 = second->row_size;
+                        column_size2 = second->column_size;
+                    }
+                    else
+                    {
+                        row_size2 = findMatrixById(second->data)->rowSize;
+                        column_size2 = findMatrixById(second->data)->columnSize;
+                    }
+
+                    int size1;
+                    if(first->is_vector == 1)
+                    {
+                        size1 = first->size;
+                    }
+                    else
+                    {
+                        size1 = findVectorById(first->data)->size;
+                    }
+
+                    if(row_size2 != 1)
+                    {
+                        return 0;
+                    }
+
+                    char str[1024] = "transposeMatrix(transposeVector(";
+                    strcat(str , second->data);
+                    strcat(str , "))");
+
+                    strcat(temp_string , "matrixMultiplication(");
+                    strcat(temp_string , str);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ")");
+
+                    new_node->is_matrix = 1;
+
+                    new_node->row_size = size1;
+                    new_node->column_size = column_size2;
+
 
                 }
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
@@ -1098,9 +1493,7 @@ char* expressionParsing(char* infix_exp)
 
                     if(column_size1 != row_size2)
                     {
-                        printf("ERROR\n");
-
-                        return "";
+                        return 0;
                     }
 
                     else
@@ -1114,18 +1507,17 @@ char* expressionParsing(char* infix_exp)
                         new_node->is_matrix = 1;
 
                         new_node->row_size = row_size1;
-                        new_node->column_size = row_size2;
+                        new_node->column_size = column_size2;
                     }
                 }
                 else
                 {
-                    printf("ERROR\n");
-
-                    return "";
+                    return 0;
                 }
 
             }
 
+            strcpy(new_node->data , temp_string);
 
             first->prev->next = new_node;
             new_node->prev = first->prev;
@@ -1133,7 +1525,11 @@ char* expressionParsing(char* infix_exp)
 
             node = node->next;
             new_node->next = node;
-            node->prev = new_node;
+
+            if(node != NULL)
+            {
+                node->prev = new_node;
+            }
         }
 
         else
@@ -1143,6 +1539,7 @@ char* expressionParsing(char* infix_exp)
 
     }
 
-    return head->next->data;
+    strcpy( result , head->next->data);
+    return 1;
 
 }

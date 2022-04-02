@@ -39,6 +39,8 @@ int Prec(char ch);
 
 int isOperator(char ch);
 
+void initializeNode(struct node_for_dll** node_ref);
+
 void append(struct node_for_dll** head_ref, char* new_data);
 
 int infixToPostfix(char* exp , struct node_for_dll** head_ref);
