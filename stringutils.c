@@ -206,3 +206,12 @@ char* deblank(char* input)
     output[j]=0;
     return output;
 }
+
+int canCastToInt(double num) {
+    int casted = (int) num;
+    double precision = 0.000000001;
+    if (num - casted < precision || casted+1-num < precision) {
+        return 1;
+    } else
+        return 0;
+}

@@ -5,6 +5,7 @@
 #include "printstatements.h"
 #include "expressionparsing.h"
 #include "infixtopostfix.h"
+#include "indexedassignments.h"
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
@@ -73,6 +74,8 @@ int main(int argc, char *argv[]) {
             }
         } else if (isScalarAssignment(spacedLine)) {
             parseScalarAssignment(spacedLine);
+        } else if (isIndexedVectorAssignment(spacedLine)) {
+            parseIndexedVectorAssignment(spacedLine);
         }
 
         lineCount++;

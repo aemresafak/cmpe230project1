@@ -117,6 +117,11 @@ int isAlphaNumeric(char* str);
  int isFloat(char* str);
 
 char* deblank(char* input);
-
+/**
+ * Return 1 if number can be casted to int with very little loss
+ * @param num
+ * @return
+ */
+int canCastToInt(double num);
 
 #endif //MATLANGPROJECT_STRINGUTILS_H

@@ -139,11 +139,11 @@ int parseScalarAssignment(char *line) {
     }
     char *identifier = getNodeData(head, 0);
     struct node_for_dll *nodeForDll = NULL;
-    char *expression;
-    int index = 0;
+    char expression[1024];
     for (int i = 2; i < getLinkedListSize(head); i++) {
         strcat(expression, getNodeData(head, i));
     }
+
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->is_scalar == 1) {

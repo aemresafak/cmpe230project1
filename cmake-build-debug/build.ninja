@@ -121,6 +121,14 @@ build CMakeFiles/MatlangProject.dir/expressionparsing.c.obj: C_COMPILER__Matlang
   TARGET_COMPILE_PDB = CMakeFiles\MatlangProject.dir\
   TARGET_PDB = MatlangProject.pdb
 
+build CMakeFiles/MatlangProject.dir/indexedassignments.c.obj: C_COMPILER__MatlangProject_Debug C$:/Users/aesh/CLionProjects/MatlangProject/indexedassignments.c || cmake_object_order_depends_target_MatlangProject
+  DEP_FILE = CMakeFiles\MatlangProject.dir\indexedassignments.c.obj.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles\MatlangProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\MatlangProject.dir
+  TARGET_COMPILE_PDB = CMakeFiles\MatlangProject.dir\
+  TARGET_PDB = MatlangProject.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MatlangProject
@@ -129,7 +137,7 @@ build CMakeFiles/MatlangProject.dir/expressionparsing.c.obj: C_COMPILER__Matlang
 #############################################
 # Link the executable MatlangProject.exe
 
-build MatlangProject.exe: C_EXECUTABLE_LINKER__MatlangProject_Debug CMakeFiles/MatlangProject.dir/main.c.obj CMakeFiles/MatlangProject.dir/stringutils.c.obj CMakeFiles/MatlangProject.dir/definitionstatements.c.obj CMakeFiles/MatlangProject.dir/structs.c.obj CMakeFiles/MatlangProject.dir/assignstatements.c.obj CMakeFiles/MatlangProject.dir/datastructures.c.obj CMakeFiles/MatlangProject.dir/printstatements.c.obj CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj CMakeFiles/MatlangProject.dir/expressionparsing.c.obj
+build MatlangProject.exe: C_EXECUTABLE_LINKER__MatlangProject_Debug CMakeFiles/MatlangProject.dir/main.c.obj CMakeFiles/MatlangProject.dir/stringutils.c.obj CMakeFiles/MatlangProject.dir/definitionstatements.c.obj CMakeFiles/MatlangProject.dir/structs.c.obj CMakeFiles/MatlangProject.dir/assignstatements.c.obj CMakeFiles/MatlangProject.dir/datastructures.c.obj CMakeFiles/MatlangProject.dir/printstatements.c.obj CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj CMakeFiles/MatlangProject.dir/expressionparsing.c.obj CMakeFiles/MatlangProject.dir/indexedassignments.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\MatlangProject.dir
