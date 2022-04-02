@@ -87,7 +87,7 @@ int parseIndexedVectorAssignment(char *line) {
         result = pNodeForDll2->data;
     }
 
-    printf("%s[%s]=%s",identifier,indexResult, result);
+    printf("%s[%s-1]=%s",identifier,indexResult, result);
 
     return 1;
 }

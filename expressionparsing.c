@@ -9,6 +9,7 @@
 #include <ctype.h>
 #include "infixtopostfix.h"
 #include "structs.h"
+#include "stringutils.h"
 
 char* convertIntegerToChar(int N)
 {
@@ -46,6 +47,11 @@ char* convertIntegerToChar(int N)
 }
 
 int isNumber(char* arr) {
+
+    if(isFloat(arr) == 1)
+    {
+        return 1;
+    }
 
     int i;
     int len = strlen(arr);
