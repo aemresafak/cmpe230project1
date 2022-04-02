@@ -4,24 +4,32 @@
 
 #ifndef MATLANGPROJECT_FORLOOPS_H
 #define MATLANGPROJECT_FORLOOPS_H
+
 /**
  * Return 1 if line is a single dimensional -no nested- for loop 0 otherwise
  * @param line
  * @return
  */
-int isSingleForLoop(char* line);
+int isSingleForLoop(char *line);
 
 /**
  * return 1 if line is a double for loop 0 otherwise
  * @param line
  * @return
  */
-int isDoubleForLoop(char* line);
+int isDoubleForLoop(char *line);
 
 /**
  * return 1 if successfully parsed 0 otherwise
  * @param line
  * @return
  */
-int parseSingleForLoop(char* line);
+int parseSingleForLoop(char *line);
+
+/**
+ * return 1 if successfully parsed 0 otherwise
+ * @param line
+ * @return
+ */
+int parseDoubleForLoop(char *line);
 #endif //MATLANGPROJECT_FORLOOPS_H

@@ -30,15 +30,20 @@ int main(int argc, char *argv[]) {
         printf("Cannot open %s\n", argv[1]);
         return (1);
     }
+    int errorOccured = 0;
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
         if (parseLine(line) == ERROR) {
+            errorOccured = 1;
             break;
         }
     }
-    if (hasPendingRightBracket) {
-        printf("Error (Line %d)\n", lineCount);
-        return -1;
+    if (!errorOccured) {
+        if (hasPendingRightBracket) {
+            printf("Error (Line %d)\n", lineCount);
+            return -1;
+        }
     }
+
     fclose(fp);
     return (0);
 }
@@ -92,8 +97,8 @@ int parseLine(char *line) {
             return 0;
         }
     } else if (isPrintIdStatement(spacedLine)) {
-
         if (parsePrintIdStatement(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isScalarAssignment(spacedLine)) {
@@ -119,18 +124,26 @@ int parseLine(char *line) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
-        hasPendingRightBracket = 1;
-        canPutRightBracket = 1;
+        hasPendingRightBracket++;
+        canPutRightBracket++;
     } else if (strcmp(strippedLine, "}") == 0) {
         if (canPutRightBracket != 1) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
         printf("}\n");
-        hasPendingRightBracket = 0;
-        canPutRightBracket = 0;
+        hasPendingRightBracket--;
+        canPutRightBracket--;
     } else if (isDoubleForLoop(spacedLine)) {
-        printf("doubly for loop!\n");
+        if (parseDoubleForLoop(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+        hasPendingRightBracket++;
+        canPutRightBracket++;
+    } else {
+        printf("Error (Line %d)\n", lineCount);
+        return 0;
     }
     lineCount++;
     return 1;
