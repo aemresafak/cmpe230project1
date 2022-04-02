@@ -10,35 +10,53 @@
  * @param line
  * @return 1 if vector assignment 0 otherwise
  */
-int isVectorAssignment(char* line);
+int isUsualVectorAssignment(char *line);
+
+/**
+ * return 1 if vector assignment with expression
+ * @param line
+ * @return
+ */
+int isVectorAssignmentWithExpression(char *line);
+
+int isMatrixAssignmentWithExpression(char *line);
+
+int parseMatrixAssignmentWithExpression(char *line, FILE *out);
+
+/**
+ * return 1 if successfully parsed 0 otherwise
+ * @param line
+ * @return
+ */
+int parseVectorAssignmentWithExpression(char *line, FILE *file);
 
 /**
  *
  * @param line
  * @return 1 if matrix assignment 0 otherwise.
  */
-int isMatrixAssignment(char* line);
+int isUsualMatrixAssignment(char *line);
 
 /**
  * Parse the matrix assignment
  * @param line
  * @return 1 if successful 0 otherwise
  */
-int parseMatrixAssignment(char *line, FILE *file);
+int parseUsualMatrixAssignment(char *line, FILE *file);
 
 /**
  *
  * @param line
  * @return 1 if successful 0 otherwise
  */
-int parseVectorAssignment(char *line, FILE *file);
+int parseUsualVectorAssignment(char *line, FILE *file);
 
 /**
  *
  * @param line
  * @return 1 if scalar assignment 0 otherwise
  */
-int isScalarAssignment(char* line);
+int isScalarAssignment(char *line);
 
 /**
  * return 1 if successfull 0 otherwise

@@ -49,9 +49,8 @@ int main(int argc, char *argv[]) {
         if (hasPendingRightBracket) {
             printf("Error (Line %d)\n", lineCount);
             return -1;
-        } else
-        {
-            fprintf(out,"return 0;\n\n}");
+        } else {
+            fprintf(out, "return 0;\n\n}");
         }
     }
     fclose(fp);
@@ -89,15 +88,25 @@ int parseLine(char *line, FILE *outFile) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
-    } else if (isVectorAssignment(spacedLine)) {
+    } else if (isUsualVectorAssignment(spacedLine)) {
 
-        if (parseVectorAssignment(spacedLine, outFile) == ERROR) {
+        if (parseUsualVectorAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
-    } else if (isMatrixAssignment(spacedLine)) {
+    } else if (isUsualMatrixAssignment(spacedLine)) {
 
-        if (parseMatrixAssignment(spacedLine, outFile) == ERROR) {
+        if (parseUsualMatrixAssignment(spacedLine, outFile) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isMatrixAssignmentWithExpression(spacedLine)) {
+        if (parseMatrixAssignmentWithExpression(line, outFile) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isVectorAssignmentWithExpression(spacedLine)) {
+        if (parseVectorAssignmentWithExpression(line, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
@@ -143,11 +152,11 @@ int parseLine(char *line, FILE *outFile) {
             return 0;
         }
         if (isDoubleFor == 1) {
-            fprintf(outFile,"}\n");
-            fprintf(outFile,"}\n");
+            fprintf(outFile, "}\n");
+            fprintf(outFile, "}\n");
             isDoubleFor = 0;
         } else
-            fprintf(outFile,"}\n");
+            fprintf(outFile, "}\n");
         hasPendingRightBracket--;
         canPutRightBracket--;
     } else if (isDoubleForLoop(spacedLine)) {
@@ -167,7 +176,7 @@ int parseLine(char *line, FILE *outFile) {
 }
 
 void defineFunctions(FILE *out) {
-    fprintf(out,"#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n\n");
+    fprintf(out, "#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n\n");
     char *_choose = "int choose(int a , int b , int c , int d)\n"
                     "{\n"
                     "    if(a == 0)\n"

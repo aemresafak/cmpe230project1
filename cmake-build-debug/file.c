@@ -390,42 +390,44 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1)
 
     return new_mat;
 }int main() {
-double A[4][4];
-for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
+double A[3][3];
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
         A[i][j] = 0;
     }
 }
-double x[4];
-for (int i = 0; i < 4; i++) {
+double x[3];
+for (int i = 0; i < 3; i++) {
 x[i] = 0;
 }
-double xy2[4];
-for (int i = 0; i < 4; i++) {
-xy2[i] = 0;
+double y[3];
+for (int i = 0; i < 3; i++) {
+y[i] = 0;
 }
-double s = 0;
-A[0][0] = 0.000000;
-A[0][1] = 1.000000;
-A[0][2] = 2.000000;
-A[0][3] = 3.000000;
-A[1][0] = 4.000000;
-A[1][1] = 5.000000;
-A[1][2] = 6.000000;
-A[1][3] = 7.000000;
-A[2][0] = 8.000000;
-A[2][1] = 9.000000;
-A[2][2] = 1.000000;
-A[2][3] = 1.000000;
-A[3][0] = 1.000000;
-A[3][1] = 2.000000;
-A[3][2] = 3.000000;
-A[3][3] = 4.000000;
+double r = 0;
+double i = 0;
+A[0][0] = 0.500000;
+A[0][1] = 0.000000;
+A[0][2] = 0.500000;
+A[1][0] = 0.000000;
+A[1][1] = 0.000000;
+A[1][2] = 0.500000;
+A[2][0] = 0.500000;
+A[2][1] = 1.000000;
+A[2][2] = 0.000000;
 x[0] = 1.000000;
 x[1] = 1.000000;
 x[2] = 1.000000;
-x[3] = 1.000000;
-xy2[0] = 2.000000;
-xy2[1] = 1.000000;
-xy2[2] = 3.000000;
-xy2[3] = 1.000000;
+for ( i = 1 ; i <= 10; i += 1) {
+y = matrixMultiplication(A,transposeMatrix(transposeVector(x)));
+r = sqrt(matrixMultiplication(transposeVector(vectorSubtraction(y,x)),transposeMatrix(transposeVector(vectorSubtraction(y,x))))[0][0]);
+printf("%f", r);
+x = y;
+}
+printf("----------\n");
+for (int i = 0; i < 3; i++) {
+	printf("%f\n",x[i]);
+}
+return 0;
+
+}
