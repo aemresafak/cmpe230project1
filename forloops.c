@@ -26,11 +26,35 @@ int isSingleForLoop(char *line) {
         return 0;
     if (isVariableScalar(getNodeData(head, 2)) != 1)
         return 0;
-    if (strcmp(getNodeData(head, 3), "in"))
+    if (strcmp(getNodeData(head, 3), "in") != 0)
         return 0;
 
     return 1;
 
+}
+
+int isDoubleForLoop(char *line) {
+    char copiedLine[1024];
+    strcpy(copiedLine, line);
+    char *temp = strtok(copiedLine, " \n");
+    struct Node *head = createNode(temp);
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
+    }
+    if (strcmp(getNodeData(head, 0), "for") != 0)
+        return 0;
+    if (strcmp(getNodeData(head, 1), "(") != 0)
+        return 0;
+    if (isVariableScalar(getNodeData(head, 2)) != 1)
+        return 0;
+    if (strcmp(getNodeData(head, 3), ",") != 0)
+        return 0;
+    if (isVariableScalar(getNodeData(head, 4)) != 1)
+        return 0;
+    if (strcmp(getNodeData(head, 5), "in") != 0)
+        return 0;
+    return 1;
 }
 
 int parseSingleForLoop(char *line) {
@@ -122,3 +146,4 @@ int parseSingleForLoop(char *line) {
     return 1;
 
 }
+

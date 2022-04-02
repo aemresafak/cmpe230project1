@@ -129,6 +129,8 @@ int parseLine(char *line) {
         printf("}\n");
         hasPendingRightBracket = 0;
         canPutRightBracket = 0;
+    } else if (isDoubleForLoop(spacedLine)) {
+        printf("doubly for loop!\n");
     }
     lineCount++;
     return 1;
