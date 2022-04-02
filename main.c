@@ -62,19 +62,19 @@ int parseLine(char *line) {
     char *spacedLine = getSpacedVersionOf(strippedLine);
 
     if (isScalarDefinition(spacedLine)) {
-        if (parseScalarDefinition(spacedLine) == ERROR) {
+        if (parseScalarDefinition(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isMatrixDefinition(spacedLine)) {
 
-        if (parseMatrixDefinition(spacedLine) == ERROR) {
+        if (parseMatrixDefinition(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isVectorDefinition(spacedLine)) {
 
-        if (parseVectorDefinition(spacedLine) == ERROR) {
+        if (parseVectorDefinition(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
