@@ -78,6 +78,8 @@ int main(int argc, char *argv[]) {
             }
         } else if (isIndexedVectorAssignment(spacedLine)) {
             parseIndexedVectorAssignment(spacedLine);
+        } else if (isIndexedMatrixAssignment(spacedLine)) {
+            printf("INDEXED MATRIX!!\n");
         }
 
         lineCount++;

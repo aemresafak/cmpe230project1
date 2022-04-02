@@ -19,4 +19,11 @@ int isIndexedVectorAssignment(char* line);
  * @return
  */
 int parseIndexedVectorAssignment(char* line);
+
+/**
+ * return 1 if is matrix assignment 0 otherwise
+ * @param line
+ * @return
+ */
+int isIndexedMatrixAssignment(char* line);
 #endif //MATLANGPROJECT_INDEXEDASSIGNMENTS_H

@@ -11,7 +11,41 @@
 #include "infixtopostfix.h"
 #include "expressionparsing.h"
 #include "stringutils.h"
-
+int isIndexedMatrixAssignment(char* line) {
+    char copiedLine[1024];
+    strcpy(copiedLine, line);
+    char *temp = strtok(copiedLine, " \n");
+    struct Node *head = createNode(temp);
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
+    }
+    if (getLinkedListSize(head) < 8)
+        return 0;
+    char *identifier = getNodeData(head, 0);
+    if (!isVariableMatrix(identifier))
+        return 0;
+    if (strcmp(getNodeData(head, 1), "[") != 0)
+        return 0;
+    int commaIndex = -1;
+    int rightBraceIndex = -1;
+    for (int i = 2; i < getLinkedListSize(head); i++) {
+        if (strcmp(getNodeData(head,i),",") == 0) {
+            commaIndex = i;
+        }
+        if (strcmp(getNodeData(head, i), "]") == 0) {
+            rightBraceIndex = i;
+            break;
+        }
+    }
+    if (commaIndex == -1 || rightBraceIndex == -1) {
+        return 0;
+    }
+    if (strcmp(getNodeData(head, rightBraceIndex + 1), "=") != 0) {
+        return 0;
+    }
+    return 1;
+}
 int isIndexedVectorAssignment(char *line) {
 
     char copiedLine[1024];
@@ -87,7 +121,7 @@ int parseIndexedVectorAssignment(char *line) {
         result = pNodeForDll2->data;
     }
 
-    printf("%s[%s-1]=%s",identifier,indexResult, result);
+    printf("%s[%s-1]=%s;\n",identifier,indexResult, result);
 
     return 1;
 }
