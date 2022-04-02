@@ -92,12 +92,12 @@ int parseLine(char *line) {
         }
     } else if (isPrintSepStatement(spacedLine)) {
 
-        if (parsePrintSepStatement(spacedLine) == ERROR) {
+        if (parsePrintSepStatement(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isPrintIdStatement(spacedLine)) {
-        if (parsePrintIdStatement(spacedLine) == ERROR) {
+        if (parsePrintIdStatement(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }

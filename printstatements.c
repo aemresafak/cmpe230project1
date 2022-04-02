@@ -52,7 +52,7 @@ int isPrintSepStatement(char *line) {
     return 1;
 }
 
-int parsePrintIdStatement(char *line) {
+int parsePrintIdStatement(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
     while (temp != NULL) {
@@ -62,27 +62,27 @@ int parsePrintIdStatement(char *line) {
     char *identifier = getNodeData(head, 2);
     if (isVariableScalar(identifier)) {
         struct Scalar *scalar = findScalarById(identifier);
-        printf("printf(\"%%f\", %s);", scalar->id);
-        printf("\n");
+        fprintf(file,"printf(\"%%f\", %s);", scalar->id);
+        fprintf(file,"\n");
         return 1;
     }
     if (isVariableVector(identifier)) {
         struct Vector *vector = findVectorById(identifier);
         char *code = "for (int i = 0; i < %d; i++) {\n\tprintf(\"%%f\\n\",%s[i]);\n}\n";
-        printf(code, vector->size, vector->id);
+        fprintf(file,code, vector->size, vector->id);
         return 1;
     }
     if (isVariableMatrix(identifier)) {
         struct Matrix *matrix = findMatrixById(identifier);
         char *code = "for (int i = 0; i < %d; i++) {\n\tfor (int j = 0; j < %d; j++) "
                      "{\n\t\tprintf(\"%%f\\n\", %s[i][j]);\n\t}\n}\n";
-        printf(code, matrix->rowSize, matrix->columnSize, matrix->id);
+        fprintf(file,code, matrix->rowSize, matrix->columnSize, matrix->id);
         return 1;
     }
     return 0;
 }
 
-int parsePrintSepStatement(char* line) {
-    printf("printf(\"----------\\n\");\n");
+int parsePrintSepStatement(char *line, FILE *file) {
+    fprintf(file,"printf(\"----------\\n\");\n");
     return 1;
 }

@@ -20,12 +20,12 @@ int isPrintSepStatement(char* line);
  * @param line
  * @return 1 if succesfull 0 otherwise
  */
-int parsePrintIdStatement(char* line);
+int parsePrintIdStatement(char *line, FILE *file);
 
 /**
  * parse print sep statement
  * @param line
  * @return 1 if successful 0 otherwise
  */
-int parsePrintSepStatement(char* line);
+int parsePrintSepStatement(char *line, FILE *file);
 #endif //MATLANGPROJECT_PRINTSTATEMENTS_H
