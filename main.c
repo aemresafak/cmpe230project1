@@ -109,13 +109,13 @@ int parseLine(char *line) {
         }
     } else if (isIndexedVectorAssignment(spacedLine)) {
 
-        if (parseIndexedVectorAssignment(spacedLine) == ERROR) {
+        if (parseIndexedVectorAssignment(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isIndexedMatrixAssignment(spacedLine)) {
 
-        if (parseIndexedMatrixAssignment(spacedLine) == ERROR) {
+        if (parseIndexedMatrixAssignment(spacedLine, NULL) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
