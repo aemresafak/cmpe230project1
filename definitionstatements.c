@@ -74,7 +74,7 @@ int parseVectorDefinition(char *line, FILE *file) {
     vector->size = size;
     appendToVectors(vector);
     fprintf(file,"double %s[%d];\n", identifier, size);
-    initializeSingleDimensionalArray(identifier, size, NULL);
+    initializeSingleDimensionalArray(identifier, size, file);
     return 1;
 }
 
@@ -137,7 +137,7 @@ int parseMatrixDefinition(char *line, FILE *file) {
     matrix->columnSize = columnSize;
     appendToMatrices(matrix);
     fprintf(file,"double %s[%d][%d];\n", identifier, rowSize, columnSize);
-    initializeMatrix(identifier, rowSize, columnSize, NULL);
+    initializeMatrix(identifier, rowSize, columnSize, file);
     return 1;
 }
 

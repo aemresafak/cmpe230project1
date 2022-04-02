@@ -129,7 +129,7 @@ int parseMatrixAssignment(char *line, FILE *file) {
     return 1;
 }
 
-int parseScalarAssignment(char *line) {
+int parseScalarAssignment(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
 
@@ -148,7 +148,7 @@ int parseScalarAssignment(char *line) {
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->is_scalar == 1) {
-            printf("%s = %s\n", identifier, nodeForDll->data);
+            fprintf(file,"%s = %s;\n", identifier, nodeForDll->data);
             return 1;
         }
     }

@@ -45,6 +45,6 @@ int isScalarAssignment(char* line);
  * @param line
  * @return
  */
-int parseScalarAssignment(char* line);
+int parseScalarAssignment(char *line, FILE *file);
 
 #endif //MATLANGPROJECT_ASSIGNSTATEMENTS_H

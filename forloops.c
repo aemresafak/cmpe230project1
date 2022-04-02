@@ -290,7 +290,7 @@ int parseDoubleForLoop(char *line, FILE *file) {
     if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "{") != 0)
         return 0;
     char *code = "for (%s = %s; %s < %s; %s += %s) {\n"
-                 "for (%s = %s; %s < %s; %s += %s {\n";
+                 "for (%s = %s; %s < %s; %s += %s) {\n";
     fprintf(file, code, identifier1, expr1, identifier1, expr2, identifier1, expr3, identifier2, expr4, identifier2,
             expr5,
             identifier2, expr6);

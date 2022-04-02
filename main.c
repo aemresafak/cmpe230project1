@@ -13,12 +13,17 @@ static int LINE_LIMIT = 256;
 static int lineCount = 0;
 int hasPendingRightBracket = 0;
 int canPutRightBracket = 0;
+int isDoubleFor = 0;
 
-int parseLine(char *line);
+int parseLine(char *line, FILE *outFile);
+
+void defineFunctions(FILE *out);
+
+void createMain(FILE *out);
 
 int main(int argc, char *argv[]) {
     FILE *fp;
-    FILE * out = fopen("file.c","w");
+    FILE *out = fopen("file.c", "w");
     char line[LINE_LIMIT];
     /** Open file for reading Filename is given on the command line */
     if (argc != 2) {
@@ -30,9 +35,12 @@ int main(int argc, char *argv[]) {
         printf("Cannot open %s\n", argv[1]);
         return (1);
     }
+
     int errorOccured = 0;
+    defineFunctions(out);
+    createMain(out);
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
-        if (parseLine(line) == ERROR) {
+        if (parseLine(line, out) == ERROR) {
             errorOccured = 1;
             break;
         }
@@ -41,14 +49,17 @@ int main(int argc, char *argv[]) {
         if (hasPendingRightBracket) {
             printf("Error (Line %d)\n", lineCount);
             return -1;
+        } else
+        {
+            fprintf(out,"return 0;\n\n}");
         }
     }
-    fprintf(out, "ahmet emre");
     fclose(fp);
+    fclose(out);
     return (0);
 }
 
-int parseLine(char *line) {
+int parseLine(char *line, FILE *outFile) {
     if (isEmptyString(line, LINE_LIMIT)) {
         return 1;
     }
@@ -62,65 +73,65 @@ int parseLine(char *line) {
     char *spacedLine = getSpacedVersionOf(strippedLine);
 
     if (isScalarDefinition(spacedLine)) {
-        if (parseScalarDefinition(spacedLine, NULL) == ERROR) {
+        if (parseScalarDefinition(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isMatrixDefinition(spacedLine)) {
 
-        if (parseMatrixDefinition(spacedLine, NULL) == ERROR) {
+        if (parseMatrixDefinition(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isVectorDefinition(spacedLine)) {
 
-        if (parseVectorDefinition(spacedLine, NULL) == ERROR) {
+        if (parseVectorDefinition(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isVectorAssignment(spacedLine)) {
 
-        if (parseVectorAssignment(spacedLine, NULL) == ERROR) {
+        if (parseVectorAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isMatrixAssignment(spacedLine)) {
 
-        if (parseMatrixAssignment(spacedLine, NULL) == ERROR) {
+        if (parseMatrixAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isPrintSepStatement(spacedLine)) {
 
-        if (parsePrintSepStatement(spacedLine, NULL) == ERROR) {
+        if (parsePrintSepStatement(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isPrintIdStatement(spacedLine)) {
-        if (parsePrintIdStatement(spacedLine, NULL) == ERROR) {
+        if (parsePrintIdStatement(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isScalarAssignment(spacedLine)) {
 
-        if (parseScalarAssignment(spacedLine) == ERROR) {
+        if (parseScalarAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isIndexedVectorAssignment(spacedLine)) {
 
-        if (parseIndexedVectorAssignment(spacedLine, NULL) == ERROR) {
+        if (parseIndexedVectorAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isIndexedMatrixAssignment(spacedLine)) {
 
-        if (parseIndexedMatrixAssignment(spacedLine, NULL) == ERROR) {
+        if (parseIndexedMatrixAssignment(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
     } else if (isSingleForLoop(spacedLine)) {
-        if (parseSingleForLoop(spacedLine, NULL) == ERROR) {
+        if (parseSingleForLoop(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
@@ -131,20 +142,427 @@ int parseLine(char *line) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
-        printf("}\n");
+        if (isDoubleFor == 1) {
+            fprintf(outFile,"}\n");
+            fprintf(outFile,"}\n");
+            isDoubleFor = 0;
+        } else
+            fprintf(outFile,"}\n");
         hasPendingRightBracket--;
         canPutRightBracket--;
     } else if (isDoubleForLoop(spacedLine)) {
-        if (parseDoubleForLoop(spacedLine, NULL) == ERROR) {
+        if (parseDoubleForLoop(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
         hasPendingRightBracket++;
         canPutRightBracket++;
+        isDoubleFor = 1;
     } else {
         printf("Error (Line %d)\n", lineCount);
         return 0;
     }
     lineCount++;
     return 1;
+}
+
+void defineFunctions(FILE *out) {
+    fprintf(out,"#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n\n");
+    char *_choose = "int choose(int a , int b , int c , int d)\n"
+                    "{\n"
+                    "    if(a == 0)\n"
+                    "    {\n"
+                    "        return b;\n"
+                    "    }\n"
+                    "    else if(a > 0)\n"
+                    "    {\n"
+                    "        return c;\n"
+                    "    }\n"
+                    "\n"
+                    "    return d;\n"
+                    "}";
+    fprintf(out, _choose);
+
+    char *_other = "char* convertIntegerToChar(int N)\n"
+                   "{\n"
+                   "    int m = N;\n"
+                   "    int digit = 0;\n"
+                   "    while (m) {\n"
+                   "\n"
+                   "        digit++;\n"
+                   "\n"
+                   "        m /= 10;\n"
+                   "    }\n"
+                   "\n"
+                   "    char* arr;\n"
+                   "\n"
+                   "    char arr1[digit];\n"
+                   "\n"
+                   "    arr = (char*)malloc(digit);\n"
+                   "\n"
+                   "    int index = 0;\n"
+                   "    while (N) {\n"
+                   "\n"
+                   "        arr1[++index] = N % 10 + '0';\n"
+                   "\n"
+                   "        N /= 10;\n"
+                   "    }\n"
+                   "\n"
+                   "    int i;\n"
+                   "    for (i = 0; i < index; i++) {\n"
+                   "        arr[i] = arr1[index - i];\n"
+                   "    }\n"
+                   "\n"
+                   "    arr[i] = '\\0';\n"
+                   "\n"
+                   "    return (char*)arr;\n"
+                   "}\n"
+                   "\n"
+                   "double **transposeVector(double *vec)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = 1;\n"
+                   "    int column = sizeof vec / sizeof vec[0];\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "\n"
+                   "    for (j = 0; j < column; j++) {\n"
+                   "        new_mat[0][j] = vec[j];\n"
+                   "    }\n"
+                   "\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **transposeMatrix(double **mat)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat) / sizeof(mat[0]);\n"
+                   "    int column = sizeof(mat[0]) / sizeof(mat[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(column * sizeof(double*));\n"
+                   "    for (i = 0; i < column; i++)\n"
+                   "        new_mat[i] = (double*)malloc(row * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++) {\n"
+                   "        for (j = 0; j < column; j++) {\n"
+                   "            new_mat[j][i] = mat[i][j];\n"
+                   "        }\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "\n"
+                   "double *addScalarToVector(double sca , double *vec)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec / sizeof vec[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec[i] + sca;\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "\n"
+                   "}\n"
+                   "\n"
+                   "double *subtractScalarFromVector(double sca , double *vec)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec / sizeof vec[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec[i] - sca;\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double *subtractVectorFromScalar(double sca , double *vec)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec / sizeof vec[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = sca - vec[i];\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double *multiplyScalarWithVector(double sca , double *vec)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec / sizeof vec[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec[i] * sca;\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double **addScalarToMatrix(double sca , double **mat)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat) / sizeof(mat[0]);\n"
+                   "    int column = sizeof(mat[0]) / sizeof(mat[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat[i][j] + sca;\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "\n"
+                   "}\n"
+                   "\n"
+                   "double **subtractScalarFromMatrix(double sca , double **mat)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat) / sizeof(mat[0]);\n"
+                   "    int column = sizeof(mat[0]) / sizeof(mat[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat[i][j] - sca;\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **subtractMatrixFromScalar(double sca , double **mat)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat) / sizeof(mat[0]);\n"
+                   "    int column = sizeof(mat[0]) / sizeof(mat[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = sca - mat[i][j];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **multiplyScalarWithMatrix(double sca , double **mat)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat) / sizeof(mat[0]);\n"
+                   "    int column = sizeof(mat[0]) / sizeof(mat[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat[i][j] * sca;\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double *vectorAddition(double *vec1 , double *vec2)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec1 / sizeof vec1[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec1[i] + vec2[i];\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double *vectorSubtraction(double *vec1 , double *vec2)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec1 / sizeof vec1[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec1[i] - vec2[i];\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double *vectorMultiplication(double *vec1 , double *vec2)\n"
+                   "{\n"
+                   "    int i = 0;\n"
+                   "    int size = sizeof vec1 / sizeof vec1[0];\n"
+                   "\n"
+                   "    double *new_vec = (double*) malloc(size * sizeof(double));\n"
+                   "\n"
+                   "    for(i = 0 ; i < size ; i++)\n"
+                   "    {\n"
+                   "        new_vec[i] = vec1[i] * vec2[i];\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_vec;\n"
+                   "}\n"
+                   "\n"
+                   "double **matrixAddition(double **mat1 , double **mat2)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat1[i][j] + mat2[i][j];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **matrixSubtraction(double **mat1 , double **mat2)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat1[i][j] - mat2[i][j];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **matrixMultiplication(double **mat1 , double **mat2)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0 , k = 0;\n"
+                   "\n"
+                   "    int row1 = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column1 = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    int row2 = sizeof(mat2) / sizeof(mat2[0]);\n"
+                   "    int column2 = sizeof(mat2[0]) / sizeof(mat2[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row1 * sizeof(double*));\n"
+                   "    for (i = 0; i < row1; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column2 * sizeof(double));\n"
+                   "\n"
+                   "\n"
+                   "    for (i = 0; i < row1; i++) {\n"
+                   "        for (j = 0; j < column2; j++) {\n"
+                   "            new_mat[i][j] = 0;\n"
+                   "        }\n"
+                   "    }\n"
+                   "\n"
+                   "    for (i = 0; i < row1; i++) {\n"
+                   "        for (j = 0; j < column2; j++) {\n"
+                   "            for (k = 0; k < column1; k++) {\n"
+                   "                new_mat[i][j] += mat1[i][k] * mat2[k][j];\n"
+                   "            }\n"
+                   "        }\n"
+                   "    }\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **addVectorToMatrix(double *vec1 , double **mat1)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat1[i][j] + vec1[i];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **subtractVectorFromMatrix(double *vec1 , double **mat1)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = mat1[i][j] - vec1[i];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}\n"
+                   "\n"
+                   "double **subtractMatrixFromVector(double *vec1 , double **mat1)\n"
+                   "{\n"
+                   "    int i = 0 , j = 0;\n"
+                   "\n"
+                   "    int row = sizeof(mat1) / sizeof(mat1[0]);\n"
+                   "    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);\n"
+                   "\n"
+                   "    double** new_mat = (double**)malloc(row * sizeof(double*));\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        new_mat[i] = (double*)malloc(column * sizeof(double));\n"
+                   "\n"
+                   "    for (i = 0; i < row; i++)\n"
+                   "        for (j = 0; j < column; j++)\n"
+                   "            new_mat[i][j] = vec1[i] - mat1[i][j];\n"
+                   "\n"
+                   "    return new_mat;\n"
+                   "}";
+    fprintf(out, _other);
+}
+
+void createMain(FILE *out) {
+    char *code = "int main() {\n";
+    fprintf(out, code);
 }
