@@ -1,2 +1,6 @@
 *.log
 cmake-build-debug/Testing/Temporary/
+cmake-build-debug/.ninja_log
+cmake-build-debug/.ninja_deps
+cmake-build-debug/CMakeFiles/MatlangProject.dir/
+cmake-build-debug/MatlangProject.exe
