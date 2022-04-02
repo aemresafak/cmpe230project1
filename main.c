@@ -6,6 +6,7 @@
 #include "expressionparsing.h"
 #include "infixtopostfix.h"
 #include "indexedassignments.h"
+#include "forloops.h"
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
@@ -80,6 +81,8 @@ int main(int argc, char *argv[]) {
             parseIndexedVectorAssignment(spacedLine);
         } else if (isIndexedMatrixAssignment(spacedLine)) {
             parseIndexedMatrixAssignment(spacedLine);
+        } else if (isSingleForLoop(spacedLine)) {
+            printf("singly for loop\n");
         }
 
         lineCount++;
