@@ -146,11 +146,10 @@ int parseScalarAssignment(char *line) {
     }
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
-        if (nodeForDll->is_scalar == 0) {
+        if (nodeForDll->is_scalar == 1) {
             printf("%s = %s\n", identifier, nodeForDll->data);
             return 1;
         }
-
     }
 
     return 0;
