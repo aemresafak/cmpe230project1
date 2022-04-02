@@ -40,4 +40,11 @@ int parseVectorAssignment(char* line);
  */
 int isScalarAssignment(char* line);
 
+/**
+ * return 1 if successfull 0 otherwise
+ * @param line
+ * @return
+ */
+int parseScalarAssignment(char* line);
+
 #endif //MATLANGPROJECT_ASSIGNSTATEMENTS_H

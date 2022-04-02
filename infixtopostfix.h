@@ -12,7 +12,7 @@ struct Stack
 };
 
 struct node_for_dll {
-    char data[50];
+    char data[1024];
     struct node_for_dll* next;
     struct node_for_dll* prev;
 

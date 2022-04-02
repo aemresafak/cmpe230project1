@@ -69,6 +69,8 @@ int main(int argc, char *argv[]) {
                 printf("Error (Line %d)\n", lineCount);
                 return -1;
             }
+        } else if (isScalarAssignment(spacedLine)) {
+            parseScalarAssignment(spacedLine);
         }
 
         lineCount++;

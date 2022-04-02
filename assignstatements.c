@@ -9,6 +9,7 @@
 #include "structs.h"
 #include "stringutils.h"
 #include "datastructures.h"
+#include "expressionparsing.h"
 
 int isVectorAssignment(char *line) {
     char copiedLine[256];
@@ -49,8 +50,6 @@ int isScalarAssignment(char* line) {
         return 1;
     } else
         return 0;
-
-
 }
 
 int isMatrixAssignment(char *line) {
@@ -127,6 +126,31 @@ int parseMatrixAssignment(char *line) {
 
 
     return 1;
+}
+
+int parseScalarAssignment(char* line) {
+    char *temp = strtok(line, " \n");
+    struct Node *head = createNode(temp);
+
+    while (temp != NULL) {
+        temp = strtok(NULL, " \n");
+        appendToLinkedList(head, temp);
+    }
+    char* identifier = getNodeData(head,0);
+    char* resultOfExpression;
+    char* expression;
+    int index = 0;
+    for (int i = 2; i < getLinkedListSize(head); i++) {
+        strcat(expression, getNodeData(head,i));
+    }
+    char* deblankedExpr = deblank(expression);
+    if (expressionParsing(deblankedExpr, resultOfExpression)) {
+        printf("%s = %s\n",identifier, resultOfExpression);
+        return 1;
+    }
+
+    return 0;
+
 }
 
 int parseVectorAssignment(char *line) {
