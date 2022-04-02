@@ -126,7 +126,7 @@ int parseLine(char *line) {
         }
         hasPendingRightBracket++;
         canPutRightBracket++;
-    } else if (strcmp(strippedLine, "}") == 0) {
+    } else if (strcmp(strippedLine, "}") == 0 || strcmp(strippedLine, "}\n") == 0) {
         if (canPutRightBracket != 1) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
