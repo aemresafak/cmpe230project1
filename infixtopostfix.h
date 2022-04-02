@@ -43,6 +43,8 @@ void initializeNode(struct node_for_dll** node_ref);
 
 void append(struct node_for_dll** head_ref, char* new_data);
 
+void appendChar(char* s, char c);
+
 int infixToPostfix(char* exp , struct node_for_dll** head_ref);
 
 

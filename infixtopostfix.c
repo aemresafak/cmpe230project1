@@ -106,6 +106,13 @@ void append(struct node_for_dll** head_ref, char* new_data)
     return;
 }
 
+void appendChar(char* s, char c) {
+    int len = strlen(s);
+    s[len] = c;
+    s[len+1] = '\0';
+}
+
+
 int infixToPostfix(char* exp , struct node_for_dll** head_ref)
 {
     //printf("%s\n" , exp);
@@ -116,7 +123,7 @@ int infixToPostfix(char* exp , struct node_for_dll** head_ref)
     if(!stack)
         return -1 ;
 
-    char var_name[50] = "";
+    char var_name[200] = "";
 
     int tr_flag = 0;
     int sqrt_flag = 0;
@@ -138,7 +145,35 @@ int infixToPostfix(char* exp , struct node_for_dll** head_ref)
             sqrt_flag = 1;
         }
 
-        if(isOperator(exp[i]) || exp[i] == '(' || exp[i] == ')' || tr_flag == 1 || sqrt_flag == 1)
+        if(i+6 < strlen(exp) && exp[i] == 'c' && exp[i+1] == 'h' && exp[i+2] == 'o' && exp[i+3] == 'o' && exp[i+4] == 's' &&
+        exp[i+5] == 'e' && exp[i+6] == '(')
+        {
+            char temp_str[1024] = "choose(";
+
+            int parantheses_count = 1;
+            int j = i+7;
+
+            while(j < strlen(exp) && parantheses_count > 0)
+            {
+                appendChar(temp_str , exp[j]);
+
+                if(exp[j] == '(')
+                {
+                    parantheses_count++;
+                }
+                else if(exp[j] == ')')
+                {
+                    parantheses_count--;
+                }
+
+                j++;
+            }
+
+            append(head_ref , temp_str);
+            i=j-1;
+
+        }
+        else if(isOperator(exp[i]) || exp[i] == '(' || exp[i] == ')' || tr_flag == 1 || sqrt_flag == 1)
         {
             //printf("entered");
             if(strlen(var_name) != 0)
