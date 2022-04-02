@@ -40,3 +40,9 @@
 102	220	6706056421538145	MatlangProject.exe	248b34bb90944aff
 2	103	6706056470917630	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
 103	222	6706056472011129	MatlangProject.exe	248b34bb90944aff
+16	150	6706059781186209	CMakeFiles/MatlangProject.dir/assignstatements.c.obj	a71a0519b76620c4
+1	151	6706059781186209	CMakeFiles/MatlangProject.dir/main.c.obj	d457fbdfc3f21663
+1	85	6706060027112817	CMakeFiles/MatlangProject.dir/expressionparsing.c.obj	813f6842afd35e07
+16	88	6706060027112817	CMakeFiles/MatlangProject.dir/infixtopostfix.c.obj	f3631e62f23e1b38
+88	215	6706060028362523	MatlangProject.exe	248b34bb90944aff
+2	167	6706062059939384	CMakeFiles/MatlangProject.dir/definitionstatements.c.obj	e8b058cad72fd133

@@ -27,7 +27,7 @@ int parseScalarDefinition(char *line) {
     struct Scalar *scalar = malloc(sizeof(struct Scalar));
     scalar->id = identifier;
     appendToScalars(scalar);
-    printf("float %s = 0;\n", identifier);
+    printf("double %s = 0;\n", identifier);
     return 1;
 }
 
@@ -73,7 +73,7 @@ int parseVectorDefinition(char *line) {
     vector->id = identifier;
     vector->size = size;
     appendToVectors(vector);
-    printf("float %s[%d];\n", identifier, size);
+    printf("double %s[%d];\n", identifier, size);
     initializeSingleDimensionalArray(identifier, size);
     return 1;
 }
@@ -136,7 +136,7 @@ int parseMatrixDefinition(char *line) {
     matrix->rowSize = rowSize;
     matrix->columnSize = columnSize;
     appendToMatrices(matrix);
-    printf("float %s[%d][%d];\n", identifier, rowSize, columnSize);
+    printf("double %s[%d][%d];\n", identifier, rowSize, columnSize);
     initializeMatrix(identifier, rowSize, columnSize);
     return 1;
 }
