@@ -17,7 +17,7 @@ int isUsualPrintIdStatement(char *line);
  */
 int isPrintIdWithIndex(char *line);
 
-int parsePrintIdWithIndex(char *line);
+int parsePrintIdWithIndex(char *line, FILE* file);
 
 /**
  * Return 1 if line is of form printsep() else 0

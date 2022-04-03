@@ -396,6 +396,7 @@ for (int i = 0; i < 5; i++) {
 x[i] = 0;
 }
 x[1-1]=2;
+printf("%f",x[1-1]);
 return 0;
 
 }

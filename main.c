@@ -170,7 +170,7 @@ int parseLine(char *line, FILE *outFile) {
         isDoubleFor = 1;
     } else if (isPrintIdWithIndex(spacedLine)) {
 
-        if (parsePrintIdWithIndex(spacedLine) == ERROR) {
+        if (parsePrintIdWithIndex(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
