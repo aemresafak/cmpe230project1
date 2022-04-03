@@ -380,3 +380,66 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
 
     int row = row_size;
     int column = column_size;
+
+    double** new_mat = (double**)malloc(row * sizeof(double*));
+    for (i = 0; i < row; i++)
+        new_mat[i] = (double*)malloc(column * sizeof(double));
+
+    for (i = 0; i < row; i++)
+        for (j = 0; j < column; j++)
+            new_mat[i][j] = vec1[i] - mat1[i][j];
+
+    return new_mat;
+}
+
+int main() {
+double i = 0;
+double n = 0;
+double* x = (double*) malloc(2 * sizeof (double));
+for (int i = 0; i < 2; i++) {
+x[i] = 0;
+}
+double* y = (double*) malloc(2 * sizeof (double));
+for (int i = 0; i < 2; i++) {
+y[i] = 0;
+}
+double** A = (double**)malloc(2 * sizeof(double*));
+    for (int _i = 0; _i < 2; _i++)
+        A[_i] = (double*)malloc(2 * sizeof(double));
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
+        A[i][j] = 0;
+    }
+}
+double** B = (double**)malloc(2 * sizeof(double*));
+    for (int _i = 0; _i < 2; _i++)
+        B[_i] = (double*)malloc(2 * sizeof(double));
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
+        B[i][j] = 0;
+    }
+}
+n = 10;
+x[0] = 1.000000;
+x[1] = 1.000000;
+A[0][0] = 1.000000;
+A[0][1] = 1.000000;
+A[1][0] = 1.000000;
+A[1][1] = 0.000000;
+B[0][0] = 1.000000;
+B[0][1] = 0.000000;
+B[1][0] = 0.000000;
+B[1][1] = 1.000000;
+for (int i = 0; i < 2; i++) {
+	printf("%f\n",x[i]);
+}
+for ( i = 1 ; i <= n; i += 1) {
+B = matrixMultiplication(A,B,2,2,2,2);
+    for (int _i = 0; _i < 2; _i++) {
+        y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,/),1,/),2,2,2,1)[_i][0];
+    }
+printf("%f",y[1-1]);
+}
+return 0;
+
+}
