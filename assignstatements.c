@@ -154,12 +154,7 @@ int parseMatrixAssignmentWithExpression(char *line, FILE *out) {
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->row_size == findMatrixById(identifier)->rowSize &&
             nodeForDll->column_size == findMatrixById(identifier)->columnSize) {
-            char *code = "            for (int ii = 0; ii < %d; ii++) {\n"
-                         "                for (int jj = 0; jj < %d; jj++) {\n"
-                         "                    %s[ii][jj] = %s[ii][jj];\n"
-                         "                }\n"
-                         "            }\n";
-            fprintf(out, code, nodeForDll->row_size, nodeForDll->column_size, identifier, nodeForDll->data);
+            fprintf(out, "%s = %s;\n", identifier, nodeForDll->data);
             return 1;
         }
     }

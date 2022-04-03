@@ -393,49 +393,52 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
 }
 
 int main() {
-double** A = (double**)malloc(3 * sizeof(double*));
-    for (int _i = 0; _i < 3; _i++)
-        A[_i] = (double*)malloc(3 * sizeof(double));
-for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
+double i = 0;
+double n = 0;
+double* x = (double*) malloc(2 * sizeof (double));
+for (int i = 0; i < 2; i++) {
+x[i] = 0;
+}
+double* y = (double*) malloc(2 * sizeof (double));
+for (int i = 0; i < 2; i++) {
+y[i] = 0;
+}
+double** A = (double**)malloc(2 * sizeof(double*));
+    for (int _i = 0; _i < 2; _i++)
+        A[_i] = (double*)malloc(2 * sizeof(double));
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
         A[i][j] = 0;
     }
 }
-double* x = (double*) malloc(3 * sizeof (double));
-for (int i = 0; i < 3; i++) {
-x[i] = 0;
+double** B = (double**)malloc(2 * sizeof(double*));
+    for (int _i = 0; _i < 2; _i++)
+        B[_i] = (double*)malloc(2 * sizeof(double));
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 2; j++) {
+        B[i][j] = 0;
+    }
 }
-double* y = (double*) malloc(3 * sizeof (double));
-for (int i = 0; i < 3; i++) {
-y[i] = 0;
-}
-double r = 0;
-double i = 0;
-A[0][0] = 0.500000;
-A[0][1] = 0.000000;
-A[0][2] = 0.500000;
-A[1][0] = 0.000000;
-A[1][1] = 0.000000;
-A[1][2] = 0.500000;
-A[2][0] = 0.500000;
-A[2][1] = 1.000000;
-A[2][2] = 0.000000;
+n = 10;
 x[0] = 1.000000;
 x[1] = 1.000000;
-x[2] = 1.000000;
-for ( i = 1 ; i <= 10; i += 1) {
-    for (int _i = 0; _i < 3; _i++) {
-        y[_i] = matrixMultiplication(A,transposeMatrix(transposeVector(x,3),1,3),3,3,3,1)[_i][0];
-    }
-r = sqrt(matrixMultiplication(transposeVector(vectorSubtraction(y,x,3),3),transposeMatrix(transposeVector(vectorSubtraction(y,x,3),3),1,3),1,3,3,1)[0][0]);
-printf("%f\n", r);
-for (int __i = 0; __i < 3; __i++) {
-                x[__i] = y[__i];
-            }
-}
-printf("----------\n");
-for (int i = 0; i < 3; i++) {
+A[0][0] = 1.000000;
+A[0][1] = 1.000000;
+A[1][0] = 1.000000;
+A[1][1] = 0.000000;
+B[0][0] = 1.000000;
+B[0][1] = 0.000000;
+B[1][0] = 0.000000;
+B[1][1] = 1.000000;
+for (int i = 0; i < 2; i++) {
 	printf("%f\n",x[i]);
+}
+for ( i = 1 ; i <= n; i += 1) {
+B = matrixMultiplication(A,B,2,2,2,2);
+    for (int _i = 0; _i < 2; _i++) {
+        y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,2),1,2),2,2,2,1)[_i][0];
+    }
+printf("%f\n",y[1-1]);
 }
 return 0;
 
