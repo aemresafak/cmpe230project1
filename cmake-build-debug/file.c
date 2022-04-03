@@ -50,12 +50,12 @@ int choose(int a , int b , int c , int d)
     return (char*)arr;
 }
 
-double **transposeVector(double *vec)
+double **transposeVector(double *vec , int size)
 {
     int i = 0 , j = 0;
 
     int row = 1;
-    int column = sizeof vec / sizeof vec[0];
+    int column = size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -70,12 +70,12 @@ double **transposeVector(double *vec)
     return new_mat;
 }
 
-double **transposeMatrix(double **mat)
+double **transposeMatrix(double **mat , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat) / sizeof(mat[0]);
-    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(column * sizeof(double*));
     for (i = 0; i < column; i++)
@@ -91,10 +91,10 @@ double **transposeMatrix(double **mat)
 }
 
 
-double *addScalarToVector(double sca , double *vec)
+double *addScalarToVector(double sca , double *vec , int v_size)
 {
     int i = 0;
-    int size = sizeof vec / sizeof vec[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -107,10 +107,10 @@ double *addScalarToVector(double sca , double *vec)
 
 }
 
-double *subtractScalarFromVector(double sca , double *vec)
+double *subtractScalarFromVector(double sca , double *vec , int v_size)
 {
     int i = 0;
-    int size = sizeof vec / sizeof vec[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -122,10 +122,10 @@ double *subtractScalarFromVector(double sca , double *vec)
     return new_vec;
 }
 
-double *subtractVectorFromScalar(double sca , double *vec)
+double *subtractVectorFromScalar(double sca , double *vec , int v_size)
 {
     int i = 0;
-    int size = sizeof vec / sizeof vec[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -137,10 +137,10 @@ double *subtractVectorFromScalar(double sca , double *vec)
     return new_vec;
 }
 
-double *multiplyScalarWithVector(double sca , double *vec)
+double *multiplyScalarWithVector(double sca , double *vec , int v_size)
 {
     int i = 0;
-    int size = sizeof vec / sizeof vec[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -152,12 +152,12 @@ double *multiplyScalarWithVector(double sca , double *vec)
     return new_vec;
 }
 
-double **addScalarToMatrix(double sca , double **mat)
+double **addScalarToMatrix(double sca , double **mat , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat) / sizeof(mat[0]);
-    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -171,12 +171,12 @@ double **addScalarToMatrix(double sca , double **mat)
 
 }
 
-double **subtractScalarFromMatrix(double sca , double **mat)
+double **subtractScalarFromMatrix(double sca , double **mat , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat) / sizeof(mat[0]);
-    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -189,12 +189,12 @@ double **subtractScalarFromMatrix(double sca , double **mat)
     return new_mat;
 }
 
-double **subtractMatrixFromScalar(double sca , double **mat)
+double **subtractMatrixFromScalar(double sca , double **mat , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat) / sizeof(mat[0]);
-    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -207,12 +207,12 @@ double **subtractMatrixFromScalar(double sca , double **mat)
     return new_mat;
 }
 
-double **multiplyScalarWithMatrix(double sca , double **mat)
+double **multiplyScalarWithMatrix(double sca , double **mat , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat) / sizeof(mat[0]);
-    int column = sizeof(mat[0]) / sizeof(mat[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -225,10 +225,10 @@ double **multiplyScalarWithMatrix(double sca , double **mat)
     return new_mat;
 }
 
-double *vectorAddition(double *vec1 , double *vec2)
+double *vectorAddition(double *vec1 , double *vec2 , int v_size)
 {
     int i = 0;
-    int size = sizeof vec1 / sizeof vec1[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -240,10 +240,10 @@ double *vectorAddition(double *vec1 , double *vec2)
     return new_vec;
 }
 
-double *vectorSubtraction(double *vec1 , double *vec2)
+double *vectorSubtraction(double *vec1 , double *vec2 , int v_size)
 {
     int i = 0;
-    int size = sizeof vec1 / sizeof vec1[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -255,10 +255,10 @@ double *vectorSubtraction(double *vec1 , double *vec2)
     return new_vec;
 }
 
-double *vectorMultiplication(double *vec1 , double *vec2)
+double *vectorMultiplication(double *vec1 , double *vec2 , int v_size)
 {
     int i = 0;
-    int size = sizeof vec1 / sizeof vec1[0];
+    int size = v_size;
 
     double *new_vec = (double*) malloc(size * sizeof(double));
 
@@ -270,12 +270,12 @@ double *vectorMultiplication(double *vec1 , double *vec2)
     return new_vec;
 }
 
-double **matrixAddition(double **mat1 , double **mat2)
+double **matrixAddition(double **mat1 , double **mat2 , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat1) / sizeof(mat1[0]);
-    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -288,12 +288,12 @@ double **matrixAddition(double **mat1 , double **mat2)
     return new_mat;
 }
 
-double **matrixSubtraction(double **mat1 , double **mat2)
+double **matrixSubtraction(double **mat1 , double **mat2  , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat1) / sizeof(mat1[0]);
-    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -306,15 +306,15 @@ double **matrixSubtraction(double **mat1 , double **mat2)
     return new_mat;
 }
 
-double **matrixMultiplication(double **mat1 , double **mat2)
+double **matrixMultiplication(double **mat1 , double **mat2 , int row_size1 , int column_size1 , int row_size2 , int column_size2)
 {
     int i = 0 , j = 0 , k = 0;
 
-    int row1 = sizeof(mat1) / sizeof(mat1[0]);
-    int column1 = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+    int row1 = row_size1;
+    int column1 = column_size1;
 
-    int row2 = sizeof(mat2) / sizeof(mat2[0]);
-    int column2 = sizeof(mat2[0]) / sizeof(mat2[0][0]);
+    int row2 = row_size2;
+    int column2 = column_size2;
 
     double** new_mat = (double**)malloc(row1 * sizeof(double*));
     for (i = 0; i < row1; i++)
@@ -338,12 +338,12 @@ double **matrixMultiplication(double **mat1 , double **mat2)
     return new_mat;
 }
 
-double **addVectorToMatrix(double *vec1 , double **mat1)
+double **addVectorToMatrix(double *vec1 , double **mat1 , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat1) / sizeof(mat1[0]);
-    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -356,12 +356,12 @@ double **addVectorToMatrix(double *vec1 , double **mat1)
     return new_mat;
 }
 
-double **subtractVectorFromMatrix(double *vec1 , double **mat1)
+double **subtractVectorFromMatrix(double *vec1 , double **mat1  , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat1) / sizeof(mat1[0]);
-    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
+    int row = row_size;
+    int column = column_size;
 
     double** new_mat = (double**)malloc(row * sizeof(double*));
     for (i = 0; i < row; i++)
@@ -374,29 +374,9 @@ double **subtractVectorFromMatrix(double *vec1 , double **mat1)
     return new_mat;
 }
 
-double **subtractMatrixFromVector(double *vec1 , double **mat1)
+double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , int column_size)
 {
     int i = 0 , j = 0;
 
-    int row = sizeof(mat1) / sizeof(mat1[0]);
-    int column = sizeof(mat1[0]) / sizeof(mat1[0][0]);
-
-    double** new_mat = (double**)malloc(row * sizeof(double*));
-    for (i = 0; i < row; i++)
-        new_mat[i] = (double*)malloc(column * sizeof(double));
-
-    for (i = 0; i < row; i++)
-        for (j = 0; j < column; j++)
-            new_mat[i][j] = vec1[i] - mat1[i][j];
-
-    return new_mat;
-}int main() {
-double* x = (double*) malloc(5 * sizeof (double));
-for (int i = 0; i < 5; i++) {
-x[i] = 0;
-}
-x[1-1]=2;
-printf("%f",x[1-1]);
-return 0;
-
-}
+    int row = row_size;
+    int column = column_size;
