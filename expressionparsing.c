@@ -1695,13 +1695,13 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
                     char str[1024] = "transposeMatrix(transposeVector(";
                     strcat(str , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->size));
+                    strcat(str , ",");
+                    strcat(str , convertIntegerToChar(second->size));
                     strcat(str , ")");
-                    strcat(temp_string , ",");
-                    strcat(temp_string , "1");
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->size));
+                    strcat(str , ",");
+                    strcat(str , "1");
+                    strcat(str , ",");
+                    strcat(str , convertIntegerToChar(second->size));
                     strcat(str , ")");
 
                     strcat(temp_string , "matrixMultiplication(");
@@ -1758,13 +1758,13 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
                     char str[1024] = "transposeMatrix(transposeVector(";
                     strcat(str , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->size));
+                    strcat(str , ",");
+                    strcat(str , convertIntegerToChar(first->size));
                     strcat(str , ")");
-                    strcat(temp_string , ",");
-                    strcat(temp_string , "1");
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->size));
+                    strcat(str , ",");
+                    strcat(str , "1");
+                    strcat(str , ",");
+                    strcat(str , convertIntegerToChar(first->size));
                     strcat(str , ")");
 
                     strcat(temp_string , "matrixMultiplication(");
