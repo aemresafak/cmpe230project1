@@ -669,7 +669,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 strcat(temp_string , "transposeVector(");
                 strcat(temp_string , prev->data);
                 strcat(temp_string ,  ",");
-                strcat(temp_string , prev->size);
+                strcat(temp_string , convertIntegerToChar(prev->size));
                 strcat(temp_string , ")");
 
                 new_node->is_matrix = 1;
@@ -692,9 +692,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 strcat(temp_string , "transposeMatrix(");
                 strcat(temp_string , prev->data);
                 strcat(temp_string ,  ",");
-                strcat(temp_string , prev->row_size);
+                strcat(temp_string , convertIntegerToChar(prev->row_size));
                 strcat(temp_string ,  ",");
-                strcat(temp_string , prev->column_size);
+                strcat(temp_string , convertIntegerToChar(prev->column_size));
                 strcat(temp_string , ")");
 
                 new_node->is_matrix = 1;
@@ -861,7 +861,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->size);
+                    strcat(temp_string , convertIntegerToChar(second->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -888,7 +888,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->size);
+                    strcat(temp_string , convertIntegerToChar(first->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -915,9 +915,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->row_size);
+                    strcat(temp_string , convertIntegerToChar(second->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->column_size);
+                    strcat(temp_string , convertIntegerToChar(second->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -947,9 +947,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->row_size);
+                    strcat(temp_string , convertIntegerToChar(first->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->column_size);
+                    strcat(temp_string , convertIntegerToChar(first->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1003,7 +1003,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , size1);
+                    strcat(temp_string , convertIntegerToChar(size1));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1020,9 +1020,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->row_size);
+                    strcat(temp_string , convertIntegerToChar(first->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->column_size);
+                    strcat(temp_string , convertIntegerToChar(first->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1069,9 +1069,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->row_size);
+                    strcat(temp_string , convertIntegerToChar(second->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->column_size);
+                    strcat(temp_string , convertIntegerToChar(second->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1147,9 +1147,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         strcat(temp_string , ",");
                         strcat(temp_string , second->data);
                         strcat(temp_string , ",");
-                        strcat(temp_string , row_size1);
+                        strcat(temp_string , convertIntegerToChar(row_size1));
                         strcat(temp_string , ",");
-                        strcat(temp_string , column_size1);
+                        strcat(temp_string , convertIntegerToChar(column_size1));
                         strcat(temp_string , ")");
 
                         new_node->is_matrix = 1;
@@ -1186,7 +1186,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->size);
+                    strcat(temp_string , convertIntegerToChar(second->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1213,7 +1213,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->size);
+                    strcat(temp_string , convertIntegerToChar(first->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1240,9 +1240,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->row_size);
+                    strcat(temp_string , convertIntegerToChar(second->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->column_size);
+                    strcat(temp_string , convertIntegerToChar(second->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1272,9 +1272,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->row_size);
+                    strcat(temp_string , convertIntegerToChar(first->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->column_size);
+                    strcat(temp_string , convertIntegerToChar(first->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1328,7 +1328,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , size1);
+                    strcat(temp_string , convertIntegerToChar(size1));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1344,9 +1344,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->row_size);
+                    strcat(temp_string , convertIntegerToChar(first->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->column_size);
+                    strcat(temp_string , convertIntegerToChar(first->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1393,9 +1393,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->row_size);
+                    strcat(temp_string , convertIntegerToChar(second->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->column_size);
+                    strcat(temp_string , convertIntegerToChar(second->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1472,9 +1472,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         strcat(temp_string , ",");
                         strcat(temp_string , second->data);
                         strcat(temp_string , ",");
-                        strcat(temp_string , row_size1);
+                        strcat(temp_string , convertIntegerToChar(row_size1));
                         strcat(temp_string , ",");
-                        strcat(temp_string , column_size1);
+                        strcat(temp_string , convertIntegerToChar(column_size1));
                         strcat(temp_string , ")");
 
                         new_node->is_matrix = 1;
@@ -1512,7 +1512,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->size);
+                    strcat(temp_string , convertIntegerToChar(second->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1539,7 +1539,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->size);
+                    strcat(temp_string , convertIntegerToChar(first->size));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1566,9 +1566,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->row_size);
+                    strcat(temp_string , convertIntegerToChar(second->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , second->column_size);
+                    strcat(temp_string , convertIntegerToChar(second->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1598,9 +1598,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , first->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->row_size);
+                    strcat(temp_string , convertIntegerToChar(first->row_size));
                     strcat(temp_string , ",");
-                    strcat(temp_string , first->column_size);
+                    strcat(temp_string , convertIntegerToChar(first->column_size));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1654,7 +1654,7 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , size1);
+                    strcat(temp_string , convertIntegerToChar(size1));
                     strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
@@ -1702,13 +1702,13 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , str);
                     strcat(temp_string , ",");
-                    strcat(temp_string , row_size1);
+                    strcat(temp_string , convertIntegerToChar(row_size1));
                     strcat(temp_string , ",");
-                    strcat(temp_string , column_size1);
+                    strcat(temp_string , convertIntegerToChar(column_size1));
                     strcat(temp_string , ",");
-                    strcat(temp_string , size2);
+                    strcat(temp_string , convertIntegerToChar(size2));
                     strcat(temp_string , ",");
-                    strcat(temp_string , 1);
+                    strcat(temp_string , "1");
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1758,13 +1758,13 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     strcat(temp_string , ",");
                     strcat(temp_string , second->data);
                     strcat(temp_string , ",");
-                    strcat(temp_string , size1);
+                    strcat(temp_string , convertIntegerToChar(size1));
                     strcat(temp_string , ",");
-                    strcat(temp_string , 1);
+                    strcat(temp_string , "1");
                     strcat(temp_string , ",");
-                    strcat(temp_string , row_size2);
+                    strcat(temp_string , convertIntegerToChar(row_size2));
                     strcat(temp_string , ",");
-                    strcat(temp_string , column_size2);
+                    strcat(temp_string , convertIntegerToChar(column_size2));
                     strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
@@ -1813,13 +1813,13 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         strcat(temp_string , ",");
                         strcat(temp_string , second->data);
                         strcat(temp_string , ",");
-                        strcat(temp_string , row_size1);
+                        strcat(temp_string , convertIntegerToChar(row_size1));
                         strcat(temp_string , ",");
-                        strcat(temp_string , column_size1);
+                        strcat(temp_string , convertIntegerToChar(column_size1));
                         strcat(temp_string , ",");
-                        strcat(temp_string , row_size2);
+                        strcat(temp_string , convertIntegerToChar(row_size2));
                         strcat(temp_string , ",");
-                        strcat(temp_string , column_size2);
+                        strcat(temp_string , convertIntegerToChar(column_size2));
                         strcat(temp_string , ")");
 
                         new_node->is_matrix = 1;

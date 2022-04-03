@@ -100,6 +100,18 @@
 		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/expressionparsing.h">
 			<Option target="MatlangProject"/>
 		</Unit>
+		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/forloops.c">
+			<Option target="MatlangProject"/>
+		</Unit>
+		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/forloops.h">
+			<Option target="MatlangProject"/>
+		</Unit>
+		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/indexedassignments.c">
+			<Option target="MatlangProject"/>
+		</Unit>
+		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/indexedassignments.h">
+			<Option target="MatlangProject"/>
+		</Unit>
 		<Unit filename="C:/Users/hp/Desktop/cmpe230project1/infixtopostfix.c">
 			<Option target="MatlangProject"/>
 		</Unit>
