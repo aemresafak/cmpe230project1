@@ -168,6 +168,12 @@ int parseLine(char *line, FILE *outFile) {
         hasPendingRightBracket++;
         canPutRightBracket++;
         isDoubleFor = 1;
+    } else if (isPrintIdWithIndex(spacedLine)) {
+
+        if (parsePrintIdWithIndex(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
     } else {
         printf("Error (Line %d)\n", lineCount);
         return 0;

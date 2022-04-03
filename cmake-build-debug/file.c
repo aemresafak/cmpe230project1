@@ -391,48 +391,11 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1)
 
     return new_mat;
 }int main() {
-double** A = (double**)malloc(3 * sizeof(double*));
-    for (int _i = 0; _i < 3; _i++)
-        A[_i] = (double*)malloc(3 * sizeof(double));
-for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-        A[i][j] = 0;
-    }
-}
-double* x = (double*) malloc(3 * sizeof (double));
-for (int i = 0; i < 3; i++) {
+double* x = (double*) malloc(5 * sizeof (double));
+for (int i = 0; i < 5; i++) {
 x[i] = 0;
 }
-double* y = (double*) malloc(3 * sizeof (double));
-for (int i = 0; i < 3; i++) {
-y[i] = 0;
-}
-double r = 0;
-double i = 0;
-A[0][0] = 0.500000;
-A[0][1] = 0.000000;
-A[0][2] = 0.500000;
-A[1][0] = 0.000000;
-A[1][1] = 0.000000;
-A[1][2] = 0.500000;
-A[2][0] = 0.500000;
-A[2][1] = 1.000000;
-A[2][2] = 0.000000;
-x[0] = 1.000000;
-x[1] = 1.000000;
-x[2] = 1.000000;
-for ( i = 1 ; i <= 10; i += 1) {
-    for (int _i = 0; _i < 3; _i++) {
-        y[_i] = matrixMultiplication(A,transposeMatrix(transposeVector(x)))[_i][0];
-    }
-r = sqrt(matrixMultiplication(transposeVector(vectorSubtraction(y,x)),transposeMatrix(transposeVector(vectorSubtraction(y,x))))[0][0]);
-printf("%f", r);
-x = y;
-}
-printf("----------\n");
-for (int i = 0; i < 3; i++) {
-	printf("%f\n",x[i]);
-}
+x[1-1]=2;
 return 0;
 
 }
