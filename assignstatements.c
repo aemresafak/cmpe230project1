@@ -255,6 +255,9 @@ int parseScalarAssignment(char *line, FILE *file) {
         if (nodeForDll->is_scalar == 1) {
             fprintf(file, "%s = %s;\n", identifier, nodeForDll->data);
             return 1;
+        } else if (nodeForDll->is_matrix == 1 && nodeForDll->column_size == 1 && nodeForDll->row_size == 1) {
+            fprintf(file, "%s = %s[0][0];\n", identifier, nodeForDll->data);
+            return 1;
         }
     }
 
