@@ -224,54 +224,6 @@ expressionparsing.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/expressionparsing.c.s
 .PHONY : expressionparsing.c.s
 
-forloops.obj: forloops.c.obj
-.PHONY : forloops.obj
-
-# target to build an object file
-forloops.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/forloops.c.obj
-.PHONY : forloops.c.obj
-
-forloops.i: forloops.c.i
-.PHONY : forloops.i
-
-# target to preprocess a source file
-forloops.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/forloops.c.i
-.PHONY : forloops.c.i
-
-forloops.s: forloops.c.s
-.PHONY : forloops.s
-
-# target to generate assembly for a file
-forloops.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/forloops.c.s
-.PHONY : forloops.c.s
-
-indexedassignments.obj: indexedassignments.c.obj
-.PHONY : indexedassignments.obj
-
-# target to build an object file
-indexedassignments.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/indexedassignments.c.obj
-.PHONY : indexedassignments.c.obj
-
-indexedassignments.i: indexedassignments.c.i
-.PHONY : indexedassignments.i
-
-# target to preprocess a source file
-indexedassignments.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/indexedassignments.c.i
-.PHONY : indexedassignments.c.i
-
-indexedassignments.s: indexedassignments.c.s
-.PHONY : indexedassignments.s
-
-# target to generate assembly for a file
-indexedassignments.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MatlangProject.dir\build.make CMakeFiles/MatlangProject.dir/indexedassignments.c.s
-.PHONY : indexedassignments.c.s
-
 infixtopostfix.obj: infixtopostfix.c.obj
 .PHONY : infixtopostfix.obj
 
@@ -413,12 +365,6 @@ help:
 	@echo ... expressionparsing.obj
 	@echo ... expressionparsing.i
 	@echo ... expressionparsing.s
-	@echo ... forloops.obj
-	@echo ... forloops.i
-	@echo ... forloops.s
-	@echo ... indexedassignments.obj
-	@echo ... indexedassignments.i
-	@echo ... indexedassignments.s
 	@echo ... infixtopostfix.obj
 	@echo ... infixtopostfix.i
 	@echo ... infixtopostfix.s
