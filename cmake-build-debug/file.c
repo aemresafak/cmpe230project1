@@ -393,53 +393,49 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
 }
 
 int main() {
-double i = 0;
-double n = 0;
-double* x = (double*) malloc(2 * sizeof (double));
-for (int i = 0; i < 2; i++) {
-x[i] = 0;
-}
-double* y = (double*) malloc(2 * sizeof (double));
-for (int i = 0; i < 2; i++) {
-y[i] = 0;
-}
-double** A = (double**)malloc(2 * sizeof(double*));
-    for (int _i = 0; _i < 2; _i++)
-        A[_i] = (double*)malloc(2 * sizeof(double));
-for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < 2; j++) {
+double** A = (double**)malloc(4 * sizeof(double*));
+    for (int _i = 0; _i < 4; _i++)
+        A[_i] = (double*)malloc(4 * sizeof(double));
+for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
         A[i][j] = 0;
     }
 }
-double** B = (double**)malloc(2 * sizeof(double*));
-    for (int _i = 0; _i < 2; _i++)
-        B[_i] = (double*)malloc(2 * sizeof(double));
-for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < 2; j++) {
-        B[i][j] = 0;
-    }
+double* x = (double*) malloc(4 * sizeof (double));
+for (int i = 0; i < 4; i++) {
+x[i] = 0;
 }
-n = 10;
+double* xy2 = (double*) malloc(4 * sizeof (double));
+for (int i = 0; i < 4; i++) {
+xy2[i] = 0;
+}
+double s = 0;
+A[0][0] = 0.000000;
+A[0][1] = 1.000000;
+A[0][2] = 2.000000;
+A[0][3] = 3.000000;
+A[1][0] = 4.000000;
+A[1][1] = 5.000000;
+A[1][2] = 6.000000;
+A[1][3] = 7.000000;
+A[2][0] = 8.000000;
+A[2][1] = 9.000000;
+A[2][2] = 1.000000;
+A[2][3] = 1.000000;
+A[3][0] = 1.000000;
+A[3][1] = 2.000000;
+A[3][2] = 3.000000;
+A[3][3] = 4.000000;
 x[0] = 1.000000;
 x[1] = 1.000000;
-A[0][0] = 1.000000;
-A[0][1] = 1.000000;
-A[1][0] = 1.000000;
-A[1][1] = 0.000000;
-B[0][0] = 1.000000;
-B[0][1] = 0.000000;
-B[1][0] = 0.000000;
-B[1][1] = 1.000000;
-for (int i = 0; i < 2; i++) {
-	printf("%f\n",x[i]);
-}
-for ( i = 1 ; i <= n; i += 1) {
-B = matrixMultiplication(A,B,2,2,2,2);
-    for (int _i = 0; _i < 2; _i++) {
-        y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,2),1,2),2,2,2,1)[_i][0];
-    }
-printf("%f\n",y[1-1]);
-}
+x[2] = 1.000000;
+x[3] = 1.000000;
+xy2[0] = 2.000000;
+xy2[1] = 1.000000;
+xy2[2] = 3.000000;
+xy2[3] = 1.000000;
+s = matrixMultiplication(matrixMultiplication(transposeVector(x,4),A,1,4,4,4),transposeMatrix(transposeVector(xy2,4),1,4),1,4,4,1)[0][0];
+printf("%f\n", s);
 return 0;
 
 }

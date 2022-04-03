@@ -26,7 +26,7 @@ int isEmptyString(const char *str, int size) {
     return state;
 }
 
-int getSizeOfString(char *string) {
+int getSizeOfString(const char *string) {
     int size = 0;
     while (1) {
         if (string[size] == '\0') {
@@ -68,7 +68,7 @@ int isCommentLine(const char *str) {
         return 0;
 }
 
-int startsWith(char *source, char *with, int sizeOfWith) {
+int startsWith(const char *source, char *with, int sizeOfWith) {
     if (getSizeOfString(source) < getSizeOfString(with))
         return 0;
     int starts = 1;
