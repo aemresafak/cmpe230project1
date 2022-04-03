@@ -672,11 +672,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             }
             else if(isVariableVector(prev->data) || prev->is_vector == 1)
             {
-                strcat(temp_string , "transposeVector(");
-                strcat(temp_string , prev->data);
-                strcat(temp_string ,  ",");
-                strcat(temp_string , convertIntegerToChar(prev->size));
-                strcat(temp_string , ")");
 
                 new_node->is_matrix = 1;
 
@@ -690,18 +685,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     column_size = findVectorById(prev->data)->size;
                 }
 
+                strcat(temp_string , "transposeVector(");
+                strcat(temp_string , prev->data);
+                strcat(temp_string ,  ",");
+                strcat(temp_string , convertIntegerToChar(column_size));
+                strcat(temp_string , ")");
+
                 new_node->row_size = 1;
                 new_node->column_size = column_size;
             }
             else if(isVariableMatrix(prev->data) || prev->is_matrix == 1)
             {
-                strcat(temp_string , "transposeMatrix(");
-                strcat(temp_string , prev->data);
-                strcat(temp_string ,  ",");
-                strcat(temp_string , convertIntegerToChar(prev->row_size));
-                strcat(temp_string ,  ",");
-                strcat(temp_string , convertIntegerToChar(prev->column_size));
-                strcat(temp_string , ")");
 
                 new_node->is_matrix = 1;
 
@@ -716,6 +710,14 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     row_size = findMatrixById(prev->data)->rowSize;
                     column_size = findMatrixById(prev->data)->columnSize;
                 }
+
+                strcat(temp_string , "transposeMatrix(");
+                strcat(temp_string , prev->data);
+                strcat(temp_string ,  ",");
+                strcat(temp_string , convertIntegerToChar(row_size));
+                strcat(temp_string ,  ",");
+                strcat(temp_string , convertIntegerToChar(column_size));
+                strcat(temp_string , ")");
 
                 new_node->row_size = column_size;
                 new_node->column_size = row_size;
@@ -862,14 +864,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
-                    strcat(temp_string , "addScalarToVector(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->size));
-                    strcat(temp_string , ")");
-
                     new_node->is_vector = 1;
 
                     int size;
@@ -882,20 +876,20 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(second->data)->size;
                     }
 
+                    strcat(temp_string , "addScalarToVector(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                 (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "addScalarToVector(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->size));
-                    strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
 
@@ -909,22 +903,21 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(first->data)->size;
                     }
 
+
+                    strcat(temp_string , "addScalarToVector(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isNumber(first->data) || isVariableScalar(first->data) || first-> is_scalar) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
-
-                    strcat(temp_string , "addScalarToMatrix(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -940,6 +933,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         column_size = findMatrixById(second->data)->columnSize;
                     }
 
+
+                    strcat(temp_string , "addScalarToMatrix(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
+
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
 
@@ -947,16 +951,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "addScalarToMatrix(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -971,6 +965,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         row_size = findMatrixById(first->data)->rowSize;
                         column_size = findMatrixById(first->data)->columnSize;
                     }
+
+
+                    strcat(temp_string , "addScalarToMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
 
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
@@ -1021,16 +1026,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
-                    strcat(temp_string , "addVectorToMatrix(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->column_size));
-                    strcat(temp_string , ")");
-
                     new_node->is_matrix = 1;
 
                     int row_size , column_size;
@@ -1062,6 +1057,16 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     }
 
 
+                    strcat(temp_string , "addVectorToMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
+
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
 
@@ -1069,16 +1074,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
-
-                    strcat(temp_string , "addVectorToMatrix(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1109,6 +1104,15 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         return 0;
                     }
 
+                    strcat(temp_string , "addVectorToMatrix(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
 
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
@@ -1187,13 +1191,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
-                    strcat(temp_string , "subtractVectorFromScalar(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->size));
-                    strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
 
@@ -1207,20 +1204,20 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(second->data)->size;
                     }
 
+                    strcat(temp_string , "subtractVectorFromScalar(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "subtractScalarFromVector(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->size));
-                    strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
 
@@ -1234,22 +1231,21 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(first->data)->size;
                     }
 
+
+                    strcat(temp_string , "subtractScalarFromVector(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isNumber(first->data) || isVariableScalar(first->data) || first-> is_scalar) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
-
-                    strcat(temp_string , "subtractMatrixFromScalar(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1265,6 +1261,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         column_size = findMatrixById(second->data)->columnSize;
                     }
 
+
+                    strcat(temp_string , "subtractMatrixFromScalar(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
+
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
 
@@ -1272,16 +1279,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "subtractScalarFromMatrix(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1296,6 +1293,16 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         row_size = findMatrixById(first->data)->rowSize;
                         column_size = findMatrixById(first->data)->columnSize;
                     }
+
+                    strcat(temp_string , "subtractScalarFromMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
 
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
@@ -1345,15 +1352,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isVariableVector(second->data) || second->is_vector))
                 {
-                    strcat(temp_string , "subtractVectorFromMatrix(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1385,6 +1383,16 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         return 0;
                     }
 
+                    strcat(temp_string , "subtractVectorFromMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
+
 
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
@@ -1393,16 +1401,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
-
-                    strcat(temp_string , "subtractMatrixFromVector(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1432,6 +1430,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     {
                         return 0;
                     }
+
+
+                    strcat(temp_string , "subtractMatrixFromVector(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
 
 
                     new_node->row_size = row_size;
@@ -1513,14 +1522,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         (isVariableVector(second->data) || second->is_vector))
                 {
 
-                    strcat(temp_string , "multiplyScalarWithVector(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->size));
-                    strcat(temp_string , ")");
-
                     new_node->is_vector = 1;
 
                     int size;
@@ -1533,20 +1534,21 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(second->data)->size;
                     }
 
+
+                    strcat(temp_string , "multiplyScalarWithVector(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isVariableVector(first->data) || first->is_vector) &&
                         (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "multiplyScalarWithVector(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->size));
-                    strcat(temp_string , ")");
 
                     new_node->is_vector = 1;
 
@@ -1560,22 +1562,20 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         size = findVectorById(first->data)->size;
                     }
 
+                    strcat(temp_string , "multiplyScalarWithVector(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(size));
+                    strcat(temp_string , ")");
+
                     new_node->size = size;
 
                 }
                 else if((isNumber(first->data) || isVariableScalar(first->data) || first-> is_scalar) &&
                         (isVariableMatrix(second->data) || second->is_matrix))
                 {
-
-                    strcat(temp_string , "multiplyScalarWithMatrix(");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(second->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1591,6 +1591,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         column_size = findMatrixById(second->data)->columnSize;
                     }
 
+
+                    strcat(temp_string , "multiplyScalarWithMatrix(");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
+
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
 
@@ -1598,16 +1609,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 else if((isVariableMatrix(first->data) || first->is_matrix) &&
                         (isNumber(second->data) || isVariableScalar(second->data) || second->is_scalar))
                 {
-
-                    strcat(temp_string , "multiplyScalarWithMatrix(");
-                    strcat(temp_string , second->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , first->data);
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->row_size));
-                    strcat(temp_string , ",");
-                    strcat(temp_string , convertIntegerToChar(first->column_size));
-                    strcat(temp_string , ")");
 
                     new_node->is_matrix = 1;
 
@@ -1622,6 +1623,17 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                         row_size = findMatrixById(first->data)->rowSize;
                         column_size = findMatrixById(first->data)->columnSize;
                     }
+
+
+                    strcat(temp_string , "multiplyScalarWithMatrix(");
+                    strcat(temp_string , second->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , first->data);
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(row_size));
+                    strcat(temp_string , ",");
+                    strcat(temp_string , convertIntegerToChar(column_size));
+                    strcat(temp_string , ")");
 
                     new_node->row_size = row_size;
                     new_node->column_size = column_size;
