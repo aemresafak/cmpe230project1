@@ -436,9 +436,9 @@ for (int i = 0; i < 2; i++) {
 for ( i = 1 ; i <= n; i += 1) {
 B = matrixMultiplication(A,B,2,2,2,2);
     for (int _i = 0; _i < 2; _i++) {
-        y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,-1),1,-1),2,2,2,1)[_i][0];
+        y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,2),1,2),2,2,2,1)[_i][0];
     }
-printf("%f",y[1-1]);
+printf("%f\n",y[1-1]);
 }
 return 0;
 

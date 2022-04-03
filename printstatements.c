@@ -90,7 +90,7 @@ int parsePrintIdWithIndex(char *line, FILE* file) {
             if (pNodeForDll->is_scalar != 1)
                 return 0;
             indexResult = pNodeForDll->data;
-            fprintf(file,"printf(\"%%f\",%s[%s-1]);\n", identifier, indexResult);
+            fprintf(file,"printf(\"%%f\\n\",%s[%s-1]);\n", identifier, indexResult);
             return 1;
         } else {
             return 0;
