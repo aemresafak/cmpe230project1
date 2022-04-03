@@ -23,10 +23,10 @@ int isVectorAssignment(char *line) {
         appendToLinkedList(head, temp);
     }
     char *identifier = getNodeData(head, 0);
-    char *token = getNodeData(head, 1);
     if (getLinkedListSize(head) <= 2) {
         return 0;
     }
+    char *token = getNodeData(head, 1);
     if (isVariableVector(identifier) == 1 && strcmp(token, "=") == 0)
         return 1;
     else
@@ -139,11 +139,12 @@ int parseScalarAssignment(char *line) {
     }
     char *identifier = getNodeData(head, 0);
     struct node_for_dll *nodeForDll = NULL;
-    char *expression;
-    int index = 0;
+    char* expression = malloc(1024);
+    expression[0] = 0;
     for (int i = 2; i < getLinkedListSize(head); i++) {
         strcat(expression, getNodeData(head, i));
     }
+
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->is_scalar == 1) {

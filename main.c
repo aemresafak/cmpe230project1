@@ -5,9 +5,16 @@
 #include "printstatements.h"
 #include "expressionparsing.h"
 #include "infixtopostfix.h"
+#include "indexedassignments.h"
+#include "forloops.h"
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
+static int lineCount = 0;
+int hasPendingRightBracket = 0;
+int canPutRightBracket = 0;
+
+int parseLine(char *line);
 
 int main(int argc, char *argv[]) {
     FILE *fp;
@@ -23,60 +30,121 @@ int main(int argc, char *argv[]) {
         printf("Cannot open %s\n", argv[1]);
         return (1);
     }
-    int lineCount = 0;
+    int errorOccured = 0;
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
-        if (isEmptyString(line, LINE_LIMIT)) {
-            continue;
+        if (parseLine(line) == ERROR) {
+            errorOccured = 1;
+            break;
         }
-        char *strippedLine = strippedString(line, LINE_LIMIT);
-
-        if (isCommentLine(strippedLine)) {
-            lineCount++;
-            continue;
-        }
-
-        char *spacedLine = getSpacedVersionOf(strippedLine);
-        if (isScalarDefinition(spacedLine)) {
-            if (parseScalarDefinition(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isMatrixDefinition(spacedLine)) {
-            if (parseMatrixDefinition(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isVectorDefinition(spacedLine)) {
-            if (parseVectorDefinition(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isVectorAssignment(spacedLine)) {
-            if (parseVectorAssignment(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isMatrixAssignment(spacedLine)) {
-            if (parseMatrixAssignment(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isPrintSepStatement(spacedLine)) {
-            if (parsePrintSepStatement(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isPrintIdStatement(spacedLine)) {
-            if (parsePrintIdStatement(spacedLine) == ERROR) {
-                printf("Error (Line %d)\n", lineCount);
-                return -1;
-            }
-        } else if (isScalarAssignment(spacedLine)) {
-            parseScalarAssignment(spacedLine);
-        }
-
-        lineCount++;
     }
+    if (!errorOccured) {
+        if (hasPendingRightBracket) {
+            printf("Error (Line %d)\n", lineCount);
+            return -1;
+        }
+    }
+
     fclose(fp);
     return (0);
+}
+
+int parseLine(char *line) {
+    if (isEmptyString(line, LINE_LIMIT)) {
+        return 1;
+    }
+    char *strippedLine = strippedString(line, LINE_LIMIT);
+    if (isCommentLine(strippedLine)) {
+        lineCount++;
+        return 1;
+    }
+
+
+    char *spacedLine = getSpacedVersionOf(strippedLine);
+
+    if (isScalarDefinition(spacedLine)) {
+        if (parseScalarDefinition(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isMatrixDefinition(spacedLine)) {
+
+        if (parseMatrixDefinition(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isVectorDefinition(spacedLine)) {
+
+        if (parseVectorDefinition(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isVectorAssignment(spacedLine)) {
+
+        if (parseVectorAssignment(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isMatrixAssignment(spacedLine)) {
+
+        if (parseMatrixAssignment(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isPrintSepStatement(spacedLine)) {
+
+        if (parsePrintSepStatement(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isPrintIdStatement(spacedLine)) {
+        if (parsePrintIdStatement(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isScalarAssignment(spacedLine)) {
+
+        if (parseScalarAssignment(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isIndexedVectorAssignment(spacedLine)) {
+
+        if (parseIndexedVectorAssignment(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isIndexedMatrixAssignment(spacedLine)) {
+
+        if (parseIndexedMatrixAssignment(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+    } else if (isSingleForLoop(spacedLine)) {
+        if (parseSingleForLoop(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+        hasPendingRightBracket++;
+        canPutRightBracket++;
+    } else if (strcmp(strippedLine, "}") == 0 || strcmp(strippedLine, "}\n") == 0) {
+        if (canPutRightBracket != 1) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+        printf("}\n");
+        hasPendingRightBracket--;
+        canPutRightBracket--;
+    } else if (isDoubleForLoop(spacedLine)) {
+        if (parseDoubleForLoop(spacedLine) == ERROR) {
+            printf("Error (Line %d)\n", lineCount);
+            return 0;
+        }
+        hasPendingRightBracket++;
+        canPutRightBracket++;
+    } else {
+        printf("Error (Line %d)\n", lineCount);
+        return 0;
+    }
+    lineCount++;
+    return 1;
 }
