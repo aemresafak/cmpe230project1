@@ -6,6 +6,8 @@
 #define MATLANGPROJECT_INDEXEDASSIGNMENTS_H
 
 
+#include <mbstring.h>
+
 /**
  * return 1 if line is of form a[expr] = expr
  * @param line
@@ -18,7 +20,7 @@ int isIndexedVectorAssignment(char* line);
  * @param line
  * @return
  */
-int parseIndexedVectorAssignment(char* line);
+int parseIndexedVectorAssignment(char *line, FILE *file);
 
 /**
  * return 1 if is matrix assignment 0 otherwise
@@ -32,5 +34,5 @@ int isIndexedMatrixAssignment(char* line);
  * @param line
  * @return
  */
-int parseIndexedMatrixAssignment(char* line);
+int parseIndexedMatrixAssignment(char *line, FILE *file);
 #endif //MATLANGPROJECT_INDEXEDASSIGNMENTS_H

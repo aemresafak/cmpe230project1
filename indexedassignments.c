@@ -78,7 +78,7 @@ int isIndexedVectorAssignment(char *line) {
     return 1;
 }
 
-int parseIndexedVectorAssignment(char *line) {
+int parseIndexedVectorAssignment(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
     while (temp != NULL) {
@@ -121,12 +121,12 @@ int parseIndexedVectorAssignment(char *line) {
         result = pNodeForDll2->data;
     }
 
-    printf("%s[%s-1]=%s;\n",identifier,indexResult, result);
+    fprintf(file,"%s[%s-1]=%s;\n",identifier,indexResult, result);
 
     return 1;
 }
 
-int parseIndexedMatrixAssignment(char* line) {
+int parseIndexedMatrixAssignment(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
     while (temp != NULL) {
@@ -188,7 +188,7 @@ int parseIndexedMatrixAssignment(char* line) {
         result = pNodeForDll3->data;
     }
 
-    printf("%s[%s-1,%s-1] = %s;\n", identifier, indexResult, indexResult2, result);
+    fprintf(file,"%s[%s-1,%s-1] = %s;\n", identifier, indexResult, indexResult2, result);
 
     return 1;
 }
