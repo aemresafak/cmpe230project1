@@ -393,34 +393,50 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
 }
 
 int main() {
-double** A = (double**)malloc(4 * sizeof(double*));
-    for (int _i = 0; _i < 4; _i++)
-        A[_i] = (double*)malloc(4 * sizeof(double));
-for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
+double** A = (double**)malloc(3 * sizeof(double*));
+    for (int _i = 0; _i < 3; _i++)
+        A[_i] = (double*)malloc(3 * sizeof(double));
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
         A[i][j] = 0;
     }
 }
-double count = 0;
-double incr = 0;
+double* x = (double*) malloc(3 * sizeof (double));
+for (int i = 0; i < 3; i++) {
+x[i] = 0;
+}
+double* y = (double*) malloc(3 * sizeof (double));
+for (int i = 0; i < 3; i++) {
+y[i] = 0;
+}
+double r = 0;
 double i = 0;
-double j = 0;
-A[0][0] = 0.000000;
-A[0][1] = 1.000000;
-A[0][2] = 2.000000;
-A[0][3] = 3.000000;
-A[1][0] = 4.000000;
-A[1][1] = 5.000000;
-A[1][2] = 6.000000;
-A[1][3] = 7.000000;
-A[2][0] = 8.000000;
-A[2][1] = 9.000000;
-A[2][2] = 1.000000;
-A[2][3] = 1.000000;
-A[3][0] = 1.000000;
-A[3][1] = 2.000000;
-A[3][2] = 3.000000;
-A[3][3] = 4.000000;
-count = 0;
-for (i = 1; i < 4; i += 1) {
-for (j = 1; j < 4; j += 1) {
+A[0][0] = 0.500000;
+A[0][1] = 0.000000;
+A[0][2] = 0.500000;
+A[1][0] = 0.000000;
+A[1][1] = 0.000000;
+A[1][2] = 0.500000;
+A[2][0] = 0.500000;
+A[2][1] = 1.000000;
+A[2][2] = 0.000000;
+x[0] = 1.000000;
+x[1] = 1.000000;
+x[2] = 1.000000;
+for ( i = 1 ; i <= 10; i += 1) {
+    for (int _i = 0; _i < 3; _i++) {
+        y[_i] = matrixMultiplication(A,transposeMatrix(transposeVector(x,3),1,3),3,3,3,1)[_i][0];
+    }
+r = sqrt(matrixMultiplication(transposeVector(vectorSubtraction(y,x,3),3),transposeMatrix(transposeVector(vectorSubtraction(y,x,3),3),1,3),1,3,3,1)[0][0]);
+printf("%f\n", r);
+for (int __i = 0; __i < 3; __i++) {
+                x[__i] = y[__i];
+            }
+}
+printf("----------\n");
+for (int i = 0; i < 3; i++) {
+	printf("%f\n",x[i]);
+}
+return 0;
+
+}
