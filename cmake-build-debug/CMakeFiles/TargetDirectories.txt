@@ -1,3 +1,3 @@
-C:/Users/hp/Desktop/cmpe230project1/cmake-build-debug/CMakeFiles/MatlangProject.dir
-C:/Users/hp/Desktop/cmpe230project1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/hp/Desktop/cmpe230project1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/aesh/CLionProjects/MatlangProject/cmake-build-debug/CMakeFiles/MatlangProject.dir
+C:/Users/aesh/CLionProjects/MatlangProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/aesh/CLionProjects/MatlangProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
