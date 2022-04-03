@@ -1,6 +1,7 @@
 #include <malloc.h>
 #include<string.h>
 #include<stdio.h>
+#include <math.h>
 
 int choose(int a , int b , int c , int d)
 {
@@ -390,17 +391,19 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1)
 
     return new_mat;
 }int main() {
-double A[3][3];
+double** A = (double**)malloc(3 * sizeof(double*));
+    for (int _i = 0; _i < 3; _i++)
+        A[_i] = (double*)malloc(3 * sizeof(double));
 for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
         A[i][j] = 0;
     }
 }
-double x[3];
+double* x = (double*) malloc(3 * sizeof (double));
 for (int i = 0; i < 3; i++) {
 x[i] = 0;
 }
-double y[3];
+double* y = (double*) malloc(3 * sizeof (double));
 for (int i = 0; i < 3; i++) {
 y[i] = 0;
 }
@@ -419,7 +422,9 @@ x[0] = 1.000000;
 x[1] = 1.000000;
 x[2] = 1.000000;
 for ( i = 1 ; i <= 10; i += 1) {
-y = matrixMultiplication(A,transposeMatrix(transposeVector(x)));
+    for (int _i = 0; _i < 3; _i++) {
+        y[_i] = matrixMultiplication(A,transposeMatrix(transposeVector(x)))[_i][0];
+    }
 r = sqrt(matrixMultiplication(transposeVector(vectorSubtraction(y,x)),transposeMatrix(transposeVector(vectorSubtraction(y,x))))[0][0]);
 printf("%f", r);
 x = y;

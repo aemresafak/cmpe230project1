@@ -27,7 +27,7 @@ int parseScalarDefinition(char *line, FILE *file) {
     struct Scalar *scalar = malloc(sizeof(struct Scalar));
     scalar->id = identifier;
     appendToScalars(scalar);
-    fprintf(file,"double %s = 0;\n", identifier);
+    fprintf(file, "double %s = 0;\n", identifier);
     return 1;
 }
 
@@ -49,7 +49,7 @@ int parseVectorDefinition(char *line, FILE *file) {
         return 0;
     }
 
-    if(isVariableNameAlreadyUsed(identifier)) {
+    if (isVariableNameAlreadyUsed(identifier)) {
         return 0;
     }
 
@@ -73,7 +73,8 @@ int parseVectorDefinition(char *line, FILE *file) {
     vector->id = identifier;
     vector->size = size;
     appendToVectors(vector);
-    fprintf(file,"double %s[%d];\n", identifier, size);
+    char *code = "double* %s = (double*) malloc(%d * sizeof (double));\n";
+    fprintf(file, code, identifier, size);
     initializeSingleDimensionalArray(identifier, size, file);
     return 1;
 }
@@ -93,7 +94,7 @@ int parseMatrixDefinition(char *line, FILE *file) {
         return 0;
     }
 
-    char* identifier = getNodeData(head, 1);
+    char *identifier = getNodeData(head, 1);
     if (!isAlphaNumeric(identifier)) {
         return 0;
     }
@@ -136,14 +137,18 @@ int parseMatrixDefinition(char *line, FILE *file) {
     matrix->rowSize = rowSize;
     matrix->columnSize = columnSize;
     appendToMatrices(matrix);
-    fprintf(file,"double %s[%d][%d];\n", identifier, rowSize, columnSize);
+    char *code =
+            "double** %s = (double**)malloc(%d * sizeof(double*));\n"
+            "    for (int _i = 0; _i < %d; _i++)\n"
+            "        %s[_i] = (double*)malloc(%d * sizeof(double));\n";
+    fprintf(file, code, identifier, rowSize, rowSize, identifier, columnSize);
     initializeMatrix(identifier, rowSize, columnSize, file);
     return 1;
 }
 
 void initializeSingleDimensionalArray(char *identifier, int size, FILE *file) {
     char *code = "for (int i = 0; i < %d; i++) {\n%s[i] = 0;\n}\n";
-    fprintf(file,code, size, identifier);
+    fprintf(file, code, size, identifier);
 }
 
 void initializeMatrix(char *identifier, int rowSize, int columnSize, FILE *file) {
@@ -151,5 +156,5 @@ void initializeMatrix(char *identifier, int rowSize, int columnSize, FILE *file)
                  "    for (int j = 0; j < %d; j++) {\n"
                  "        %s[i][j] = 0;\n    }\n"
                  "}\n";
-    fprintf(file,code, rowSize, columnSize, identifier);
+    fprintf(file, code, rowSize, columnSize, identifier);
 }

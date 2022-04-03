@@ -31,12 +31,19 @@ int parseVectorAssignmentWithExpression(char *line, FILE *file) {
 
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
-        if (nodeForDll->row_size == findVectorById(identifier)->size &&
-            nodeForDll->column_size == 1 || nodeForDll->size == findVectorById(identifier)->size) {
+        if (nodeForDll->size == findVectorById(identifier)->size) {
             fprintf(file, "%s = %s;\n", identifier, nodeForDll->data);
+            return 1;
+        } else if (nodeForDll->row_size == findVectorById(identifier)->size &&
+                   nodeForDll->column_size == 1) {
+            char *code = "    for (int _i = 0; _i < %d; _i++) {\n"
+                         "        %s[_i] = %s[_i][0];\n"
+                         "    }\n";
+            fprintf(file, code, nodeForDll->row_size, identifier, nodeForDll->data);
             return 1;
         }
     }
+
     return 0;
 }
 

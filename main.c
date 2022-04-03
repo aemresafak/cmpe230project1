@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 
 int parseLine(char *line, FILE *outFile) {
     if (isEmptyString(line, LINE_LIMIT)) {
+        lineCount++;
         return 1;
     }
     char *strippedLine = strippedString(line, LINE_LIMIT);
@@ -176,7 +177,7 @@ int parseLine(char *line, FILE *outFile) {
 }
 
 void defineFunctions(FILE *out) {
-    fprintf(out, "#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n\n");
+    fprintf(out, "#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n#include <math.h>\n\n");
     char *_choose = "int choose(int a , int b , int c , int d)\n"
                     "{\n"
                     "    if(a == 0)\n"
