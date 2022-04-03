@@ -32,9 +32,9 @@ int parseVectorAssignmentWithExpression(char *line, FILE *file) {
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->size == findVectorById(identifier)->size) {
-            char* code ="for (int __i = 0; __i < %d; __i++) {\n"
-                        "                %s[__i] = %s[__i];\n"
-                        "            }\n";
+            char *code = "for (int __i = 0; __i < %d; __i++) {\n"
+                         "                %s[__i] = %s[__i];\n"
+                         "            }\n";
             fprintf(file, code, nodeForDll->size, identifier, nodeForDll->data);
             return 1;
         } else if (nodeForDll->row_size == findVectorById(identifier)->size &&
@@ -154,7 +154,12 @@ int parseMatrixAssignmentWithExpression(char *line, FILE *out) {
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->row_size == findMatrixById(identifier)->rowSize &&
             nodeForDll->column_size == findMatrixById(identifier)->columnSize) {
-            fprintf(out, "%s = %s;\n", identifier, nodeForDll->data);
+            char *code = "            for (int ii = 0; ii < %d; ii++) {\n"
+                         "                for (int jj = 0; jj < %d; jj++) {\n"
+                         "                    %s[ii][jj] = %s[ii][jj];\n"
+                         "                }\n"
+                         "            }\n";
+            fprintf(out, code, nodeForDll->row_size, nodeForDll->column_size, identifier, nodeForDll->data);
             return 1;
         }
     }
