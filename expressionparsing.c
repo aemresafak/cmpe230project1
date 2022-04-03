@@ -13,6 +13,11 @@
 
 char* convertIntegerToChar(int N)
 {
+    char *str= (char *) malloc(200 * sizeof(char));
+    sprintf(str, "%d", 42);
+
+    return str;
+    /*
     int m = N;
     int digit = 0;
     while (m) {
@@ -44,6 +49,7 @@ char* convertIntegerToChar(int N)
     arr[i] = '\0';
 
     return (char*)arr;
+     */
 }
 
 int isNumber(char* arr) {
