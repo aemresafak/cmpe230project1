@@ -117,8 +117,8 @@ int parseLine(char *line, FILE *outFile) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
-    } else if (isPrintIdStatement(spacedLine)) {
-        if (parsePrintIdStatement(spacedLine, outFile) == ERROR) {
+    } else if (isUsualPrintIdStatement(spacedLine)) {
+        if (parseUsualPrintIdStatement(spacedLine, outFile) == ERROR) {
             printf("Error (Line %d)\n", lineCount);
             return 0;
         }
