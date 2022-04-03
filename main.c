@@ -42,12 +42,16 @@ int main(int argc, char *argv[]) {
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
         if (parseLine(line, out) == ERROR) {
             errorOccured = 1;
+            fclose(out);
+            remove("file.c");
             break;
         }
     }
     if (!errorOccured) {
         if (hasPendingRightBracket) {
             printf("Error (Line %d)\n", lineCount);
+            fclose(out);
+            remove("file.c");
             return -1;
         } else {
             fprintf(out, "return 0;\n\n}");

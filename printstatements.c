@@ -203,6 +203,6 @@ int parseUsualPrintIdStatement(char *line, FILE *file) {
 }
 
 int parsePrintSepStatement(char *line, FILE *file) {
-    fprintf(file, "printf(\"----------\\n\");\n");
+    fprintf(file, "printf(\"------------\\n\");\n");
     return 1;
 }
