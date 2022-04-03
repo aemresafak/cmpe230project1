@@ -14,7 +14,7 @@
 char* convertIntegerToChar(int N)
 {
     char *str= (char *) malloc(200 * sizeof(char));
-    sprintf(str, "%d", 42);
+    sprintf(str, "%d", N);
 
     return str;
     /*
