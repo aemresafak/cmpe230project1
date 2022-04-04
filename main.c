@@ -204,7 +204,7 @@ void defineFunctions(FILE *out) {
     fprintf(out, _choose);
 
     char* customPrint = "void customPrint(double number) {\n"
-                        "    double precision = 0.000001;\n"
+                        "    double precision = 0.00000001;\n"
                         "    if (number - (int) number < precision ) {\n"
                         "        int numberInt = (int) number;\n"
                         "        printf(\"%%d\\n\", numberInt);\n"
