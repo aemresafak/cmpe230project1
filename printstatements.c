@@ -90,7 +90,7 @@ int parsePrintIdWithIndex(char *line, FILE* file) {
             if (pNodeForDll->is_scalar != 1)
                 return 0;
             indexResult = pNodeForDll->data;
-            fprintf(file,"printf(\"%%f\\n\",%s[%s-1]);\n", identifier, indexResult);
+            fprintf(file,"customPrint(%s[%s-1]);\n", identifier, indexResult);
             return 1;
         } else {
             return 0;
@@ -145,7 +145,7 @@ int parsePrintIdWithIndex(char *line, FILE* file) {
             return 0;
         }
 
-        printf("printf(\"%%f\",%s[%s-1,%s-1]);\n\n", identifier, indexResultLeft, indexResultRight);
+        printf("customPrint(%s[%s-1,%s-1]);\n\n", identifier, indexResultLeft, indexResultRight);
         return 1;
     }
 
@@ -182,20 +182,20 @@ int parseUsualPrintIdStatement(char *line, FILE *file) {
     char *identifier = getNodeData(head, 2);
     if (isVariableScalar(identifier)) {
         struct Scalar *scalar = findScalarById(identifier);
-        fprintf(file, "printf(\"%%f\\n\", %s);", scalar->id);
+        fprintf(file, "customPrint(%s);", scalar->id);
         fprintf(file, "\n");
         return 1;
     }
     if (isVariableVector(identifier)) {
         struct Vector *vector = findVectorById(identifier);
-        char *code = "for (int i = 0; i < %d; i++) {\n\tprintf(\"%%f\\n\",%s[i]);\n}\n";
+        char *code = "for (int i = 0; i < %d; i++) {\n\tcustomPrint(%s[i]);\n}\n";
         fprintf(file, code, vector->size, vector->id);
         return 1;
     }
     if (isVariableMatrix(identifier)) {
         struct Matrix *matrix = findMatrixById(identifier);
         char *code = "for (int i = 0; i < %d; i++) {\n\tfor (int j = 0; j < %d; j++) "
-                     "{\n\t\tprintf(\"%%f\\n\", %s[i][j]);\n\t}\n}\n";
+                     "{\n\t\tcustomPrint(%s[i][j]);\n\t}\n}\n";
         fprintf(file, code, matrix->rowSize, matrix->columnSize, matrix->id);
         return 1;
     }

@@ -203,6 +203,19 @@ void defineFunctions(FILE *out) {
                     "}";
     fprintf(out, _choose);
 
+    char* customPrint = "void customPrint(double number) {\n"
+                        "    double precision = 0.000001;\n"
+                        "    if (number - (int) number < precision ) {\n"
+                        "        int numberInt = (int) number;\n"
+                        "        printf(\"%%d\\n\", numberInt);\n"
+                        "    } else if ((int) number + 1 - number < precision) {\n"
+                        "        int numberInt = (int) number + 1;\n"
+                        "        printf(\"%%d\\n\",numberInt);\n"
+                        "    } else\n"
+                        "        printf(\"%%f\\n\", number);\n"
+                        "}\n";
+    fprintf(out, customPrint);
+
     char *_other = "char* convertIntegerToChar(int N)\n"
                    "{\n"
                    "    int m = N;\n"
