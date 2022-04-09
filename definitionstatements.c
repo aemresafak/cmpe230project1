@@ -14,7 +14,6 @@ int parseScalarDefinition(char *line, FILE *file) {
         appendToLinkedList(head, temp);
     }
     if (getLinkedListSize(head) != 2) {
-        printf("SCALAR DEFINITION ERROR!\n");
         return 0;
     }
     char *identifier = getNodeData(head, 1);
@@ -41,7 +40,6 @@ int parseVectorDefinition(char *line, FILE *file) {
     }
 
     if (getLinkedListSize(head) != 5) {
-        printf("ERROR PARSING VECTOR DEFINITION\n");
         return 0;
     }
     char *identifier = getNodeData(head, 1);
@@ -54,18 +52,15 @@ int parseVectorDefinition(char *line, FILE *file) {
     }
 
     if (strcmp(getNodeData(head, 2), "[") != 0) {
-        printf("MISSING LEFT BRACKET!\n");
         return 0;
     }
 
     if (!containsOnlyNumbers(getNodeData(head, 3))) {
-        printf("VECTOR SIZE IS NOT NUMERIC!\n");
         return 0;
     }
     int size = strtol(getNodeData(head, 3), NULL, 10);
 
     if (strcmp(getNodeData(head, 4), "]") != 0) {
-        printf("MISSING RIGHT BRACE!\n");
         return 0;
     }
 
@@ -90,7 +85,6 @@ int parseMatrixDefinition(char *line, FILE *file) {
     }
 
     if (getLinkedListSize(head) != 7) {
-        printf("ERROR PARSING MATRIX DEFINITION\n");
         return 0;
     }
 
@@ -104,31 +98,26 @@ int parseMatrixDefinition(char *line, FILE *file) {
     }
 
     if (strcmp(getNodeData(head, 2), "[") != 0) {
-        printf("MISSING LEFT BRACKET\n");
         return 0;
     }
 
     if (!containsOnlyNumbers(getNodeData(head, 3))) {
-        printf("SIZE IS NOT NUMERIC!\n");
         return 0;
     }
 
     int rowSize = strtol(getNodeData(head, 3), NULL, 10);
 
     if (strcmp(getNodeData(head, 4), ",") != 0) {
-        printf("MISSING COMMA \n");
         return 0;
     }
 
     if (!containsOnlyNumbers(getNodeData(head, 5))) {
-        printf("SIZE IS NOT NUMERIC!\n");
         return 0;
     }
 
     int columnSize = strtol(getNodeData(head, 5), NULL, 10);
 
     if (strcmp(getNodeData(head, 6), "]") != 0) {
-        printf("MISSING RIGHT BRACKET \n");
         return 0;
     }
 
