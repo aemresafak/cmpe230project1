@@ -148,8 +148,8 @@ int infixToPostfix(char* exp , struct node_for_dll** head_ref)
         if(exp[i] == '[')
         {
             char temp_str[1024] = "";
-            strcpy(temp_str , var_name);
-            strcpy(temp_str , "[");
+            strcat(temp_str , var_name);
+            strcat(temp_str , "[");
 
             int parantheses_count = 1;
             int j = i+1;
