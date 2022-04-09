@@ -5,3 +5,4 @@ cmake-build-debug/.ninja_deps
 cmake-build-debug/CMakeFiles/MatlangProject.dir/
 cmake-build-debug/MatlangProject.exe
 /cmake-build-debug/Testing/Temporary/LastTest.log
+/cmake-build-debug/file.c
