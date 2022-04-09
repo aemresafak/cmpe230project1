@@ -238,7 +238,7 @@ int parseDoubleForLoop(char *line, FILE *file) {
         return 0;
     char *expr2Parsed;
     struct node_for_dll *node2 = NULL;
-    char *expr2Deblanked = deblank(expr1);
+    char *expr2Deblanked = deblank(expr2);
     if (expressionParsing(expr2Deblanked, &node2)) {
         if (!(node2->is_scalar)) {
             return 0;
@@ -289,11 +289,12 @@ int parseDoubleForLoop(char *line, FILE *file) {
         return 0;
     if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "{") != 0)
         return 0;
-    char *code = "for (%s = %s; %s < %s; %s += %s) {\n"
-                 "for (%s = %s; %s < %s; %s += %s) {\n";
-    fprintf(file, code, identifier1, expr1, identifier1, expr2, identifier1, expr3, identifier2, expr4, identifier2,
-            expr5,
-            identifier2, expr6);
+    char *code = "for (%s = %s; %s <= %s; %s += %s) {\n"
+                 "for (%s = %s; %s <= %s; %s += %s) {\n";
+    fprintf(file, code, identifier1, expr1Parsed, identifier1, expr2Parsed, identifier1, expr3Parsed, identifier2,
+            expr4Parsed, identifier2,
+            expr5Parsed,
+            identifier2, expr6Parsed);
     return 1;
 }
 
