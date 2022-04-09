@@ -15,7 +15,18 @@ int choose(int a , int b , int c , int d)
     }
 
     return d;
-}char* convertIntegerToChar(int N)
+}void customPrint(double number) {
+    double precision = 0.000001;
+    if (number - (int) number < precision ) {
+        int numberInt = (int) number;
+        printf("%d\n", numberInt);
+    } else if ((int) number + 1 - number < precision) {
+        int numberInt = (int) number + 1;
+        printf("%d\n",numberInt);
+    } else
+        printf("%f\n", number);
+}
+char* convertIntegerToChar(int N)
 {
     int m = N;
     int digit = 0;
@@ -431,14 +442,14 @@ B[0][1] = 0.000000;
 B[1][0] = 0.000000;
 B[1][1] = 1.000000;
 for (int i = 0; i < 2; i++) {
-	printf("%f\n",x[i]);
+	customPrint(x[i]);
 }
 for ( i = 1 ; i <= n; i += 1) {
 B = matrixMultiplication(A,B,2,2,2,2);
     for (int _i = 0; _i < 2; _i++) {
         y[_i] = matrixMultiplication(B,transposeMatrix(transposeVector(x,2),1,2),2,2,2,1)[_i][0];
     }
-printf("%f\n",y[1-1]);
+customPrint(y[1-1]);
 }
 return 0;
 

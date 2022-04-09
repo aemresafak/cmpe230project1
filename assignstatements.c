@@ -32,7 +32,10 @@ int parseVectorAssignmentWithExpression(char *line, FILE *file) {
     char *deblankedExpr = deblank(expression);
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->size == findVectorById(identifier)->size) {
-            fprintf(file, "%s = %s;\n", identifier, nodeForDll->data);
+            char *code = "for (int __i = 0; __i < %d; __i++) {\n"
+                         "                %s[__i] = %s[__i];\n"
+                         "            }\n";
+            fprintf(file, code, nodeForDll->size, identifier, nodeForDll->data);
             return 1;
         } else if (nodeForDll->row_size == findVectorById(identifier)->size &&
                    nodeForDll->column_size == 1) {
@@ -254,6 +257,9 @@ int parseScalarAssignment(char *line, FILE *file) {
     if (expressionParsing(deblankedExpr, &nodeForDll)) {
         if (nodeForDll->is_scalar == 1) {
             fprintf(file, "%s = %s;\n", identifier, nodeForDll->data);
+            return 1;
+        } else if (nodeForDll->is_matrix == 1 && nodeForDll->column_size == 1 && nodeForDll->row_size == 1) {
+            fprintf(file, "%s = %s[0][0];\n", identifier, nodeForDll->data);
             return 1;
         }
     }

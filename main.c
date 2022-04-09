@@ -42,12 +42,16 @@ int main(int argc, char *argv[]) {
     while (fgets(line, LINE_LIMIT, fp) != NULL) {
         if (parseLine(line, out) == ERROR) {
             errorOccured = 1;
+            fclose(out);
+            remove("file.c");
             break;
         }
     }
     if (!errorOccured) {
         if (hasPendingRightBracket) {
             printf("Error (Line %d)\n", lineCount);
+            fclose(out);
+            remove("file.c");
             return -1;
         } else {
             fprintf(out, "return 0;\n\n}");
@@ -198,6 +202,19 @@ void defineFunctions(FILE *out) {
                     "    return d;\n"
                     "}";
     fprintf(out, _choose);
+
+    char* customPrint = "void customPrint(double number) {\n"
+                        "    double precision = 0.00000001;\n"
+                        "    if (number - (int) number < precision ) {\n"
+                        "        int numberInt = (int) number;\n"
+                        "        printf(\"%%d\\n\", numberInt);\n"
+                        "    } else if ((int) number + 1 - number < precision) {\n"
+                        "        int numberInt = (int) number + 1;\n"
+                        "        printf(\"%%d\\n\",numberInt);\n"
+                        "    } else\n"
+                        "        printf(\"%%f\\n\", number);\n"
+                        "}\n";
+    fprintf(out, customPrint);
 
     char *_other = "char* convertIntegerToChar(int N)\n"
                    "{\n"

@@ -18,7 +18,7 @@ int isEmptyString(const char *str, int size);
  * @param string
  * @return size of the string including \0 character
  */
-int getSizeOfString(char *string);
+int getSizeOfString(const char *string);
 
 /**
  * Strips a non empty string from trailing and preceding white spaces
@@ -43,7 +43,7 @@ int isCommentLine(const char *str);
  * @param sizeOfWith size of with
  * @return 1 if source starts with with else 0
  */
-int startsWith(char *source, char *with, int sizeOfWith);
+int startsWith(const char *source, char *with, int sizeOfWith);
 
 /**
  * Check if the line is a scalar definition
