@@ -429,6 +429,21 @@ int choose(int a , int b , int c , int d)
     return d;
 }
 
+int isIndexation(char *arr)
+{
+    int i = 0;
+
+    for(i = 0 ; i < strlen(arr) ; i++)
+    {
+        if(arr[i] == '[')
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 
 int expressionParsing(char* infix_exp , struct node_for_dll** result)
 {
@@ -467,6 +482,120 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             temp->is_matrix = 1;
             temp->row_size = findMatrixById(temp->data)->rowSize;
             temp->column_size = findMatrixById(temp->data)->columnSize;
+        }
+        else if(isIndexation(temp->data))
+        {
+
+            char exp1[1024] = "";
+            char exp2[1024] = "";
+            char exp3[1024] = "";
+
+            int j = 0;
+
+            while(j < strlen(node->data) && node->data[j] != '[')
+            {
+                appendChar(exp1 ,  node->data[j]);
+
+                j++;
+            }
+
+            j++;
+
+            if(isVariableVector(exp1))
+            {
+                while(j < strlen(node->data) && node->data[j] != ']')
+                {
+                    appendChar(exp2 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                struct node_for_dll* node_2 = NULL;
+                int is_valid2 = expressionParsing(exp2 , &node_2);
+
+                if(is_valid2)
+                {
+                    temp->is_scalar = 1;
+
+
+                    char temp_string[1024] = "";
+
+
+                    strcat(temp_string , exp1);
+                    strcat(temp_string , "[");
+                    strcat(temp_string , node_2->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , "]");
+
+
+                    strcpy(temp->data , temp_string);
+
+
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            else if(isVariableMatrix(exp1))
+            {
+                while(j < strlen(node->data) && node->data[j] != ',')
+                {
+                    appendChar(exp2 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                while(j < strlen(node->data) && node->data[j] != ']')
+                {
+                    appendChar(exp3 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                struct node_for_dll* node_2 = NULL;
+                int is_valid2 = expressionParsing(exp2 , &node_2);
+
+                struct node_for_dll* node_3 = NULL;
+                int is_valid3 = expressionParsing(exp3 , &node_3);
+
+
+                if(is_valid2 && is_valid3)
+                {
+                    temp->is_scalar = 1;
+
+                    char temp_string[1024] = "";
+
+                    strcat(temp_string , exp1);
+                    strcat(temp_string , "[");
+                    strcat(temp_string , node_2->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , ",");
+                    strcat(temp_string , node_3->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , "]");
+
+
+                    strcpy(temp->data , temp_string);
+
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+
         }
         else if(strlen(node->data) > 6 && node->data[0] == 'c' && node->data[1] == 'h' && node->data[2] == 'o' &&
                 node->data[3] == 'o' && node->data[4] == 's' && node->data[5] == 'e' && node->data[6] == '(' ) {
@@ -1879,6 +2008,147 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             if(node != NULL)
             {
                 node->prev = new_node;
+            }
+        }
+
+        else if(isIndexation(node->data))
+        {
+
+            char exp1[1024] = "";
+            char exp2[1024] = "";
+            char exp3[1024] = "";
+
+            int j = 0;
+
+            while(j < strlen(node->data) && node->data[j] != '[')
+            {
+                appendChar(exp1 ,  node->data[j]);
+
+                j++;
+            }
+
+            j++;
+
+            if(isVariableVector(exp1))
+            {
+                while(j < strlen(node->data) && node->data[j] != ']')
+                {
+                    appendChar(exp2 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                struct node_for_dll* node_2 = NULL;
+                int is_valid2 = expressionParsing(exp2 , &node_2);
+
+                if(is_valid2)
+                {
+                    char temp_string[1024] = "";
+
+                    struct node_for_dll* new_node = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+                    initializeNode(&new_node);
+
+                    new_node->is_scalar = 1;
+
+                    strcat(temp_string , exp1);
+                    strcat(temp_string , "[");
+                    strcat(temp_string , node_2->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , "]");
+
+
+                    strcpy(new_node->data , temp_string);
+
+                    node->prev->next = new_node;
+                    new_node->prev = node->prev;
+
+
+                    node = node->next;
+                    new_node->next = node;
+
+                    if(node != NULL)
+                    {
+                        node->prev = new_node;
+                    }
+
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            else if(isVariableMatrix(exp1))
+            {
+                while(j < strlen(node->data) && node->data[j] != ',')
+                {
+                    appendChar(exp2 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                while(j < strlen(node->data) && node->data[j] != ']')
+                {
+                    appendChar(exp3 ,  node->data[j]);
+
+                    j++;
+                }
+
+                j++;
+
+                struct node_for_dll* node_2 = NULL;
+                int is_valid2 = expressionParsing(exp2 , &node_2);
+
+                struct node_for_dll* node_3 = NULL;
+                int is_valid3 = expressionParsing(exp3 , &node_3);
+
+
+                if(is_valid2 && is_valid3)
+                {
+                    char temp_string[1024] = "";
+
+                    struct node_for_dll* new_node = (struct node_for_dll*)malloc(sizeof(struct node_for_dll));
+                    initializeNode(&new_node);
+
+                    new_node->is_scalar = 1;
+
+                    strcat(temp_string , exp1);
+                    strcat(temp_string , "[");
+                    strcat(temp_string , node_2->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , ",");
+                    strcat(temp_string , node_3->data);
+                    strcat(temp_string , "-1");
+                    strcat(temp_string , "]");
+
+
+                    strcpy(new_node->data , temp_string);
+
+                    node->prev->next = new_node;
+                    new_node->prev = node->prev;
+
+
+                    node = node->next;
+                    new_node->next = node;
+
+                    if(node != NULL)
+                    {
+                        node->prev = new_node;
+                    }
+
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
             }
         }
 

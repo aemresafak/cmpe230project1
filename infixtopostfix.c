@@ -145,6 +145,37 @@ int infixToPostfix(char* exp , struct node_for_dll** head_ref)
             sqrt_flag = 1;
         }
 
+        if(exp[i] == '[')
+        {
+            char temp_str[1024] = "";
+            strcpy(temp_str , var_name);
+            strcpy(temp_str , "[");
+
+            int parantheses_count = 1;
+            int j = i+1;
+
+            while(j < strlen(exp) && parantheses_count > 0)
+            {
+                appendChar(temp_str , exp[j]);
+
+                if(exp[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(exp[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
+                j++;
+            }
+
+            append(head_ref , temp_str);
+            k=0;
+            memset(var_name, 0, sizeof(var_name));
+            i=j-1;
+        }
+
         if(i+6 < strlen(exp) && exp[i] == 'c' && exp[i+1] == 'h' && exp[i+2] == 'o' && exp[i+3] == 'o' && exp[i+4] == 's' &&
         exp[i+5] == 'e' && exp[i+6] == '(')
         {

@@ -50,7 +50,7 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
 
 int choose(int a , int b , int c , int d);
 
-
+int isIndexation(char *arr);
 
 int expressionParsing(char* infix_exp , struct node_for_dll** result);
 /*
