@@ -197,29 +197,24 @@ int parseUsualMatrixAssignment(char *line, FILE *file) {
 
     int expectedSize = 4 + matrix->columnSize * matrix->rowSize;
     if (getLinkedListSize(head) != expectedSize) {
-        printf("ERROR PARSING MATRIX ASSIGNMENT!\n");
         return 0;
     }
 
     if (strcmp(getNodeData(head, 1), "=") != 0) {
-        printf("MISSING =\n");
         return 0;
     }
 
     if (strcmp(getNodeData(head, 2), "{") != 0) {
-        printf("MISSING LEFT BRACKET\n");
         return 0;
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
         if (!isFloat(getNodeData(head, i))) {
-            printf("ELEMENT NOT NUMBER\n");
             return 0;
         }
     }
 
     if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "}") != 0) {
-        printf("MISSING RIGHT BRACKET!\n");
         return 0;
     }
 
@@ -281,23 +276,19 @@ int parseUsualVectorAssignment(char *line, FILE *file) {
     struct Vector *vector = findVectorById(identifier);
     int expectedSize = 4 + vector->size;
     if (getLinkedListSize(head) != expectedSize) {
-        printf("ERROR PARSING VECTOR ASSIGNMENT\n");
         return 0;
     }
     if (strcmp(getNodeData(head, 2), "{") != 0) {
-        printf("MISSING LEFT BRACE!");
         return 0;
     }
 
     for (int i = 3; i < expectedSize - 1; i++) {
         if (!isFloat(getNodeData(head, i))) {
-            printf("ELEMENT NOT NUMBER!\n");
             return 0;
         }
     }
 
     if (strcmp(getNodeData(head, getLinkedListSize(head) - 1), "}") != 0) {
-        printf("MISSING RIGHT BRACKET\n");
         return 0;
     }
     int valueIndex = 3;
