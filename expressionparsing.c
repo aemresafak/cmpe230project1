@@ -503,9 +503,26 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
             if(isVariableVector(exp1))
             {
-                while(j < strlen(node->data) && node->data[j] != ']')
+                int parantheses_count = 1;
+
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ']')
+                    {
+                        break;
+                    }
+
+
                     appendChar(exp2 ,  node->data[j]);
+
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
 
                     j++;
                 }
@@ -542,18 +559,51 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             }
             else if(isVariableMatrix(exp1))
             {
-                while(j < strlen(node->data) && node->data[j] != ',')
+                int parantheses_count = 1;
+
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ',')
+                    {
+                        break;
+                    }
+
                     appendChar(exp2 ,  node->data[j]);
+
+
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
 
                     j++;
                 }
 
                 j++;
 
-                while(j < strlen(node->data) && node->data[j] != ']')
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ']')
+                    {
+                        break;
+                    }
+
+
                     appendChar(exp3 ,  node->data[j]);
+
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
+
 
                     j++;
                 }
@@ -2031,9 +2081,26 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
             if(isVariableVector(exp1))
             {
-                while(j < strlen(node->data) && node->data[j] != ']')
+                int parantheses_count = 1;
+
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ']')
+                    {
+                        break;
+                    }
+
+
                     appendChar(exp2 ,  node->data[j]);
+
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
 
                     j++;
                 }
@@ -2082,23 +2149,57 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             }
             else if(isVariableMatrix(exp1))
             {
-                while(j < strlen(node->data) && node->data[j] != ',')
+                int parantheses_count = 1;
+
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ',')
+                    {
+                        break;
+                    }
+
                     appendChar(exp2 ,  node->data[j]);
 
+
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
+
                     j++;
                 }
 
                 j++;
 
-                while(j < strlen(node->data) && node->data[j] != ']')
+                while(j < strlen(node->data) && parantheses_count > 0)
                 {
+                    if(parantheses_count == 1 && node->data[j] == ']')
+                    {
+                        break;
+                    }
+
+
                     appendChar(exp3 ,  node->data[j]);
 
+                    if(node->data[j] == '[')
+                    {
+                        parantheses_count++;
+                    }
+                    else if(node->data[j] == ']')
+                    {
+                        parantheses_count--;
+                    }
+
+
                     j++;
                 }
 
                 j++;
+
 
                 struct node_for_dll* node_2 = NULL;
                 int is_valid2 = expressionParsing(exp2 , &node_2);
