@@ -176,7 +176,7 @@ int infixToPostfix(char* exp , struct node_for_dll** head_ref)
             i=j-1;
         }
 
-        if(i+6 < strlen(exp) && exp[i] == 'c' && exp[i+1] == 'h' && exp[i+2] == 'o' && exp[i+3] == 'o' && exp[i+4] == 's' &&
+        else if(i+6 < strlen(exp) && exp[i] == 'c' && exp[i+1] == 'h' && exp[i+2] == 'o' && exp[i+3] == 'o' && exp[i+4] == 's' &&
         exp[i+5] == 'e' && exp[i+6] == '(')
         {
             char temp_str[1024] = "choose(";

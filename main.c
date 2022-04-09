@@ -188,13 +188,13 @@ int parseLine(char *line, FILE *outFile) {
 
 void defineFunctions(FILE *out) {
     fprintf(out, "#include <malloc.h>\n#include<string.h>\n#include<stdio.h>\n#include <math.h>\n\n");
-    char *_choose = "int choose(int a , int b , int c , int d)\n"
+    char *_choose = "int choose(double a , double b , double c , double d)\n"
                     "{\n"
-                    "    if(a == 0)\n"
+                    "    if(fabs(a-0.0) < 0.000001)\n"
                     "    {\n"
                     "        return b;\n"
                     "    }\n"
-                    "    else if(a > 0)\n"
+                    "    else if(a > 0.0)\n"
                     "    {\n"
                     "        return c;\n"
                     "    }\n"

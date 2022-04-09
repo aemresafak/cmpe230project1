@@ -415,13 +415,13 @@ double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , 
     return new_mat;
 }
 
-int choose(int a , int b , int c , int d)
+int choose(double a , double b , double c , double d)
 {
-    if(a == 0)
+    if(fabs(a-0.0) < 0.000001)
     {
         return b;
     }
-    else if(a > 0)
+    else if(a > 0.0)
     {
         return c;
     }
@@ -664,9 +664,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
 
                     strcat(temp_string , exp1);
-                    strcat(temp_string , "[");
+                    strcat(temp_string , "[(int)(");
                     strcat(temp_string , node_2->data);
-                    strcat(temp_string , "-1");
+                    strcat(temp_string , "-1)");
                     strcat(temp_string , "]");
 
 
@@ -747,12 +747,12 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     char temp_string[1024] = "";
 
                     strcat(temp_string , exp1);
-                    strcat(temp_string , "[");
+                    strcat(temp_string , "[(int)(");
                     strcat(temp_string , node_2->data);
-                    strcat(temp_string , "-1");
-                    strcat(temp_string , ",");
+                    strcat(temp_string , "-1)");
+                    strcat(temp_string , "][(int)(");
                     strcat(temp_string , node_3->data);
-                    strcat(temp_string , "-1");
+                    strcat(temp_string , "-1)");
                     strcat(temp_string , "]");
 
 
@@ -2222,9 +2222,9 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     new_node->is_scalar = 1;
 
                     strcat(temp_string , exp1);
-                    strcat(temp_string , "[");
+                    strcat(temp_string , "[(int)(");
                     strcat(temp_string , node_2->data);
-                    strcat(temp_string , "-1");
+                    strcat(temp_string , "-1)");
                     strcat(temp_string , "]");
 
 
@@ -2320,12 +2320,12 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                     new_node->is_scalar = 1;
 
                     strcat(temp_string , exp1);
-                    strcat(temp_string , "[");
+                    strcat(temp_string , "[(int)(");
                     strcat(temp_string , node_2->data);
-                    strcat(temp_string , "-1");
-                    strcat(temp_string , ",");
+                    strcat(temp_string , "-1)");
+                    strcat(temp_string , "][(int)(");
                     strcat(temp_string , node_3->data);
-                    strcat(temp_string , "-1");
+                    strcat(temp_string , "-1)");
                     strcat(temp_string , "]");
 
 
