@@ -48,7 +48,7 @@ double **subtractVectorFromMatrix(double *vec1 , double **mat1 , int row_size , 
 
 double **subtractMatrixFromVector(double *vec1 , double **mat1 , int row_size , int column_size);
 
-int choose(int a , int b , int c , int d);
+int choose(double a , double b , double c , double d);
 
 int isIndexation(char *arr);
 
