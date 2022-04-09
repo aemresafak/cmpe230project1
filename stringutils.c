@@ -164,7 +164,6 @@ int isAlphaNumeric(char *str) {
     int size = getSizeOfString(str);
     for (int i = 0; i < size - 1; i++) {
         if (!isalnum(str[i])) {
-            printf("VARIABLE NOT ALPHA NUMERIC\n");
             return 0;
         }
     }
