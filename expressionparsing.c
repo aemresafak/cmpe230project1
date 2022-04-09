@@ -493,24 +493,76 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
             int j = 7;
 
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp1, node->data[j]);
+            int parantheses_count = 0;
+
+            while (j < strlen(node->data) && parantheses_count >= 0) {
+
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
+                appendChar(exp1 ,  node->data[j]);
+
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
 
                 j++;
             }
 
             j++;
 
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp2, node->data[j]);
+            while (j < strlen(node->data) && parantheses_count >= 0) {
+
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
+                appendChar(exp2 ,  node->data[j]);
+
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
 
                 j++;
             }
 
             j++;
 
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp3, node->data[j]);
+            while (j < strlen(node->data) && parantheses_count >= 0) {
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
+                appendChar(exp3 ,  node->data[j]);
+
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
 
                 j++;
             }
@@ -741,27 +793,77 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
 
             int j = 7;
 
-            while(j < strlen(node->data) && node->data[j] != ',')
+            int parantheses_count = 0;
+
+            while(j < strlen(node->data) && parantheses_count >= 0)
             {
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
                 appendChar(exp1 ,  node->data[j]);
 
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
+
                 j++;
             }
 
             j++;
 
-            while(j < strlen(node->data) && node->data[j] != ',')
+            while(j < strlen(node->data) && parantheses_count >= 0)
             {
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
                 appendChar(exp2 ,  node->data[j]);
 
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
+
                 j++;
             }
 
             j++;
 
-            while(j < strlen(node->data) && node->data[j] != ',')
+            while(j < strlen(node->data) && parantheses_count >= 0)
             {
+                if(parantheses_count == 0 && node->data[j] == ',')
+                {
+                    break;
+                }
+
+
                 appendChar(exp3 ,  node->data[j]);
+
+                if(node->data[j] == '[')
+                {
+                    parantheses_count++;
+                }
+                else if(node->data[j] == ']')
+                {
+                    parantheses_count--;
+                }
+
 
                 j++;
             }
