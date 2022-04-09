@@ -483,6 +483,77 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
             temp->row_size = findMatrixById(temp->data)->rowSize;
             temp->column_size = findMatrixById(temp->data)->columnSize;
         }
+        else if(strlen(node->data) > 6 && node->data[0] == 'c' && node->data[1] == 'h' && node->data[2] == 'o' &&
+                node->data[3] == 'o' && node->data[4] == 's' && node->data[5] == 'e' && node->data[6] == '(' ) {
+
+            char exp1[1024] = "";
+            char exp2[1024] = "";
+            char exp3[1024] = "";
+            char exp4[1024] = "";
+
+            int j = 7;
+
+            while (j < strlen(node->data) && node->data[j] != ',') {
+                appendChar(exp1, node->data[j]);
+
+                j++;
+            }
+
+            j++;
+
+            while (j < strlen(node->data) && node->data[j] != ',') {
+                appendChar(exp2, node->data[j]);
+
+                j++;
+            }
+
+            j++;
+
+            while (j < strlen(node->data) && node->data[j] != ',') {
+                appendChar(exp3, node->data[j]);
+
+                j++;
+            }
+
+            j++;
+
+            while (j < strlen(node->data) - 1) {
+                appendChar(exp4, node->data[j]);
+
+                j++;
+            }
+
+            struct node_for_dll *node_1 = NULL;
+            struct node_for_dll *node_2 = NULL;
+            struct node_for_dll *node_3 = NULL;
+            struct node_for_dll *node_4 = NULL;
+
+            int is_valid1 = expressionParsing(exp1, &node_1);
+            int is_valid2 = expressionParsing(exp2, &node_2);
+            int is_valid3 = expressionParsing(exp3, &node_3);
+            int is_valid4 = expressionParsing(exp4, &node_4);
+
+            if (is_valid1 && is_valid2 && is_valid3 && is_valid4) {
+                char temp_string[1024] = "";
+
+
+                temp->is_scalar = 1;
+
+                strcat(temp_string, "choose(");
+                strcat(temp_string, node_1->data);
+                strcat(temp_string, ",");
+                strcat(temp_string, node_2->data);
+                strcat(temp_string, ",");
+                strcat(temp_string, node_3->data);
+                strcat(temp_string, ",");
+                strcat(temp_string, node_4->data);
+                strcat(temp_string, ")");
+
+
+                strcpy(temp->data, temp_string);
+
+            }
+        }
         else if(isIndexation(temp->data))
         {
 
@@ -646,77 +717,6 @@ int expressionParsing(char* infix_exp , struct node_for_dll** result)
                 return 0;
             }
 
-        }
-        else if(strlen(node->data) > 6 && node->data[0] == 'c' && node->data[1] == 'h' && node->data[2] == 'o' &&
-                node->data[3] == 'o' && node->data[4] == 's' && node->data[5] == 'e' && node->data[6] == '(' ) {
-
-            char exp1[1024] = "";
-            char exp2[1024] = "";
-            char exp3[1024] = "";
-            char exp4[1024] = "";
-
-            int j = 7;
-
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp1, node->data[j]);
-
-                j++;
-            }
-
-            j++;
-
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp2, node->data[j]);
-
-                j++;
-            }
-
-            j++;
-
-            while (j < strlen(node->data) && node->data[j] != ',') {
-                appendChar(exp3, node->data[j]);
-
-                j++;
-            }
-
-            j++;
-
-            while (j < strlen(node->data) - 1) {
-                appendChar(exp4, node->data[j]);
-
-                j++;
-            }
-
-            struct node_for_dll *node_1 = NULL;
-            struct node_for_dll *node_2 = NULL;
-            struct node_for_dll *node_3 = NULL;
-            struct node_for_dll *node_4 = NULL;
-
-            int is_valid1 = expressionParsing(exp1, &node_1);
-            int is_valid2 = expressionParsing(exp2, &node_2);
-            int is_valid3 = expressionParsing(exp3, &node_3);
-            int is_valid4 = expressionParsing(exp4, &node_4);
-
-            if (is_valid1 && is_valid2 && is_valid3 && is_valid4) {
-                char temp_string[1024] = "";
-
-
-                temp->is_scalar = 1;
-
-                strcat(temp_string, "choose(");
-                strcat(temp_string, node_1->data);
-                strcat(temp_string, ",");
-                strcat(temp_string, node_2->data);
-                strcat(temp_string, ",");
-                strcat(temp_string, node_3->data);
-                strcat(temp_string, ",");
-                strcat(temp_string, node_4->data);
-                strcat(temp_string, ")");
-
-
-                strcpy(temp->data, temp_string);
-
-            }
         }
         else
         {
