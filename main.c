@@ -10,7 +10,7 @@
 
 static int ERROR = 0;
 static int LINE_LIMIT = 256;
-static int lineCount = 0;
+static int lineCount = 1;
 int hasPendingRightBracket = 0;
 int canPutRightBracket = 0;
 int isDoubleFor = 0;
