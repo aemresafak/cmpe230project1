@@ -121,7 +121,7 @@ int parseIndexedVectorAssignment(char *line, FILE *file) {
         result = pNodeForDll2->data;
     }
 
-    fprintf(file,"%s[%s-1]=%s;\n",identifier,indexResult, result);
+    fprintf(file,"%s[(int)(%s-1)]=%s;\n",identifier,indexResult, result);
 
     return 1;
 }
@@ -188,7 +188,7 @@ int parseIndexedMatrixAssignment(char *line, FILE *file) {
         result = pNodeForDll3->data;
     }
 
-    fprintf(file,"%s[%s-1,%s-1] = %s;\n", identifier, indexResult, indexResult2, result);
+    fprintf(file,"%s[(int)(%s-1)][(int)(%s-1)] = %s;\n", identifier, indexResult, indexResult2, result);
 
     return 1;
 }
