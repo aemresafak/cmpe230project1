@@ -58,7 +58,7 @@ int isPrintIdWithIndex(char *line) {
     return 1;
 }
 
-int parsePrintIdWithIndex(char *line, FILE* file) {
+int parsePrintIdWithIndex(char *line, FILE *file) {
     char *temp = strtok(line, " \n");
     struct Node *head = createNode(temp);
     while (temp != NULL) {
@@ -90,7 +90,7 @@ int parsePrintIdWithIndex(char *line, FILE* file) {
             if (pNodeForDll->is_scalar != 1)
                 return 0;
             indexResult = pNodeForDll->data;
-            fprintf(file,"customPrint(%s[%s-1]);\n", identifier, indexResult);
+            fprintf(file, "customPrint(%s[%s-1]);\n", identifier, indexResult);
             return 1;
         } else {
             return 0;
@@ -145,7 +145,7 @@ int parsePrintIdWithIndex(char *line, FILE* file) {
             return 0;
         }
 
-        printf("customPrint(%s[%s-1,%s-1]);\n\n", identifier, indexResultLeft, indexResultRight);
+        fprintf(file, "customPrint(%s[(int)(%s-1)][(int)(%s-1)]);\n\n", identifier, indexResultLeft, indexResultRight);
         return 1;
     }
 
